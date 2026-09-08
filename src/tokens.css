@@ -1,0 +1,98 @@
+@font-face {
+  font-family: Aileron;
+  src: url("./assets/usr/AileronRegular.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Aileron;
+  src: url("./assets/usr/AileronSemiBold.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Aileron;
+  src: url("./assets/usr/AileronBold.woff2") format("woff2");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
+:root {
+  /*
+    Values extracted from the public usr.ro page source and CSS on 2026-09-08:
+    - b403e873072364dd.css
+    This is not a formal brand manual.
+    The prototype uses a neutral placeholder mark, not a USR logo asset.
+  */
+  --usr-font-sans: Aileron, Arial, ui-sans-serif, system-ui, sans-serif;
+  --usr-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --usr-navy: #002A59;
+  --usr-navy-alpha-80: #002a59cc;
+  --usr-blue-deep: #093349;
+  --usr-blue-mid: #00458C;
+  --usr-red: #FF0021;
+  --usr-red-alpha-80: #ff0021cc;
+  --usr-accent: var(--usr-red);
+  --usr-accent-on-light: var(--usr-red);
+  --usr-accent-contrast: var(--usr-navy);
+  --usr-on-navy: #ffffff;
+  --usr-surface: #ffffff;
+  --usr-surface-muted: #F0F2F5;
+  --usr-surface-raised: #E5E9EE;
+  --usr-surface-soft: #F0F2F5;
+  --usr-surface-table-heading: #E5E9EE;
+  --usr-surface-callout: #F0F2F5;
+  --usr-surface-diff: #E5E9EE;
+  --usr-line: #B2BFCD;
+  --usr-line-strong: #7F94AC;
+  --usr-text: var(--usr-navy);
+  --usr-text-muted: #4C698A;
+  --usr-link: var(--usr-navy);
+  --usr-link-hover: var(--usr-blue-mid);
+  --usr-focus: var(--usr-blue-mid);
+  --usr-warning-text: var(--usr-blue-deep);
+  --usr-warning-surface: #E5E9EE;
+  --usr-warning-line: #7F94AC;
+  --usr-danger: var(--usr-blue-deep);
+  --usr-danger-surface: #F0F2F5;
+  --usr-danger-line: var(--usr-red);
+  --usr-success: var(--usr-blue-deep);
+  --usr-banner: var(--usr-navy);
+  --usr-banner-text: #ffffff;
+  --usr-skip: var(--usr-blue-deep);
+  --usr-mark-surface: var(--usr-navy);
+  --usr-chart-fill: #6C8CC7;
+  --usr-placeholder-a: #E5E9EE;
+  --usr-placeholder-b: #B2BFCD;
+  --usr-placeholder-label: var(--usr-navy);
+  --usr-overlay-light: rgb(255 255 255 / 82%);
+
+  --surface: var(--usr-surface);
+  --surface-2: var(--usr-surface-raised);
+  --line: var(--usr-line);
+  --line-dark: var(--usr-line-strong);
+  --text-muted: var(--usr-text-muted);
+  --token: var(--usr-warning-text);
+  --token-bg: var(--usr-warning-surface);
+  --token-border: var(--usr-warning-line);
+  --danger: var(--usr-danger);
+  --focus: var(--usr-focus);
+
+  --usr-space-1: 0.25rem;
+  --usr-space-2: 0.5rem;
+  --usr-space-3: 0.75rem;
+  --usr-space-4: 1rem;
+  --usr-space-5: 1.25rem;
+  --usr-space-6: 1.5rem;
+  --usr-space-7: 2rem;
+  --usr-space-8: 2.5rem;
+  --usr-space-9: 3rem;
+  --usr-radius-control: 8px;
+  --usr-radius-panel: 8px;
+  --usr-container-padding: clamp(1rem, 4vw, 2rem);
+}
