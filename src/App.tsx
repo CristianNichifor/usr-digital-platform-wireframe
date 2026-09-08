@@ -40,21 +40,33 @@ type RepoModule = {
 };
 
 const topNav = [
+  { path: '/stiri', label: 'Știri', href: '#/stiri' },
   { path: '/oameni', label: 'Oameni', href: '#/oameni' },
-  { path: '/ce-propunem', label: 'Ce propunem', href: '#/ce-propunem' },
+  { path: '/guvernare', label: 'Guvernare', href: '#/guvernare' },
+  { path: '/verificari', label: 'Verificări', href: '#/verificari' },
   { path: '/implica-te', label: 'Implică-te', href: '#/implica-te' },
 ];
 
+const headerActions = [
+  { href: '#/inscriere', label: 'Înscriere', variant: 'join' },
+  { href: '#/doneaza', label: 'Donează', variant: 'donate' },
+];
+
 const footerNav = [
+  { href: '#/ce-propunem', label: 'Ce propunem' },
   { href: '#/declaratii', label: 'Declarații de avere' },
   { href: '#/date-locale', label: 'Date locale' },
   { href: '#/bani', label: 'Bani' },
   { href: '#/presa', label: 'Sala de presă' },
+  { href: '#/organizare', label: 'Organizare' },
+  { href: '#/contact', label: 'Contact' },
   { href: '#/proiecte-date', label: 'Proiecte și date' },
   { href: '#/strategie', label: 'De ce contează' },
   { href: '#/arhitectura', label: 'Arhitectură date' },
   { href: '#/nota', label: 'Notă costuri' },
   { href: 'https://usr.ro/statut', label: 'Statut public' },
+  { href: 'https://usr.ro/solicitari-informatii-publice', label: 'Solicitări 544' },
+  { href: 'https://usr.ro/mandatari-financiari', label: 'Mandatari financiari' },
 ];
 
 const officials: OfficialRecord[] = [
@@ -200,6 +212,9 @@ const genericOpenQuestions = [
 
 const screenQuestions: Record<string, string[]> = {
   index: ['Este acesta un site public cu zonă internă sau două produse separate?'],
+  news: ['Când devine o știre simplă un dosar urmărit cu surse, documente și status?'],
+  government: ['Ce promisiuni de guvernare primesc fișă de execuție și owner public?'],
+  verification: ['Cine validează un indicator de risc înainte să fie pus într-un dosar public?'],
   people: ['Cine cere CV-ul lipsă și ce termen intern există pentru publicare?'],
   person: ['Cine decide ce intră în PUBLIC, MEMBRU și BIROU pe același record?'],
   positions: ['Cine poate modifica o poziție publică și cum se validează diff-ul?'],
@@ -208,6 +223,10 @@ const screenQuestions: Record<string, string[]> = {
   members: ['Ce activități sunt generate de sistem și ce activități sunt asumate de un om?'],
   money: ['Ce nivel de detaliu financiar poate fi public fără a distorsiona contabilitatea?'],
   press: ['Cine aprobă purtătorii de cuvânt pe domeniu și cine retrage un activ depășit?'],
+  organization: ['Ce rămâne pagină publică, ce devine registru intern și ce are nevoie de audit?'],
+  contact: ['Cum se triagează o sesizare ca idee politică, problemă locală sau dosar de verificare?'],
+  signup: ['Ce promisiune operațională primește un membru nou în prima săptămână?'],
+  donate: ['Ce dovadă vede un donator despre folosirea banilor, fără a distorsiona contabilitatea?'],
   projects: ['Ce repo devine sursă canonică, ce rămâne link extern și ce nu intră deloc în site?'],
   strategy: ['Cine transformă avantajul de date în muncă politică repetabilă, nu în încă un dashboard?'],
   architecture: ['Ce conector este critic în prima versiune și ce poate rămâne manual?'],
@@ -239,6 +258,111 @@ const facts = [
       tehnic: 'Indicator sintetic: acoperire CV 2/4. Câmpurile lipsă rămân vizibile în director și în counterul public.',
     } as Record<string, string>,
   },
+  {
+    id: 'integritate',
+    title: 'Dosar de integritate de urmărit',
+    figure: '1 cronologie',
+    source: 'verificări publice sintetice',
+    claim: (county: string) => `${county}: filiala poate transforma o sesizare într-o cronologie cu documente, status și drept la replică.`,
+    variants: {
+      direct:
+        'Un caz de integritate nu trebuie comunicat ca acuzație înainte de documente. Îl publicăm ca indicator de verificat, cu surse, status și drept la replică.',
+      local:
+        'În localitatea mea, o sesizare utilă trebuie să conțină documentul, data, instituția responsabilă și întrebarea publică. Fără aceste elemente rămâne doar opinie.',
+      tehnic:
+        'Indicator sintetic: 1 cronologie, document primar lipsă, răspuns instituție așteptat. Publicarea cere validare editorială și juridică.',
+    } as Record<string, string>,
+  },
+];
+
+const officialSiteAudit = [
+  [
+    'Navigație curentă',
+    'usr.ro folosește intrări recognoscibile: USR la Guvernare, Despre Noi, Știri, Înscriere, Donează și Caută.',
+    'Păstrăm limbajul public familiar, dar adăugăm rute clare către date locale, bani și verificări.',
+  ],
+  [
+    'Homepage curent',
+    'Prima pagină este condusă de știri, donație, newsletter, “Hai în USR!” și carduri pentru Oameni, Guvernare, Organizare, Contact.',
+    'Legăm fiecare bloc de un record verificabil: persoană, proiect, sursă, status, material reutilizabil.',
+  ],
+  [
+    'Despre noi',
+    'Meniul include Oameni, Centru dreapta modern, Organizare, Statut, Cariere, Solicitări 544, Mandatari financiari și Contact.',
+    'Îl transformăm într-un hub de încredere: cine decide, unde sunt regulile, unde sunt banii și cum se cere informație.',
+  ],
+  [
+    'Presă și știri',
+    'Site-ul publică actualizări și comunicate, dar acestea rămân în mare parte articole independente.',
+    'Propunerea adaugă pachete de presă: cronologie, document primar, grafic, CSV, drept la replică și owner.',
+  ],
+];
+
+const publicPages = [
+  ['Știri', 'Fluxul existent devine index de știri legate la documente, oameni și dosare.', '#/stiri'],
+  ['Oameni', 'Aleși, miniștri, primari, consilieri și lipsuri de date afișate clar.', '#/oameni'],
+  ['USR la guvernare', 'Miniștri, prefecturi și proiecte cu status, surse și responsabil.', '#/guvernare'],
+  ['Verificări publice', 'Indicatori de risc, cronologii și drept la replică, fără verdicte neverificate.', '#/verificari'],
+  ['Ce propunem', 'Poziții, reforme, simulatoare linkate și istoric de revizii.', '#/ce-propunem'],
+  ['Implică-te', 'Înscriere, zona membrilor simulată și acțiuni publice fără auto-postare.', '#/implica-te'],
+  ['Donează / Bani', 'CTA-ul de donație legat de transparență financiară și subvenții.', '#/doneaza'],
+  ['Organizare', 'Statut, 544, mandatari financiari, cariere, filiale și responsabilități.', '#/organizare'],
+  ['Contact', 'Mesaje, idei de lege, probleme locale și sesizări triage-uite.', '#/contact'],
+];
+
+const currentNews = [
+  {
+    category: 'Integritate',
+    date: '01.09.2026',
+    title: 'Hotărâre parlamentară contestată la CCR',
+    brief: 'Modelăm știrea ca dosar: decizie, document, actor responsabil, termen și actualizare.',
+    href: '#/stiri?tema=integritate',
+  },
+  {
+    category: 'Miniștri USR',
+    date: '21.08.2026',
+    title: 'Țintă PNRR raportată ca îndeplinită',
+    brief: 'Actualizarea intră într-o fișă de guvernare cu jalon, sursă și rezultat verificabil.',
+    href: '#/guvernare?tema=pnrr',
+  },
+  {
+    category: 'Administrație',
+    date: '21.08.2026',
+    title: 'Automatizarea proceselor din administrația publică',
+    brief: 'Știrea devine urmărită prin status de proiect, instituție owner și material pentru filiale.',
+    href: '#/guvernare?tema=digitalizare',
+  },
+];
+
+const publicInterestCases = [
+  {
+    title: 'Amendament cu traseu neclar într-o lege de integritate',
+    status: 'cronologie de clarificat',
+    source: 'știre publică + documente parlamentare sintetice',
+    risk: 'Transparența averilor publice poate fi slăbită prin procedură opacă.',
+    next: 'publicăm cronologia, cerem documentele primare și marcăm răspunsurile lipsă.',
+  },
+  {
+    title: 'Achiziție locală cu preț unitar atipic',
+    status: 'indicator de risc, nu concluzie',
+    source: 'achizitii-deschise + SEAP sintetic',
+    risk: 'Prețurile ieșite din plaja comparabilă pot semnala risipă sau caiete de sarcini slabe.',
+    next: 'comparăm categoria, solicităm explicație instituției și oferim drept la replică.',
+  },
+  {
+    title: 'Buget local cu investiții întârziate',
+    status: 'problemă de execuție',
+    source: 'ForExeBug / Trezorerie sintetic',
+    risk: 'Promisiunile locale rămân comunicare dacă plățile și termenele nu sunt urmărite.',
+    next: 'legăm indicatorul de HCL, proiect, responsabil și întrebare pentru ședința locală.',
+  },
+];
+
+const electionContext = [
+  ['Europarlamentare 2024', 'ADU 8,71%', 'Rezultatul cere utilitate publică zilnică, nu doar campanie periodică.'],
+  ['Locale 2024, consilii județene', 'ADU 8,29%', 'Fără infrastructură locală de fapte, partidul rămâne dependent de valuri naționale.'],
+  ['Parlamentare 2024', 'USR 12,40% Cameră', 'Există bază parlamentară, dar nu suficientă conversie locală și media proprie.'],
+  ['Sondaje 2026', 'aprox. 9-10,5%', 'Platforma trebuie tratată ca mecanism de creștere organizațională, nu ca ornament digital.'],
 ];
 
 const repoModules: RepoModule[] = [
@@ -292,15 +416,6 @@ const repoModules: RepoModule[] = [
     caveat: 'Indicatorii arată cazuri de verificat, nu concluzii. Dreptul la replică trebuie proiectat.',
     syntheticExample: '8 indicatori de risc simulați',
   },
-];
-
-const publicPages = [
-  ['Oameni', 'Aleși, echipe, birouri, pagini de persoană cu lipsuri vizibile.', '#/oameni'],
-  ['Ce propunem', 'Poziții, reforme, simulatoare linkate, istoric de revizii.', '#/ce-propunem'],
-  ['Implică-te', 'Zona membrilor simulată și acțiuni publice fără cont real.', '#/implica-te'],
-  ['Bani', 'Subvenții, prag filiale, cheltuieli centrale și surse verificabile.', '#/bani'],
-  ['Date locale', 'Bugete, HCL, UAT, achiziții și exporturi pentru jurnaliști.', '#/date-locale'],
-  ['Sala de presă', 'Contacte, purtători de cuvânt, active și dosare de date.', '#/presa'],
 ];
 
 const dataProducts = [
@@ -493,6 +608,13 @@ function Layout({ route, children }: { route: HashRoute; children: React.ReactNo
               </a>
             ))}
           </nav>
+          <nav className="header-actions" aria-label="Acțiuni principale">
+            {headerActions.map((item) => (
+              <a className={`header-action header-action--${item.variant}`} key={item.href} href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
         </div>
         {record ? <ViewSwitcher record={record} view={activeView(route)} /> : null}
       </header>
@@ -546,14 +668,21 @@ export default function App() {
 
   const screen = useMemo(() => {
     if (route.path === '/') return <IndexScreen />;
+    if (route.path === '/stiri') return <NewsScreen />;
     if (route.path === '/oameni') return <PeopleScreen route={route} />;
     if (route.path.startsWith('/oameni/')) return <PersonScreen route={route} />;
+    if (route.path === '/guvernare') return <GovernmentScreen />;
+    if (route.path === '/verificari') return <VerificationScreen />;
     if (route.path === '/ce-propunem') return <PositionsScreen />;
     if (route.path === '/declaratii') return <DeclarationsScreen route={route} />;
     if (route.path === '/date-locale') return <LocalDataScreen route={route} />;
     if (route.path === '/implica-te') return <MemberZoneScreen route={route} />;
     if (route.path === '/bani') return <MoneyScreen route={route} />;
     if (route.path === '/presa') return <PressRoomScreen />;
+    if (route.path === '/organizare') return <OrganizationScreen />;
+    if (route.path === '/contact') return <ContactScreen />;
+    if (route.path === '/inscriere') return <SignupScreen />;
+    if (route.path === '/doneaza') return <DonateScreen />;
     if (route.path === '/proiecte-date') return <ProjectDataScreen />;
     if (route.path === '/strategie') return <StrategyScreen />;
     if (route.path === '/arhitectura') return <ArchitectureScreen />;
@@ -569,24 +698,48 @@ function IndexScreen() {
     <div className="stack">
       <section className="hero-panel" aria-labelledby="index-title">
         <div>
-          <p className="eyebrow">Machetă site public</p>
-          <h1 id="index-title">USR.ro reconstruit ca sistem de înregistrări, nu ca listă de pagini.</h1>
+          <p className="eyebrow">Sinteză usr.ro + propunere</p>
+          <h1 id="index-title">Site public USR ca infrastructură de încredere, nu doar flux de pagini.</h1>
           <p>
-            Prima vedere este publică. Zona membrilor adaugă straturi peste aceleași obiecte: oameni, poziții, date
-            locale, bani și documente.
+            Păstrăm intrările publice existente: știri, oameni, guvernare, înscriere, donații, organizare și contact.
+            Adăugăm stratul care lipsește: fiecare afirmație importantă are sursă, owner, status, limită și material
+            reutilizabil local.
           </p>
           <div className="export-row" aria-label="Acțiuni principale">
-            <a href="#/oameni">Vedeți oamenii</a>
-            <a href="#/ce-propunem">Citiți pozițiile</a>
+            <a href="#/stiri">Vedeți știrile ca dosare</a>
+            <a href="#/verificari">Deschideți verificările</a>
             <a href="#/implica-te">Intrați în zona membrilor</a>
           </div>
         </div>
-        <PlaceholderBox label="spațiu imagine editorială gri" />
+        <PlaceholderBox label="flux public conectat: știri, oameni, bani, date locale" />
+      </section>
+
+      <section className="wire-section" aria-labelledby="current-site-title">
+        <p className="eyebrow">Website existent</p>
+        <h2 id="current-site-title">Ce păstrăm de pe usr.ro și ce schimbăm</h2>
+        <div className="content-lanes">
+          {officialSiteAudit.map(([title, current, upgrade]) => (
+            <article className="comparison-card" key={title}>
+              <h3>{title}</h3>
+              <dl className="compact-definition">
+                <div>
+                  <dt>Curent</dt>
+                  <dd>{current}</dd>
+                </div>
+                <div>
+                  <dt>Propus</dt>
+                  <dd>{upgrade}</dd>
+                </div>
+              </dl>
+              <Fake source="audit usr.ro, 08.09.2026">compatibil</Fake>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="wire-section" aria-labelledby="site-map-title">
         <p className="eyebrow">Structură site</p>
-        <h2 id="site-map-title">Trei intrări principale, restul în footer</h2>
+        <h2 id="site-map-title">Intrări publice combinate</h2>
         <div className="screen-grid">
           {publicPages.map(([title, text, href]) => (
             <a className="screen-card" href={href} key={href}>
@@ -599,12 +752,12 @@ function IndexScreen() {
 
       <section className="wire-section" aria-labelledby="proof-title">
         <p className="eyebrow">Conținut public</p>
-        <h2 id="proof-title">Ce intră pe prima pagină</h2>
+        <h2 id="proof-title">Ce intră pe prima pagină propusă</h2>
         <div className="content-lanes">
           {[
-            ['Dosar prioritar', 'Reformă administrativă: poziție, metodologie, simulator extern, întrebări deschise.'],
-            ['Fapt verificabil', 'Județul Model: execuție investiții și achiziții locale, cu sursă și dată.'],
-            ['Apel la acțiune', 'Sarcini pentru membri: verificați CV-uri, HCL-uri, proiecte de acte normative.'],
+            ['Știre prioritară', 'Un articol public este legat de persoană, document primar, status și următorul termen.'],
+            ['Verificare publică', 'Un indicator de risc este încadrat ca fapt de verificat, nu ca verdict politic.'],
+            ['Apel la acțiune', 'Înscriere, donație, newsletter și sarcini pentru membri apar lângă efectul măsurabil.'],
           ].map(([title, text]) => (
             <article className="lane-card" key={title}>
               <h3>{title}</h3>
@@ -632,17 +785,38 @@ function IndexScreen() {
         </a>
       </section>
 
+      <section className="wire-section" aria-labelledby="electoral-context-title">
+        <p className="eyebrow">Context electoral</p>
+        <h2 id="electoral-context-title">Problema de 8-12% trebuie tratată ca problemă de distribuție și încredere</h2>
+        <div className="module-list">
+          {electionContext.map(([label, value, interpretation]) => (
+            <article className="module-card" key={label}>
+              <h3>{label}</h3>
+              <Fake source="rezultate publice / agregatoare sondaje, verificare manuală">{value}</Fake>
+              <p>{interpretation}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="screen-grid" aria-labelledby="linked-title">
         <h2 id="linked-title">Ecrane</h2>
         {[
+          ['#/stiri', 'Știri', 'flux curent, transformat în dosare verificabile'],
           ['#/oameni', 'Oameni', 'director, filtre, date lipsă vizibile'],
           ['#/oameni/consilier-model?view=public', 'Persoana', 'același record în trei vizibilități'],
+          ['#/guvernare', 'USR la guvernare', 'miniștri, prefecturi, proiecte, status'],
+          ['#/verificari', 'Verificări publice', 'indicatori de risc și drept la replică'],
           ['#/ce-propunem', 'Ce propunem', 'poziții cu dată, diffs și revizii'],
           ['#/declaratii', 'Declarații de avere', 'scan, câmpuri, hash, diff anual'],
           ['#/date-locale', 'Date locale', 'buget, HCL, UAT, exporturi'],
           ['#/implica-te', 'Zona membrilor', 'sarcini, fapte de azi, colegi opt-in'],
           ['#/bani', 'Bani', 'subvenții, prag filiale, cheltuieli centrale'],
           ['#/presa', 'Sala de presă', 'contacte, active și dosare pentru presă'],
+          ['#/organizare', 'Organizare', 'statut, 544, mandatari, cariere, filiale'],
+          ['#/contact', 'Contact', 'idei, probleme locale, sesizări triage-uite'],
+          ['#/inscriere', 'Înscriere', 'onboarding membru și primă sarcină'],
+          ['#/doneaza', 'Donează', 'donații conectate la raportarea banilor'],
           ['#/proiecte-date', 'Proiecte și date', 'ce putem folosi din repo-uri publice'],
           ['#/strategie', 'De ce contează', 'beneficii, avantaj strategic, outreach'],
           ['#/arhitectura', 'Arhitectură date', 'conectori, direcții, cadențe'],
@@ -656,6 +830,203 @@ function IndexScreen() {
       </section>
 
       <OpenQuestions screen="index" />
+    </div>
+  );
+}
+
+function NewsScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">Știri</p>
+        <h1>Fluxul actual, legat la dosare verificabile</h1>
+        <p>
+          Site-ul existent folosește știrile ca intrare principală. Propunerea păstrează acest comportament, dar fiecare
+          știre importantă devine un nod: document, persoană, temă, status, material de presă și următor termen.
+        </p>
+      </section>
+
+      <section className="wire-section" aria-labelledby="news-feed-title">
+        <p className="eyebrow">Preluare din modelul actual</p>
+        <h2 id="news-feed-title">Carduri de știri cu strat de evidență</h2>
+        <div className="news-grid">
+          {currentNews.map((item) => (
+            <article className="news-card" key={item.title}>
+              <div className="news-media" aria-hidden="true">
+                {item.category}
+              </div>
+              <div>
+                <p className="label">{item.date}</p>
+                <h3>{item.title}</h3>
+                <p>{item.brief}</p>
+                <a className="text-button" href={item.href}>
+                  Deschide dosarul
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="wire-section" aria-labelledby="news-workflow-title">
+        <p className="eyebrow">Workflow editorial</p>
+        <h2 id="news-workflow-title">Din articol în infrastructură de campanie</h2>
+        <SourceFlow
+          items={[
+            'știrea primește tag de temă și persoană responsabilă',
+            'redacția atașează documentul primar și data verificării',
+            'dacă există impact local, se generează fișă județeană și material de teren',
+            'presa primește brief, chart, CSV și contact de domeniu',
+            'membrii văd ce pot verifica sau folosi în întâlniri locale',
+          ]}
+        />
+      </section>
+
+      <OpenQuestions screen="news" />
+    </div>
+  );
+}
+
+function GovernmentScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">USR la guvernare</p>
+        <h1>Miniștri, prefecturi și proiecte urmărite public</h1>
+        <p>
+          Intrarea existentă “USR la Guvernare” rămâne recognoscibilă. Diferența propusă este ca fiecare realizare
+          comunicată să aibă fișă de execuție: promisiune, instituție, jalon, sursă, limită și următoarea actualizare.
+        </p>
+      </section>
+
+      <section className="wire-section" aria-labelledby="government-overview-title">
+        <p className="eyebrow">Ce vede publicul rapid</p>
+        <h2 id="government-overview-title">Guvernare ca registru, nu doar vitrină de știri</h2>
+        <MetricGrid
+          items={[
+            {
+              label: 'Portofolii urmărite',
+              value: '3',
+              source: 'usr.ro + registru sintetic',
+              note: 'Miniștri, secretari de stat sau responsabili politici grupați pe domenii.',
+            },
+            {
+              label: 'Jaloane cu status',
+              value: '12',
+              source: 'PNRR / ministere sintetic',
+              note: 'Fiecare jalon are sursă, termen, status și explicație pe înțelesul publicului.',
+            },
+            {
+              label: 'Materiale locale',
+              value: '8',
+              source: 'bibliotecă materiale sintetică',
+              note: 'O realizare națională devine fișă locală când afectează comunități concrete.',
+            },
+          ]}
+        />
+      </section>
+
+      <section className="split-layout">
+        <div className="wire-section">
+          <h2>Model de fișă proiect</h2>
+          <dl className="definition-grid">
+            <div>
+              <dt>Proiect</dt>
+              <dd>Automatizarea proceselor de lucru din administrația publică</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>
+                <Fake source="registru guvernare sintetic">jalon închis</Fake>
+              </dd>
+            </div>
+            <div>
+              <dt>Impact explicat</dt>
+              <dd>Mai puține proceduri manuale, date reutilizabile și termene urmărite public.</dd>
+            </div>
+            <div>
+              <dt>Următor termen</dt>
+              <dd>
+                <Fake source="calendar proiect sintetic">raport trimestrial</Fake>
+              </dd>
+            </div>
+          </dl>
+        </div>
+        <div className="wire-section">
+          <h2>Cum se leagă de site</h2>
+          <SourceFlow
+            items={[
+              'știre pe prima pagină',
+              'fișă proiect cu surse',
+              'persoană responsabilă',
+              'brief pentru presă',
+              'material pentru filială',
+            ]}
+          />
+        </div>
+      </section>
+
+      <OpenQuestions screen="government" />
+    </div>
+  );
+}
+
+function VerificationScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">Verificări publice</p>
+        <h1>Anticorupție ca evidență verificabilă, nu ca slogan</h1>
+        <p>
+          Această rută este proiectată pentru contextul de corupție și blocaj media. Limbajul rămâne prudent:
+          indicatorii semnalează cazuri de verificat, iar concluziile apar doar după documente, răspunsuri și drept la
+          replică.
+        </p>
+      </section>
+
+      <section className="wire-section" aria-labelledby="verification-cases-title">
+        <p className="eyebrow">Dosare publice</p>
+        <h2 id="verification-cases-title">Trei tipuri de cazuri care pot rupe blocajul media</h2>
+        <div className="module-list">
+          {publicInterestCases.map((item) => (
+            <article className="module-card" key={item.title}>
+              <h3>{item.title}</h3>
+              <Fake source={item.source}>{item.status}</Fake>
+              <p>{item.risk}</p>
+              <p>{item.next}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="wire-section" aria-labelledby="verification-rules-title">
+        <p className="eyebrow">Reguli de publicare</p>
+        <h2 id="verification-rules-title">Protecție politică, juridică și reputațională</h2>
+        <div className="risk-stage-list">
+          {[
+            ['1. Indicator', 'Datele arată o anomalie sau o lipsă. Nu se formulează acuzații.'],
+            ['2. Document', 'Se atașează actul primar, linkul, data, metoda și limitarea.'],
+            ['3. Replică', 'Instituția sau persoana vizată primește cale clară de răspuns.'],
+            ['4. Acțiune', 'Filiala primește întrebări, brief local și variantă de comunicare manuală.'],
+          ].map(([title, text]) => (
+            <article className="state-card" key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="note-panel">
+        <h2>De ce creează avantaj față de oponenți</h2>
+        <p>
+          Oponenții pot respinge o acuzație. Este mai greu să respingă un dosar cu document primar, cronologie,
+          metodologie, răspuns lipsă sau răspuns publicat integral. Platforma face subiectele verificabile și
+          reutilizabile pentru presă, filiale, aleși și membri.
+        </p>
+      </section>
+
+      <OpenQuestions screen="verification" />
     </div>
   );
 }
@@ -834,7 +1205,7 @@ function PersonScreen({ route }: { route: HashRoute }) {
         </div>
       </section>
 
-      <section className="record-layout" aria-labelledby="public-record-title">
+      <section className={`record-layout record-layout--${view}`} aria-labelledby="public-record-title">
         <div className="wire-section">
           <h2 id="public-record-title">PUBLIC</h2>
           <dl className="definition-grid">
@@ -1287,17 +1658,17 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
               ['19/2026', 'Regulament spații publice', '11', '6', '2'],
             ].map(([hcl, title, yes, no, absent]) => (
               <tr key={hcl}>
-                <td>
+                <td data-label="HCL">
                   <Fake source="site municipal + index HCL">{hcl}</Fake>
                 </td>
-                <td>{title}</td>
-                <td>
+                <td data-label="Titlu">{title}</td>
+                <td data-label="Pentru">
                   <Fake source="site municipal + index HCL">{yes}</Fake>
                 </td>
-                <td>
+                <td data-label="Contra">
                   <Fake source="site municipal + index HCL">{no}</Fake>
                 </td>
-                <td>
+                <td data-label="Absent">
                   <Fake source="site municipal + index HCL">{absent}</Fake>
                 </td>
               </tr>
@@ -1326,17 +1697,17 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
               ['Orașul Mostră', '64%', '51%', '67%', 'calendar neregulat'],
             ].map(([uat, budget, hcl, contacts, note]) => (
               <tr key={uat}>
-                <td>{uat}</td>
-                <td>
+                <td data-label="UAT">{uat}</td>
+                <td data-label="Buget">
                   <Fake source="ForExeBug / Trezorerie">{budget}</Fake>
                 </td>
-                <td>
+                <td data-label="HCL">
                   <Fake source="site municipal + index HCL">{hcl}</Fake>
                 </td>
-                <td>
+                <td data-label="Contacte">
                   <Fake source="director sintetic">{contacts}</Fake>
                 </td>
-                <td>{note}</td>
+                <td data-label="Observație">{note}</td>
               </tr>
             ))}
           </tbody>
@@ -1468,6 +1839,23 @@ function MemberZoneScreen({ route }: { route: HashRoute }) {
               aria-current={county === value ? 'true' : undefined}
             >
               {value}
+            </a>
+          ))}
+        </div>
+        <div className="filter-row" aria-label="Filtru tip fapt">
+          {facts.map((candidate) => (
+            <a
+              key={candidate.id}
+              href={makeHash('/implica-te', {
+                judet: county,
+                fapt: candidate.id,
+                variant,
+                consimtamant: consent,
+                text: candidate.variants[variant] ?? candidate.variants.direct,
+              })}
+              aria-current={item.id === candidate.id ? 'true' : undefined}
+            >
+              {candidate.title}
             </a>
           ))}
         </div>
@@ -1729,10 +2117,10 @@ function PressRoomScreen() {
           <tbody>
             {spokespeople.map(([area, name, contact]) => (
               <tr key={area}>
-                <td>{area}</td>
-                <td>{name}</td>
-                <td>{contact}</td>
-                <td>
+                <td data-label="Domeniu">{area}</td>
+                <td data-label="Nume placeholder">{name}</td>
+                <td data-label="Contact">{contact}</td>
+                <td data-label="Verificat la">
                   <Fake source="sală presă sintetică">08 septembrie 2026</Fake>
                 </td>
               </tr>
@@ -1771,7 +2159,246 @@ function PressRoomScreen() {
         </div>
       </section>
 
+      <section className="wire-section" aria-labelledby="press-verification-title">
+        <p className="eyebrow">Pentru blocaj media</p>
+        <h2 id="press-verification-title">Dosare pe care presa le poate verifica rapid</h2>
+        <div className="module-list">
+          {publicInterestCases.map((item) => (
+            <article className="module-card" key={item.title}>
+              <h3>{item.title}</h3>
+              <Fake source={item.source}>{item.status}</Fake>
+              <p>{item.next}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <OpenQuestions screen="press" />
+    </div>
+  );
+}
+
+function OrganizationScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">Organizare</p>
+        <h1>Despre noi, dar cu reguli și responsabilități găsibile</h1>
+        <p>
+          Meniul actual “Despre Noi” adună oamenii, organizarea, statutul, carierele, solicitările 544, mandatarii
+          financiari și contactul. Propunerea îl transformă într-un hub de guvernanță publică.
+        </p>
+      </section>
+
+      <section className="wire-section" aria-labelledby="organization-hub-title">
+        <p className="eyebrow">Hub public</p>
+        <h2 id="organization-hub-title">Legături păstrate, sens clarificat</h2>
+        <div className="screen-grid">
+          {[
+            ['Oameni', 'cine reprezintă partidul și ce date lipsesc', '#/oameni'],
+            ['Statut', 'reguli publice și obligații de transparență', 'https://usr.ro/statut'],
+            ['Solicitări 544', 'cereri de informații publice și răspunsuri urmărite', 'https://usr.ro/solicitari-informatii-publice'],
+            ['Mandatari financiari', 'responsabili financiari și context electoral', 'https://usr.ro/mandatari-financiari'],
+            ['Cariere', 'roluri profesionale și capacitate organizațională', 'https://usr.ro/cariere'],
+            ['Contact', 'intrare pentru idei, probleme locale și sesizări', '#/contact'],
+          ].map(([title, text, href]) => (
+            <a className="screen-card" href={href} key={title}>
+              <span>{title}</span>
+              <small>{text}</small>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="wire-section" aria-labelledby="organization-controls-title">
+        <p className="eyebrow">Ce adăugăm</p>
+        <h2 id="organization-controls-title">Controale operaționale peste pagini statice</h2>
+        <SourceFlow
+          items={[
+            'owner public pentru fiecare pagină sensibilă',
+            'dată de actualizare și termen de revizie',
+            'registru de lipsuri: CV-uri, contacte, mandate, hotărâri',
+            'workflow intern pentru solicitări 544 și răspunsuri publicabile',
+            'legătură între mandatari financiari, donații și pagina de bani',
+          ]}
+        />
+      </section>
+
+      <OpenQuestions screen="organization" />
+    </div>
+  );
+}
+
+function ContactScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">Contact</p>
+        <h1>Contact public cu triere politică utilă</h1>
+        <p>
+          Site-ul actual oferă telefon, adresă, email și formular. Propunerea păstrează intrarea simplă, dar cere
+          alegerea tipului de mesaj pentru ca organizația să poată răspunde și învăța din cereri.
+        </p>
+      </section>
+
+      <section className="contact-grid">
+        <div className="wire-section">
+          <h2>Canale curente</h2>
+          <dl className="definition-grid">
+            <div>
+              <dt>Telefon</dt>
+              <dd>0726.701.994</dd>
+            </div>
+            <div>
+              <dt>Program</dt>
+              <dd>Luni-Vineri, orele 9-17</dd>
+            </div>
+            <div>
+              <dt>Adresă</dt>
+              <dd>Șos. Pavel D. Kiseleff, nr. 55, vila 4, Sector 1, București</dd>
+            </div>
+          </dl>
+        </div>
+        <div className="wire-section">
+          <h2>Formular propus</h2>
+          <div className="mini-form" aria-label="Formular static de contact">
+            <label className="field-label" htmlFor="contact-type">
+              Tip mesaj
+            </label>
+            <select id="contact-type" defaultValue="problema-locala">
+              <option value="problema-locala">Problemă locală</option>
+              <option value="idee-lege">Idee de lege</option>
+              <option value="verificare">Sesizare de verificat</option>
+              <option value="presa">Cerere presă</option>
+            </select>
+            <label className="field-label" htmlFor="contact-message">
+              Mesaj
+            </label>
+            <textarea id="contact-message" defaultValue="Descrie problema, localitatea și documentul sursă dacă există." />
+            <button type="button">Simulează trimiterea</button>
+          </div>
+        </div>
+      </section>
+
+      <section className="wire-section" aria-labelledby="contact-routing-title">
+        <p className="eyebrow">Rutare internă</p>
+        <h2 id="contact-routing-title">Ce se întâmplă după mesaj</h2>
+        <div className="journey-grid">
+          {[
+            ['Problemă locală', 'merge la filială, ales local și pagina de date locale relevantă.'],
+            ['Idee de lege', 'merge la politici publice, verificare legislativă și bibliotecă de poziții.'],
+            ['Sesizare', 'merge la verificări publice cu status “indicator”, înainte de orice concluzie.'],
+            ['Presă', 'merge la sala de presă, spokesperson și pachet de documente.'],
+          ].map(([title, text]) => (
+            <article className="journey-card" key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <OpenQuestions screen="contact" />
+    </div>
+  );
+}
+
+function SignupScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">Înscriere</p>
+        <h1>“Hai în USR!” legat de muncă concretă în prima săptămână</h1>
+        <p>
+          CTA-ul existent rămâne emoțional și simplu. Propunerea adaugă onboarding operațional: un membru nou vede rapid
+          unde poate ajuta, ce verifică și cine preia rezultatul.
+        </p>
+      </section>
+
+      <section className="split-layout">
+        <div className="wire-section">
+          <h2>Promisiune publică</h2>
+          <p className="large-copy">
+            Nu intri într-un newsletter politic. Intri într-o echipă cu sarcini verificabile, materiale locale și oameni
+            responsabili.
+          </p>
+          <div className="export-row">
+            <a href="#/implica-te">Vezi zona membrilor</a>
+            <a href="https://usr.ro/inscriere" target="_blank" rel="noreferrer">
+              Formular oficial
+            </a>
+          </div>
+        </div>
+        <div className="wire-section">
+          <h2>Prima săptămână</h2>
+          <SourceFlow
+            items={[
+              'alege județul și domeniul de interes',
+              'primește o sarcină mică: CV, HCL, buget sau eveniment',
+              'vezi ownerul și termenul',
+              'primești material publicabil manual',
+              'rezultatul se întoarce în pagina locală',
+            ]}
+          />
+        </div>
+      </section>
+
+      <OpenQuestions screen="signup" />
+    </div>
+  );
+}
+
+function DonateScreen() {
+  return (
+    <div className="stack">
+      <section className="page-heading">
+        <p className="eyebrow">Donează</p>
+        <h1>Donația conectată la transparență, nu izolată de bani</h1>
+        <p>
+          Site-ul actual are CTA puternic pentru donații. Propunerea îl păstrează, dar îl leagă direct de pagina de bani,
+          mandatari financiari, raportare și valoarea produsă pentru filiale.
+        </p>
+      </section>
+
+      <section className="split-layout">
+        <div className="wire-section">
+          <h2>CTA public</h2>
+          <p className="large-copy">Fiecare donație trebuie să poată fi legată de capacitate: date, materiale, teren și presă.</p>
+          <div className="export-row">
+            <a href="https://usr.ro/doneaza" target="_blank" rel="noreferrer">
+              Donează pe site-ul oficial
+            </a>
+            <a href="#/bani">Vezi transparența banilor</a>
+          </div>
+        </div>
+        <div className="wire-section">
+          <h2>Ce vede donatorul</h2>
+          <MetricGrid
+            items={[
+              {
+                label: 'Pachete locale',
+                value: '6',
+                source: 'bibliotecă materiale sintetică',
+                note: 'Materiale reutilizabile pentru filiale, presă și întâlniri.',
+              },
+              {
+                label: 'Surse verificate',
+                value: '42',
+                source: 'registru evidență sintetic',
+                note: 'Costul digital produce infrastructură, nu doar postări.',
+              },
+              {
+                label: 'Transfer filiale',
+                value: '36%',
+                source: 'calcul sintetic',
+                note: 'Comparat cu pragul statutar afișat pe pagina de bani.',
+              },
+            ]}
+          />
+        </div>
+      </section>
+
+      <OpenQuestions screen="donate" />
     </div>
   );
 }
@@ -1804,15 +2431,15 @@ function ProjectDataScreen() {
           <tbody>
             {repoModules.map((module) => (
               <tr key={module.repo}>
-                <td>
+                <td data-label="Repo">
                   <a href={module.href} target="_blank" rel="noreferrer">
                     {module.repo}
                   </a>
                 </td>
-                <td>{module.reusableData}</td>
-                <td>{module.prototypeUse}</td>
-                <td>{module.integrationMode}</td>
-                <td>{module.caveat}</td>
+                <td data-label="Ce putem folosi">{module.reusableData}</td>
+                <td data-label="Unde intră">{module.prototypeUse}</td>
+                <td data-label="Mod">{module.integrationMode}</td>
+                <td data-label="Limită">{module.caveat}</td>
               </tr>
             ))}
           </tbody>
@@ -1874,6 +2501,20 @@ function StrategyScreen() {
         </div>
       </section>
 
+      <section className="wire-section" aria-labelledby="strategic-pressure-title">
+        <p className="eyebrow">Presiune strategică</p>
+        <h2 id="strategic-pressure-title">De ce un redesign editorial nu este suficient</h2>
+        <div className="module-list">
+          {electionContext.map(([label, value, interpretation]) => (
+            <article className="module-card" key={label}>
+              <h3>{label}</h3>
+              <Fake source="rezultate publice / agregatoare sondaje, verificare manuală">{value}</Fake>
+              <p>{interpretation}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="strategy-grid" aria-labelledby="human-resource-title">
         <div className="wire-section">
           <p className="eyebrow">Resursă umană</p>
@@ -1909,6 +2550,24 @@ function StrategyScreen() {
               },
             ]}
           />
+        </div>
+      </section>
+
+      <section className="wire-section" aria-labelledby="media-blockade-title">
+        <p className="eyebrow">Blocaj media</p>
+        <h2 id="media-blockade-title">Cum extrage partidul valoare când presa nu preia spontan subiectul</h2>
+        <div className="journey-grid">
+          {[
+            ['Canal propriu', 'site-ul publică dosare complete, nu doar reacții la agenda altora.'],
+            ['Presă ajutată', 'jurnaliștii primesc documente, chart, CSV, contact și cronologie gata de verificat.'],
+            ['Filiale activate', 'același dosar produce întrebări locale, întâlniri și materiale de teren.'],
+            ['Oponenți constrânși', 'răspunsul lor trebuie să intre pe documente, nu pe etichete sau zgomot.'],
+          ].map(([title, text]) => (
+            <article className="journey-card" key={title}>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -1984,12 +2643,12 @@ function ArchitectureScreen() {
           <tbody>
             {connectors.map(([name, direction, cadence, screen, detail]) => (
               <tr key={name}>
-                <td>{name}</td>
-                <td>{direction}</td>
-                <td>{cadence}</td>
-                <td>{screen}</td>
-                <td>{detail}</td>
-                <td>
+                <td data-label="Conector">{name}</td>
+                <td data-label="Direcție">{direction}</td>
+                <td data-label="Cadență">{cadence}</td>
+                <td data-label="Ecran">{screen}</td>
+                <td data-label="Ce aduce">{detail}</td>
+                <td data-label="Verificat la">
                   <Fake source={`${name} sintetic`}>08 septembrie 2026</Fake>
                 </td>
               </tr>
@@ -2112,10 +2771,10 @@ function CostNoteScreen() {
           <tbody>
             {rows.map(([screen, decision, article, cost]) => (
               <tr key={screen}>
-                <td>{screen}</td>
-                <td>{decision}</td>
-                <td>{article}</td>
-                <td>{cost}</td>
+                <td data-label="Ecran">{screen}</td>
+                <td data-label="Decizie structurală">{decision}</td>
+                <td data-label="Articol relevant">{article}</td>
+                <td data-label="Cost real">{cost}</td>
               </tr>
             ))}
           </tbody>

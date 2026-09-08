@@ -25,7 +25,7 @@ npm run build
 
 Vite este configurat cu `base: './'`, iar navigarea folosește hash routes, deci ecranele rămân shareable într-un build static.
 
-Planul de implementare este în [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md).
+Planul de implementare este în [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md). Argumentul politic și decizional este în [`PROPOSAL_MEMO.md`](PROPOSAL_MEMO.md).
 
 ## Ecrane
 
