@@ -1607,34 +1607,61 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
 
       <section className="wire-section table-wrap">
         <h2>Voturi HCL</h2>
-        <Table label="Hotărâri locale fictive">
+        <Table role="table" label="Hotărâri locale fictive">
           <caption>Hotărâri locale fictive</caption>
-          <thead>
-            <tr>
-              <th>HCL</th>
-              <th>Titlu</th>
-              <th>Pentru</th>
-              <th>Contra</th>
-              <th>Absent</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" id="local-votes-col-1">
+                HCL
+              </th>
+              <th role="columnheader" scope="col" id="local-votes-col-2">
+                Titlu
+              </th>
+              <th role="columnheader" scope="col" id="local-votes-col-3">
+                Pentru
+              </th>
+              <th role="columnheader" scope="col" id="local-votes-col-4">
+                Contra
+              </th>
+              <th role="columnheader" scope="col" id="local-votes-col-5">
+                Absent
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {[
               ['12/2026', 'Rectificare bugetară model', '14', '3', '2'],
               ['19/2026', 'Regulament spații publice', '11', '6', '2'],
             ].map(([hcl, title, yes, no, absent]) => (
-              <tr key={hcl}>
-                <td data-label="HCL">
+              <tr role="row" key={hcl}>
+                <td role="cell" headers="local-votes-col-1" data-label="HCL">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    HCL
+                  </span>
                   <Fake source="site municipal + index HCL">{hcl}</Fake>
                 </td>
-                <td data-label="Titlu">{title}</td>
-                <td data-label="Pentru">
+                <td role="cell" headers="local-votes-col-2" data-label="Titlu">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Titlu
+                  </span>
+                  {title}
+                </td>
+                <td role="cell" headers="local-votes-col-3" data-label="Pentru">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Pentru
+                  </span>
                   <Fake source="site municipal + index HCL">{yes}</Fake>
                 </td>
-                <td data-label="Contra">
+                <td role="cell" headers="local-votes-col-4" data-label="Contra">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Contra
+                  </span>
                   <Fake source="site municipal + index HCL">{no}</Fake>
                 </td>
-                <td data-label="Absent">
+                <td role="cell" headers="local-votes-col-5" data-label="Absent">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Absent
+                  </span>
                   <Fake source="site municipal + index HCL">{absent}</Fake>
                 </td>
               </tr>
@@ -1645,35 +1672,64 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
 
       <section className="wire-section table-wrap">
         <h2>Completitudine pe UAT</h2>
-        <Table label="Completitudine pe UAT">
+        <Table role="table" label="Completitudine pe UAT">
           <caption>Procente sintetice de completitudine</caption>
-          <thead>
-            <tr>
-              <th>UAT</th>
-              <th>Buget</th>
-              <th>HCL</th>
-              <th>Contacte</th>
-              <th>Observație</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" id="local-coverage-col-1">
+                UAT
+              </th>
+              <th role="columnheader" scope="col" id="local-coverage-col-2">
+                Buget
+              </th>
+              <th role="columnheader" scope="col" id="local-coverage-col-3">
+                HCL
+              </th>
+              <th role="columnheader" scope="col" id="local-coverage-col-4">
+                Contacte
+              </th>
+              <th role="columnheader" scope="col" id="local-coverage-col-5">
+                Observație
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {[
               ['Municipiul Exemplu', '88%', '73%', '92%', 'date aproape complete'],
               ['Comuna Demo', '41%', '22%', '58%', 'PDF-uri scanate'],
               ['Orașul Mostră', '64%', '51%', '67%', 'calendar neregulat'],
             ].map(([uat, budget, hcl, contacts, note]) => (
-              <tr key={uat}>
-                <td data-label="UAT">{uat}</td>
-                <td data-label="Buget">
+              <tr role="row" key={uat}>
+                <td role="cell" headers="local-coverage-col-1" data-label="UAT">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    UAT
+                  </span>
+                  {uat}
+                </td>
+                <td role="cell" headers="local-coverage-col-2" data-label="Buget">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Buget
+                  </span>
                   <Fake source="ForExeBug / Trezorerie">{budget}</Fake>
                 </td>
-                <td data-label="HCL">
+                <td role="cell" headers="local-coverage-col-3" data-label="HCL">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    HCL
+                  </span>
                   <Fake source="site municipal + index HCL">{hcl}</Fake>
                 </td>
-                <td data-label="Contacte">
+                <td role="cell" headers="local-coverage-col-4" data-label="Contacte">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Contacte
+                  </span>
                   <Fake source="director sintetic">{contacts}</Fake>
                 </td>
-                <td data-label="Observație">{note}</td>
+                <td role="cell" headers="local-coverage-col-5" data-label="Observație">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Observație
+                  </span>
+                  {note}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -1825,23 +1881,49 @@ function PressRoomScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Purtători de cuvânt pe domeniu</h2>
-        <Table label="Rute de contact fictive">
+        <Table role="table" label="Rute de contact fictive">
           <caption>Rute de contact fictive</caption>
-          <thead>
-            <tr>
-              <th>Domeniu</th>
-              <th>Nume placeholder</th>
-              <th>Contact</th>
-              <th>Verificat la</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" id="press-contacts-col-1">
+                Domeniu
+              </th>
+              <th role="columnheader" scope="col" id="press-contacts-col-2">
+                Nume placeholder
+              </th>
+              <th role="columnheader" scope="col" id="press-contacts-col-3">
+                Contact
+              </th>
+              <th role="columnheader" scope="col" id="press-contacts-col-4">
+                Verificat la
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {spokespeople.map(([area, name, contact]) => (
-              <tr key={area}>
-                <td data-label="Domeniu">{area}</td>
-                <td data-label="Nume placeholder">{name}</td>
-                <td data-label="Contact">{contact}</td>
-                <td data-label="Verificat la">
+              <tr role="row" key={area}>
+                <td role="cell" headers="press-contacts-col-1" data-label="Domeniu">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Domeniu
+                  </span>
+                  {area}
+                </td>
+                <td role="cell" headers="press-contacts-col-2" data-label="Nume placeholder">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Nume placeholder
+                  </span>
+                  {name}
+                </td>
+                <td role="cell" headers="press-contacts-col-3" data-label="Contact">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Contact
+                  </span>
+                  {contact}
+                </td>
+                <td role="cell" headers="press-contacts-col-4" data-label="Verificat la">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Verificat la
+                  </span>
                   <Fake source="sală presă sintetică">08 septembrie 2026</Fake>
                 </td>
               </tr>
@@ -2140,29 +2222,62 @@ function ProjectDataScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Inventar de reutilizare</h2>
-        <Table label="Inventar de reutilizare">
+        <Table role="table" label="Inventar de reutilizare">
           <caption>Repo-uri verificate pe GitHub în 08 septembrie 2026</caption>
-          <thead>
-            <tr>
-              <th>Repo</th>
-              <th>Ce putem folosi</th>
-              <th>Unde intră</th>
-              <th>Mod</th>
-              <th>Limită</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" id="reuse-inventory-col-1">
+                Repo
+              </th>
+              <th role="columnheader" scope="col" id="reuse-inventory-col-2">
+                Ce putem folosi
+              </th>
+              <th role="columnheader" scope="col" id="reuse-inventory-col-3">
+                Unde intră
+              </th>
+              <th role="columnheader" scope="col" id="reuse-inventory-col-4">
+                Mod
+              </th>
+              <th role="columnheader" scope="col" id="reuse-inventory-col-5">
+                Limită
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {repoModules.map((module) => (
-              <tr key={module.repo}>
-                <td data-label="Repo">
+              <tr role="row" key={module.repo}>
+                <td role="cell" headers="reuse-inventory-col-1" data-label="Repo">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Repo
+                  </span>
                   <a href={module.href} target="_blank" rel="noreferrer">
                     {module.repo}
                   </a>
                 </td>
-                <td data-label="Ce putem folosi">{module.reusableData}</td>
-                <td data-label="Unde intră">{module.prototypeUse}</td>
-                <td data-label="Mod">{module.integrationMode}</td>
-                <td data-label="Limită">{module.caveat}</td>
+                <td role="cell" headers="reuse-inventory-col-2" data-label="Ce putem folosi">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Ce putem folosi
+                  </span>
+                  {module.reusableData}
+                </td>
+                <td role="cell" headers="reuse-inventory-col-3" data-label="Unde intră">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Unde intră
+                  </span>
+                  {module.prototypeUse}
+                </td>
+                <td role="cell" headers="reuse-inventory-col-4" data-label="Mod">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Mod
+                  </span>
+                  {module.integrationMode}
+                </td>
+                <td role="cell" headers="reuse-inventory-col-5" data-label="Limită">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Limită
+                  </span>
+                  {module.caveat}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -2351,27 +2466,67 @@ function ArchitectureScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Conectori</h2>
-        <Table label="Integrări simulate">
+        <Table role="table" label="Integrări simulate">
           <caption>Integrări simulate, fără backend</caption>
-          <thead>
-            <tr>
-              <th>Conector</th>
-              <th>Direcție</th>
-              <th>Cadență</th>
-              <th>Ecran</th>
-              <th>Ce aduce</th>
-              <th>Verificat la</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" id="connectors-col-1">
+                Conector
+              </th>
+              <th role="columnheader" scope="col" id="connectors-col-2">
+                Direcție
+              </th>
+              <th role="columnheader" scope="col" id="connectors-col-3">
+                Cadență
+              </th>
+              <th role="columnheader" scope="col" id="connectors-col-4">
+                Ecran
+              </th>
+              <th role="columnheader" scope="col" id="connectors-col-5">
+                Ce aduce
+              </th>
+              <th role="columnheader" scope="col" id="connectors-col-6">
+                Verificat la
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {connectors.map(([name, direction, cadence, screen, detail]) => (
-              <tr key={name}>
-                <td data-label="Conector">{name}</td>
-                <td data-label="Direcție">{direction}</td>
-                <td data-label="Cadență">{cadence}</td>
-                <td data-label="Ecran">{screen}</td>
-                <td data-label="Ce aduce">{detail}</td>
-                <td data-label="Verificat la">
+              <tr role="row" key={name}>
+                <td role="cell" headers="connectors-col-1" data-label="Conector">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Conector
+                  </span>
+                  {name}
+                </td>
+                <td role="cell" headers="connectors-col-2" data-label="Direcție">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Direcție
+                  </span>
+                  {direction}
+                </td>
+                <td role="cell" headers="connectors-col-3" data-label="Cadență">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Cadență
+                  </span>
+                  {cadence}
+                </td>
+                <td role="cell" headers="connectors-col-4" data-label="Ecran">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Ecran
+                  </span>
+                  {screen}
+                </td>
+                <td role="cell" headers="connectors-col-5" data-label="Ce aduce">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Ce aduce
+                  </span>
+                  {detail}
+                </td>
+                <td role="cell" headers="connectors-col-6" data-label="Verificat la">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Verificat la
+                  </span>
                   <Fake source={`${name} sintetic`}>08 septembrie 2026</Fake>
                 </td>
               </tr>
@@ -2481,23 +2636,51 @@ function CostNoteScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Costuri și temei statutar</h2>
-        <Table label="Costuri și temei statutar">
+        <Table role="table" label="Costuri și temei statutar">
           <caption>Costul este exprimat ca muncă și guvernanță, nu ca buget estimat.</caption>
-          <thead>
-            <tr>
-              <th>Ecran</th>
-              <th>Decizie structurală</th>
-              <th>Articol relevant</th>
-              <th>Cost real</th>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th role="columnheader" scope="col" id="cost-notes-col-1">
+                Ecran
+              </th>
+              <th role="columnheader" scope="col" id="cost-notes-col-2">
+                Decizie structurală
+              </th>
+              <th role="columnheader" scope="col" id="cost-notes-col-3">
+                Articol relevant
+              </th>
+              <th role="columnheader" scope="col" id="cost-notes-col-4">
+                Cost real
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {rows.map(([screen, decision, article, cost]) => (
-              <tr key={screen}>
-                <td data-label="Ecran">{screen}</td>
-                <td data-label="Decizie structurală">{decision}</td>
-                <td data-label="Articol relevant">{article}</td>
-                <td data-label="Cost real">{cost}</td>
+              <tr role="row" key={screen}>
+                <td role="cell" headers="cost-notes-col-1" data-label="Ecran">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Ecran
+                  </span>
+                  {screen}
+                </td>
+                <td role="cell" headers="cost-notes-col-2" data-label="Decizie structurală">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Decizie structurală
+                  </span>
+                  {decision}
+                </td>
+                <td role="cell" headers="cost-notes-col-3" data-label="Articol relevant">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Articol relevant
+                  </span>
+                  {article}
+                </td>
+                <td role="cell" headers="cost-notes-col-4" data-label="Cost real">
+                  <span className="mobile-cell-label" aria-hidden="true">
+                    Cost real
+                  </span>
+                  {cost}
+                </td>
               </tr>
             ))}
           </tbody>

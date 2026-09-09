@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { expectCivicComposition } from './support/civic-contract';
 
 test('supporters can explore resources without exposing private social profiles', async ({ page, baseURL }) => {
   const external: string[] = [];
@@ -73,6 +74,7 @@ for (const width of [390, 1440]) {
     for (const section of ['resurse', 'social', 'design', 'proiecte', 'setari', 'contacte-publice']) {
       await page.goto('/#/comunitate/' + section);
       await expect(page.getByRole('heading', { name: 'Spatiul meu' })).toBeVisible();
+      await expectCivicComposition(page);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       await page.screenshot({ path: `/tmp/usr-member-${width}-community-${section}.png`, fullPage: true });
     }

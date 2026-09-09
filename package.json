@@ -6,7 +6,8 @@
   "scripts": {
     "test": "playwright test",
     "dev": "vite --host 0.0.0.0",
-    "build": "tsc --noEmit && vite build",
+    "check:civic": "node --test scripts/check-civic-contract.test.mjs && node scripts/check-civic-contract.mjs",
+    "build": "npm run check:civic && tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
