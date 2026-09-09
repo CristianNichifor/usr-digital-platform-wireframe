@@ -14,7 +14,7 @@ permissions:
 jobs:
   verify:
     name: Build and browser checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,8 @@ jobs:
       - name: Build static demo
         run: npm run build
       - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+        # Hosted Ubuntu provides runtime libraries; avoid unrelated third-party apt indexes.
+        run: npx --no-install playwright install chromium
       - name: Browser checks against built demo
         run: npm test
       - name: Upload browser reports and screenshots
