@@ -38,10 +38,10 @@ test('dropdowns reserve arrow space and hover text stays readable', async ({ pag
   expect(after?.height).toBe(before?.height);
 });
 
-test('member workflows remain local and reset without retaining preferences', async ({ page }) => {
+test('member workflows remain local and reset without retaining preferences', async ({ page, baseURL }) => {
   const external: string[] = [];
   const errors: string[] = [];
-  page.on('request', r => { if (!r.url().startsWith('http://127.0.0.1:5187/')) external.push(r.url()); });
+  page.on('request', r => { if (new URL(r.url()).origin !== new URL(baseURL!).origin) external.push(r.url()); });
   page.on('pageerror', e => errors.push(e.message));
   await page.goto('/#/membri/setari');
   const visibility = page.getByLabel('Afiseaza profilul fictiv in director');

@@ -3,7 +3,7 @@
 Date: 2026-09-09. Scope: member administration, navigation and usability.
 Status: core presentation workflows implemented locally. All prototype records remain synthetic.
 
-Implemented: member overview/navigation, dues simulation with result states, event list/detail and calendar export, searchable document examples, participation selection/review/confirmation, organization, media empty states and fictional transcript, opt-in settings and reset. Three browser tests cover core workflows, external requests and desktop/mobile overflow. Build passes. No private records or credentials were copied into the demo.
+Implemented: member overview/navigation, dues simulation with result states, event list/detail and calendar export, searchable document examples, participation selection/review/confirmation, organization, media empty states and fictional transcript, opt-in settings and reset. Four browser tests cover core workflows, selected control styles, external requests and desktop/mobile overflow. The shared CI workflow runs the build and browser checks on pull requests and before Pages deployment. No private records or credentials were copied into the demo.
 
 Remaining presentation refinements: filters currently persist across member navigation in memory, not reload; media intentionally has no playable recording; stakeholder walkthroughs and a full accessibility audit remain future review work. The phase estimates below describe the original proposal, not a measured completion time.
 
