@@ -10,7 +10,7 @@ import {
   Link as LinkIcon,
 } from "lucide-react";
 import Select from "../../components/Select";
-import { Field, Input, NativeSelect } from "@cristiannichifor/civic-ui";
+import { Button, Checkbox, EmptyState, Field, Input, NativeSelect, Notice } from "@cristiannichifor/civic-ui";
 import "@cristiannichifor/civic-ui/styles.css";
 import "@cristiannichifor/civic-ui/themes/usr.css";
 import {
@@ -176,28 +176,15 @@ export default function ResourceHub({
                 </NativeSelect>
               )}
             </Field>
-            <label>
-              <input
-                type="checkbox"
-                checked={onlySaved}
-                onChange={(e) => setOnlySaved(e.target.checked)}
-              />
-              Doar salvate
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                checked={error}
-                onChange={(e) => setError(e.target.checked)}
-              />
-              Scenariu indisponibil
-            </label>
+            <Checkbox label="Doar salvate" checked={onlySaved} onChange={(e) => setOnlySaved(e.target.checked)} />
+            <Checkbox label="Scenariu indisponibil" checked={error} onChange={(e) => setError(e.target.checked)} />
           </div>
           {error ? (
-            <p role="alert">
-              Resurse indisponibile.{" "}
-              <button onClick={() => setError(false)}>Reincearca</button>
-            </p>
+            <div className="resource-feedback civic-scope civic-usr">
+              <Notice title="Resurse indisponibile." tone="danger" role="alert">
+                <Button onClick={() => setError(false)}>Reincearca</Button>
+              </Notice>
+            </div>
           ) : (
             <div className="resource-grid">
               {content.map((r) => (
@@ -261,7 +248,11 @@ export default function ResourceHub({
                   </div>
                 </article>
               ))}
-              {content.length === 0 && <p>Nicio resursa gasita.</p>}
+              {content.length === 0 && (
+                <div className="resource-empty civic-scope civic-usr">
+                  <EmptyState title="Nicio resursa gasita." />
+                </div>
+              )}
             </div>
           )}
           {selected && (
