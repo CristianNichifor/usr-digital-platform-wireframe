@@ -8,6 +8,8 @@ The resource-filter row imports Field, Input and NativeSelect for search, conten
 
 Projects uses Field and NativeSelect for the Competenta filter, scoped to its own wrapper. Project records, interest toggles, guides and downloads are unchanged. `tests/project-filter.spec.ts` checks all available skills, those actions, reset, exact labels, focus and 320/390/1440 layouts in all three engines.
 
+The document library uses Field, Input, NativeSelect, Checkbox, Notice, Button and EmptyState within its list view. Document records, filtering, access restrictions, detail routes and synthetic downloads are unchanged. `tests/document-library.spec.ts` checks these behaviors offline, reset, storage/network isolation, keyboard focus, colors and 320/390/1440 layouts in all three engines. Other MemberDemo screens retain their existing controls.
+
 The former repository-local Civic UI implementation has been removed. Changes to shared controls now belong in the Civic UI repository and must be adopted through a reviewed version update. Other demo controls remain unmigrated.
 
 All fictional contact fixtures, filtering, bookmarks, clipboard fallback, inline details and draft review/download behavior remain in PublicContacts. No state, storage, authentication or infrastructure integration is added.

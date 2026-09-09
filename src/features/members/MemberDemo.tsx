@@ -4,6 +4,17 @@ import { useState } from "react";
 import "./members.css";
 import { RotateCcw, Download, Film } from "lucide-react";
 import { createEvent } from "ics";
+import {
+  Button,
+  Checkbox,
+  EmptyState,
+  Field,
+  Input,
+  NativeSelect,
+  Notice,
+} from "@cristiannichifor/civic-ui";
+import "@cristiannichifor/civic-ui/styles.css";
+import "@cristiannichifor/civic-ui/themes/usr.css";
 
 const sections = [
   ["", "Acasa"],
@@ -195,11 +206,11 @@ function MemberWorkspace({
   ];
   const missing = Boolean(
     id &&
-    !(
-      (current === "calendar" && event) ||
-      (current === "documente" && doc) ||
-      (current === "participare" && item)
-    ),
+      !(
+        (current === "calendar" && event) ||
+        (current === "documente" && doc) ||
+        (current === "participare" && item)
+      ),
   );
   return (
     <div className="member-demo">
@@ -528,71 +539,77 @@ function MemberWorkspace({
                   </>
                 ) : (
                   <>
-                    <div className="member-filters">
-                      <label>
-                        Cauta documente
-                        <input
-                          type="search"
-                          value={query}
-                          onChange={(e) => setQuery(e.target.value)}
-                        />
-                      </label>
-                      <label>
-                        Tip
-                        <Select
-                          value={docType}
-                          onChange={(e) => setDocType(e.target.value)}
-                        >
-                          <option>Toate</option>
-                          {documents.map((d) => (
-                            <option key={d.id}>{d.type}</option>
-                          ))}
-                        </Select>
-                      </label>
-                      <label>
-                        <input
-                          type="checkbox"
+                    <div className="document-library civic-scope civic-usr">
+                      <div className="member-filters document-filters">
+                        <Field id="document-search" label="Cauta documente">
+                          {(attributes) => (
+                            <Input
+                              {...attributes}
+                              type="search"
+                              value={query}
+                              onChange={(e) => setQuery(e.target.value)}
+                            />
+                          )}
+                        </Field>
+                        <Field id="document-type" label="Tip">
+                          {(attributes) => (
+                            <NativeSelect
+                              {...attributes}
+                              value={docType}
+                              onChange={(e) => setDocType(e.target.value)}
+                            >
+                              <option>Toate</option>
+                              {documents.map((d) => (
+                                <option key={d.id}>{d.type}</option>
+                              ))}
+                            </NativeSelect>
+                          )}
+                        </Field>
+                        <Checkbox
+                          label="Scenariu indisponibil"
                           checked={unavailable}
                           onChange={(e) => setUnavailable(e.target.checked)}
                         />
-                        Scenariu indisponibil
-                      </label>
-                    </div>
-                    {unavailable ? (
-                      <p role="alert">
-                        Biblioteca este indisponibila in acest scenariu.{" "}
-                        <button onClick={() => setUnavailable(false)}>
-                          Reincearca
-                        </button>
-                      </p>
-                    ) : (
-                      <div className="member-list">
-                        {documents
-                          .filter(
+                      </div>
+                      {unavailable ? (
+                        <Notice
+                          role="alert"
+                          tone="danger"
+                          title="Biblioteca este indisponibila in acest scenariu."
+                        >
+                          <Button onClick={() => setUnavailable(false)}>
+                            Reincearca
+                          </Button>
+                        </Notice>
+                      ) : (
+                        <div className="member-list">
+                          {documents
+                            .filter(
+                              (d) =>
+                                d.title
+                                  .toLowerCase()
+                                  .includes(query.toLowerCase()) &&
+                                (docType === "Toate" || d.type === docType),
+                            )
+                            .map((d) => (
+                              <a key={d.id} href={link("documente/" + d.id)}>
+                                <strong>{d.title}</strong>
+                                <span>
+                                  {d.date} / {d.type}
+                                  {d.restricted ? " / Acces limitat" : ""}
+                                </span>
+                              </a>
+                            ))}
+                          {!documents.some(
                             (d) =>
                               d.title
                                 .toLowerCase()
                                 .includes(query.toLowerCase()) &&
                               (docType === "Toate" || d.type === docType),
-                          )
-                          .map((d) => (
-                            <a key={d.id} href={link("documente/" + d.id)}>
-                              <strong>{d.title}</strong>
-                              <span>
-                                {d.date} / {d.type}
-                                {d.restricted ? " / Acces limitat" : ""}
-                              </span>
-                            </a>
-                          ))}
-                        {!documents.some(
-                          (d) =>
-                            d.title
-                              .toLowerCase()
-                              .includes(query.toLowerCase()) &&
-                            (docType === "Toate" || d.type === docType),
-                        ) && <p>Niciun document gasit.</p>}
-                      </div>
-                    )}
+                          ) && <EmptyState title="Niciun document gasit." />}
+                        </div>
+                      )}
+                    </div>
                   </>
                 )}
               </>
