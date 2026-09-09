@@ -66,7 +66,7 @@ Build-ul verifică tipurile TypeScript și generează fișierele statice în `di
 ## Teste
 
 ```bash
-npx playwright install chromium
+npx --no-install playwright install chromium firefox webkit
 npm test
 ```
 
@@ -74,11 +74,13 @@ Playwright pornește sau reutilizează serverul local de pe portul `5187`. `DEMO
 
 Cele 13 teste din [tests/members.spec.ts](tests/members.spec.ts), [tests/resources.spec.ts](tests/resources.spec.ts), [tests/privacy-contacts.spec.ts](tests/privacy-contacts.spec.ts) si [tests/civic-pilot.spec.ts](tests/civic-pilot.spec.ts) verifica fluxuri de membri si simpatizanti, vizibilitatea profilurilor sociale, acordul separat pentru afiliere, accesul intern simulat, contactele fictive, resetarea, descarcarile, tokenurile de brand, spatiul dropdown-ului, contrastul unor controale la hover si lipsa overflow-ului la 390px si 1440px. Pilotul contactelor verifica si filtrele, marcajele salvate si focusul prin tastatura. Fluxurile verificate includ absenta cererilor externe si a datelor in `localStorage`/`sessionStorage`; fluxul de membri verifica si erorile JavaScript.
 
-Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor.
+Suita completa ruleaza in Chromium; cele doua teste de contacte ruleaza suplimentar in Firefox si WebKit (17 executii in total). Contactele sunt verificate si la 320px, inclusiv draftul, ordinea focusului si erorile JavaScript din fluxul principal. Pentru un singur motor: `npm test -- --project=firefox`. `DEMO_CHROMIUM` afecteaza numai proiectul Chromium.
+
+Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. WebKit nu certifica Safari sau dispozitive iOS. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor. CI foloseste imaginea oficiala Playwright `v1.63.0-noble`, cu browserele si bibliotecile de sistem incluse; versiunea imaginii trebuie pastrata in acord cu versiunea Playwright din lockfile. Rularea locala necesita bibliotecile de sistem compatibile pentru fiecare browser.
 
 ## Publicare
 
-[Verificările automate](.github/workflows/checks.yml) rulează la fiecare pull request: instalarea dependențelor, build TypeScript/Vite și teste Playwright cu Chromium. Rapoartele și capturile sunt păstrate ca artefacte timp de șapte zile.
+[Verificările automate](.github/workflows/checks.yml) rulează la fiecare pull request: instalarea dependențelor, build TypeScript/Vite și matricea Playwright descrisa mai sus. Rapoartele și capturile sunt păstrate ca artefacte timp de șapte zile.
 
 [Workflow-ul GitHub Pages](.github/workflows/pages.yml) rulează la push pe `main` sau prin declanșare manuală. Apelează aceleași verificări și publică `dist/` numai după succesul lor. Obligativitatea verificărilor înainte de merge depinde de regulile configurate pentru ramura din GitHub.
 

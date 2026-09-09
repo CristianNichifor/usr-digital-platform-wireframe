@@ -26,11 +26,9 @@ jobs:
         run: npm ci
       - name: Build static demo
         run: npm run build
-      - name: Install Chromium
-        # Hosted Ubuntu provides runtime libraries; avoid unrelated third-party apt indexes.
-        run: npx --no-install playwright install chromium
       - name: Browser checks against built demo
-        run: npm test
+        # Match the locked Playwright version; the image supplies browser system libraries.
+        run: docker run --rm --ipc=host -e CI=1 -v "$GITHUB_WORKSPACE:/work" -v /tmp:/tmp -w /work mcr.microsoft.com/playwright:v1.63.0-noble npm test
       - name: Upload browser reports and screenshots
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4

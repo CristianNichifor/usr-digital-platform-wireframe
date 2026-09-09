@@ -3,6 +3,8 @@ import { test, expect } from "@playwright/test";
 test("contact pilot preserves search, filters, bookmarks and control states", async ({
   page,
 }) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
   await page.goto("/#/comunitate/contacte-publice");
   const pilot = page.locator(".public-contacts");
   await expect(pilot.locator(".resource-item")).toHaveCount(8);
@@ -28,6 +30,12 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   await expect(bookmark).toHaveAttribute("aria-pressed", "true");
   await bookmark.click();
   await expect(bookmark).toHaveAttribute("aria-pressed", "false");
+  const search = page.getByLabel("Cauta nume, institutie sau localitate");
+  await search.focus();
+  for (const label of ["Nivel", "Judet", "Functie"]) {
+    await page.keyboard.press("Tab");
+    await expect(page.getByLabel(label, { exact: true })).toBeFocused();
+  }
   await bookmark.focus();
   await page.keyboard.press("Tab");
   await page.keyboard.press("Shift+Tab");
@@ -54,12 +62,13 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   await page.goto("/#/comunitate/setari");
   await expect(page.locator(".civic-scope")).toHaveCount(0);
   await expect(page.locator(".member-demo .civic-button")).toHaveCount(0);
+  expect(errors).toEqual([]);
 });
 
 test("contact pilot responsive baselines include details and draft", async ({
   page,
-}) => {
-  for (const width of [390, 1440]) {
+}, info) => {
+  for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/#/comunitate/contacte-publice");
     await page.reload();
@@ -68,7 +77,7 @@ test("contact pilot responsive baselines include details and draft", async ({
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(width);
     await page.screenshot({
-      path: `/tmp/usr-civic-pilot-${width}.png`,
+      path: info.outputPath(`contacts-${width}.png`),
       fullPage: true,
     });
     await page
@@ -86,7 +95,7 @@ test("contact pilot responsive baselines include details and draft", async ({
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.waitForTimeout(100);
     await page.screenshot({
-      path: `/tmp/usr-civic-pilot-draft-${width}.png`,
+      path: info.outputPath(`contacts-draft-${width}.png`),
       fullPage: true,
     });
   }
