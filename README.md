@@ -57,7 +57,7 @@ npx playwright install chromium
 npm test
 ```
 
-Playwright pornește sau reutilizează serverul local de pe portul `5187`. Pentru un Chromium deja instalat, variabila `DEMO_CHROMIUM` poate indica executabilul.
+Playwright pornește sau reutilizează serverul local de pe portul `5187`. `DEMO_PORT` poate selecta alt port. Pentru un Chromium deja instalat, variabila `DEMO_CHROMIUM` poate indica executabilul. În CI, testele pornesc un server de previzualizare pentru build-ul din `dist/`, fără reutilizarea unui server existent.
 
 Cele patru teste din [tests/members.spec.ts](tests/members.spec.ts) verifică fluxuri de membri, resetarea, spațiul pentru săgeata dropdown-ului, contrastul a două controale la hover și lipsa overflow-ului paginilor de membri la lățimi de 390px și 1440px. Un flux verifică și absența cererilor externe, a erorilor JavaScript și a datelor în `localStorage`/`sessionStorage`.
 
@@ -65,7 +65,9 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 
 ## Publicare
 
-[Workflow-ul GitHub Pages](.github/workflows/pages.yml) rulează la push pe `main` sau prin declanșare manuală. Instalează dependențele, execută build-ul și publică `dist/`. Workflow-ul actual nu rulează testele Playwright.
+[Verificările automate](.github/workflows/checks.yml) rulează la fiecare pull request: instalarea dependențelor, build TypeScript/Vite și teste Playwright cu Chromium. Rapoartele și capturile sunt păstrate ca artefacte timp de șapte zile.
+
+[Workflow-ul GitHub Pages](.github/workflows/pages.yml) rulează la push pe `main` sau prin declanșare manuală. Apelează aceleași verificări și publică `dist/` numai după succesul lor. Obligativitatea verificărilor înainte de merge depinde de regulile configurate pentru ramura din GitHub.
 
 ## Fișiere principale
 
@@ -74,4 +76,5 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 - [src/components/Select.tsx](src/components/Select.tsx): controlul select comun.
 - [src/tokens.css](src/tokens.css): fonturi locale și tokenuri de temă.
 - [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.
-- [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) și [PROPOSAL_MEMO.md](PROPOSAL_MEMO.md): documente anterioare de propunere; nu descriu exclusiv funcționalități implementate.
+- [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md): pași de mentenanță și verificare pentru demo.
+- [PROPOSAL_MEMO.md](PROPOSAL_MEMO.md): scopul prezentării și criterii de feedback.

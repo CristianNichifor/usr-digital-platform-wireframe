@@ -1,0 +1,48 @@
+name: Demo checks
+
+on:
+  pull_request:
+  workflow_call:
+    inputs:
+      upload-pages:
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build and browser checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build static demo
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser checks against built demo
+        run: npm test
+      - name: Upload browser reports and screenshots
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-checks
+          path: |
+            /tmp/usr-member-demo-tests
+            /tmp/usr-member-demo-report
+            /tmp/usr-member-*.png
+          if-no-files-found: ignore
+          retention-days: 7
+      - name: Upload checked Pages artifact
+        if: ${{ inputs.upload-pages }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
