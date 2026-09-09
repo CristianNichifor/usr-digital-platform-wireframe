@@ -33,7 +33,15 @@ State, routes, consent defaults, explicit affiliation opt-in, reset behavior and
 
 ## Verification
 
-All 25 Playwright tests run in Chromium, Firefox and WebKit (75 executions). Coverage includes member/supporter routes, filtering, review/cancel/confirm, radio keyboard selection, consent withdrawal/reset, synthetic downloads, retry states, branding, focus, hover contrast and select arrow padding.
+Every build runs `npm run check:civic`: 16 Node tests exercise accepted/rejected fixtures, then JSON-based checks validate the reviewed GitHub release URL, lockfile root, installed version and integrity. Local file/link/workspace dependencies are rejected in the root manifest and locked dependency tree. An intentional Civic UI upgrade must update these reviewed expectations alongside the manifest and lockfile.
+
+Browser guards inspect rendered Input/NativeSelect controls through DOM APIs: each needs a Civic scope, Field ancestor and an associated label. Static route sweeps and conditional payment/social/comment controls are covered, with rejected composition fixtures. This is runtime coverage of tested screens, not a complete static analysis of every future branch.
+
+Public mobile tables keep their header rows visually clipped instead of removed. Explicit table/row/cell roles preserve semantics through the stacked CSS layout; each data cell links to a uniquely identified column header using `headers`, and headers retain `scope="col"`. Visible mobile labels are separate `aria-hidden` spans to avoid duplicate announcements. Browser tests verify exposed roles, header links, label agreement and focusable scroll regions.
+
+The semantic markup follows [WAI table header guidance](https://www.w3.org/WAI/tutorials/tables/). Explicit roles address the [documented accessibility risk of changing table display modes](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/display). Real screen-reader/device testing remains outside this browser suite.
+
+All 29 Playwright tests run in Chromium, Firefox and WebKit (87 executions). Coverage includes member/supporter routes, filtering, review/cancel/confirm, radio keyboard selection, consent withdrawal/reset, synthetic downloads, retry states, branding, focus, hover contrast and select arrow padding.
 
 The completion suite checks offline static contact behavior, shareable people search and public contact/people/table layouts at 320, 390 and 1440 pixels. Public tables retain visible captions and mobile cell labels. Existing tests cover document access restrictions, fictional contact drafts and absence of storage/external requests in representative workflows.
 

@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { expectCivicComposition } from "./support/civic-contract";
 
 test("contact remains static and public search keeps shareable state offline", async ({
   page,
@@ -104,6 +105,7 @@ for (const width of [320, 390, 1440]) {
     ]) {
       await page.goto("/#" + route);
       await expect(page.locator("main h1")).toBeVisible();
+      await expectCivicComposition(page);
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
       ).toBeLessThanOrEqual(width);
@@ -111,15 +113,12 @@ for (const width of [320, 390, 1440]) {
       for (const table of await tables.all()) {
         await expect(table.locator("caption")).toBeVisible();
         if (width < 700) {
-          await expect(table.locator("thead")).toBeHidden();
+          await expect(table.getByRole("columnheader")).toHaveCount(await table.locator("thead th").count());
           const cell = table.locator("tbody td").first();
           await expect(cell).toBeVisible();
           expect(await cell.getAttribute("data-label")).toBeTruthy();
-          expect(
-            await cell.evaluate(
-              (el) => getComputedStyle(el, "::before").content,
-            ),
-          ).not.toBe("none");
+          await expect(cell.locator(".mobile-cell-label")).toBeVisible();
+          await expect(cell.locator(".mobile-cell-label")).toHaveAttribute("aria-hidden", "true");
         } else {
           await expect(table.locator("thead")).toBeVisible();
         }

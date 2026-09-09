@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { expectCivicComposition } from './support/civic-contract';
 
 test('dropdowns reserve arrow space and hover text stays readable', async ({ page }) => {
   await page.goto('/#/membri');
@@ -98,6 +99,7 @@ for (const width of [390, 1440]) {
     for (const route of ['', 'cotizatii', 'calendar', 'documente', 'participare', 'organizatie', 'media', 'setari']) {
       await page.goto('/#/membri' + (route ? '/' + route : ''));
       await expect(page.getByRole('heading', { name: 'Spatiul meu' })).toBeVisible();
+      await expectCivicComposition(page);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
       await page.screenshot({ path: `/tmp/usr-member-${width}-${route || 'home'}.png`, fullPage: true });
     }
