@@ -1,103 +1,77 @@
-# Machetă rebuilt usr.ro
+# USR Digital Platform Wireframe
 
-Aceasta este o machetă neoficială, neafiliată și construită cu date sintetice. Nu folosește date reale, persoane reale, backend, login, analytics, formulare care trimit date sau sigle USR.
+Prototip neoficial pentru prezentarea unei alternative de site public și zonă de membri. Aplicația este un frontend static construit cu React, TypeScript și Vite. Nu este un serviciu USR aprobat și nu este conectată la infrastructura internă.
 
-Scopul proiectului este să facă o discuție structurală concretă despre un site public usr.ro reconstruit, cu o zonă de membri pusă peste aceleași înregistrări canonice. O persoană aleasă este un singur record, randat în trei vizibilități: PUBLIC, MEMBRU și BIROU.
+[Deschide demo-ul](https://cristiannichifor.github.io/usr-digital-platform-wireframe/#/) · [Zona membrilor](https://cristiannichifor.github.io/usr-digital-platform-wireframe/#/membri)
 
-A fost construită de un membru pentru a transforma un argument structural într-un prototip clicabil.
+## Ce include
 
-Directorul `/brand` nu a fost prezent în workspace. La cerere, valorile de temă au fost verificate pe `usr.ro` și extrase din fișiere publice livrate de site, mai ales CSS-ul Next/Tailwind. Aceasta nu este o copie a unui manual formal de identitate. Este o mapare tehnică după surse publice.
+| Zonă | Conținut |
+| --- | --- |
+| Pagini publice | Știri, oameni, guvernare, verificări, propuneri, declarații, date locale și bani |
+| Participare publică | Organizare, contact, înscriere, donații și sală de presă |
+| Cotizații | Istoric fictiv și simularea unei plăți cu rezultat selectabil |
+| Calendar | Evenimente fictive, participare simulată și export `.ics` |
+| Documente | Căutare, filtrare, detalii și descărcarea unor exemple text sintetice |
+| Participare internă | Alegeri și consultări fictive cu selecție, revizuire și confirmare; exemplu de dezbatere închisă |
+| Organizație și profil | Roluri fictive, vizibilitate în director dezactivată implicit și salvare simulată |
+| Media | Stări fără transmisie sau înregistrare video și o transcriere fictivă |
 
-Toate valorile de culoare, tipografie și spațiere care țin de temă sunt izolate în `src/tokens.css`. Componentele nu conțin valori hex hardcodate. Macheta folosește o marcă neutră `MP`, nu logo-ul USR.
+Zona de membri începe la `#/membri`; `#/implica-te` este un alias. Paginile publice includ și ecrane explicative despre strategie, arhitectură și costuri. Acestea prezintă propuneri, nu capabilități operaționale.
 
-## Rulare
+## Date și limite
+
+- Persoanele, cotizațiile, documentele și răspunsurile din zona de membri sunt fictive. Nu sunt incluse parole, date de card sau înregistrări private din e-USR.
+- Accesul la e-USR a fost folosit pentru observarea funcționalităților. Demo-ul nu necesită cont, API intern sau autentificare.
+- Schimbarea profilului demonstrativ modifică interfața; nu reprezintă un sistem de autorizare.
+- Starea zonei de membri rămâne în memoria paginii. Resetarea, reîncărcarea sau părăsirea zonei de membri o șterg. Filtrele membrilor nu se păstrează la reîncărcare.
+- Unele pagini publice folosesc parametri în URL pentru filtre și vizualizări. Nu introduceți informații private în demo.
+- Aplicația conține referințe publice și legături externe, inclusiv către USR și GitHub. Deschiderea lor părăsește demo-ul; serviciile externe au propriul comportament.
+- Nu există backend pentru plăți, voturi, înscrieri sau mesaje. Unele controale publice ilustrează un flux propus, fără a-l implementa complet.
+- Cifrele și referințele din ecranele de prezentare nu trebuie tratate ca un set de date actualizat sau ca informație oficială verificată.
+
+## Rulare locală
+
+Folosiți Node.js 22, versiunea configurată și în workflow-ul de build, și npm.
 
 ```bash
-npm install
-npm run dev
+npm ci
+npm run dev -- --host 127.0.0.1
 ```
 
-Build static pentru GitHub Pages:
+Deschideți adresa afișată de Vite. Comanda simplă `npm run dev` ascultă pe toate interfețele de rețea.
+
+Pentru build și previzualizarea lui:
 
 ```bash
 npm run build
+npm run preview -- --host 127.0.0.1
 ```
 
-Vite este configurat cu `base: './'`, iar navigarea folosește hash routes, deci ecranele rămân shareable într-un build static.
+Build-ul verifică tipurile TypeScript și generează fișierele statice în `dist/`. Navigarea folosește hash routes, iar Vite are `base: './'`.
 
-Planul zonei de membri este în [`MEMBER_AREA_PLAN.md`](MEMBER_AREA_PLAN.md). Demo-ul este o alternativă de prezentare independentă; accesul la e-USR a fost doar pentru observarea funcționalităților. Nu există integrare cu infrastructura internă. Documentele anterioare [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) și [`PROPOSAL_MEMO.md`](PROPOSAL_MEMO.md) păstrează contextul propunerii.
-
-## Demo membri
-
-Intrare: `#/membri` (și aliasul `#/implica-te`). Include cotizații cu plată simulată, calendar cu export ICS fictiv, documente sintetice descărcabile, alegeri și consultări simulate, structură organizațională, stări media și setări de vizibilitate.
-
-Toate modificările rămân în memoria paginii. Reîncărcarea sau resetarea le șterge. Directorul este ascuns implicit. Nu sunt colectate parole, date de card sau date reale de membri. Nu sunt folosite API-uri interne, analytics sau stocare persistentă. Profilurile demonstrative nu reprezintă autentificare. Zona media are o transcriere fictivă și stări fără transmisie/video, nu înregistrări interne.
-
-Verificare browser:
+## Teste
 
 ```bash
 npx playwright install chromium
 npm test
 ```
 
-Alternativ, `DEMO_CHROMIUM` poate indica executabilul Chromium deja instalat. Testele verifică fluxurile, resetarea, lipsa cererilor externe și layout-ul la 390px și 1440px. Capturile și rezultatele testelor sunt scrise în `/tmp`.
+Playwright pornește sau reutilizează serverul local de pe portul `5187`. Pentru un Chromium deja instalat, variabila `DEMO_CHROMIUM` poate indica executabilul.
 
-## Ecrane
+Cele patru teste din [tests/members.spec.ts](tests/members.spec.ts) verifică fluxuri de membri, resetarea, spațiul pentru săgeata dropdown-ului, contrastul a două controale la hover și lipsa overflow-ului paginilor de membri la lățimi de 390px și 1440px. Un flux verifică și absența cererilor externe, a erorilor JavaScript și a datelor în `localStorage`/`sessionStorage`.
 
-- `#/` index
-- `#/oameni` director aleși cu filtre și lipsuri afișate
-- `#/oameni/consilier-model?view=public` record canonic în vedere PUBLIC
-- `#/oameni/consilier-model?view=membru` același record în vedere MEMBRU
-- `#/oameni/consilier-model?view=birou` același record în vedere BIROU
-- `#/ce-propunem` bibliotecă poziții și revizii
-- `#/declaratii` scan, câmpuri structurate și diff anual
-- `#/date-locale` date locale cu buget, HCL, UAT și exporturi
-- `#/membri` spațiu de membri; `#/implica-te` este alias
-- `#/membri/cotizatii`, `#/membri/calendar`, `#/membri/documente`
-- `#/membri/participare`, `#/membri/organizatie`, `#/membri/media`, `#/membri/setari`
-- `#/bani` subvenții, prag de 32% către filiale și cheltuieli centrale
-- `#/presa` sală de presă cu contacte, active și dosare de date
-- `#/proiecte-date` inventar al repo-urilor publice care pot alimenta site-ul
-- `#/strategie` beneficii, avantaj strategic și organizare online/teren
-- `#/arhitectura` conectori simulați, direcții, cadențe și verificări
-- `#/nota` decizii structurale, cost de produs real și articole din Statut
+Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor.
 
-## Convenții
+## Publicare
 
-Toate cifrele, datele și valorile sintetice sunt marcate vizibil în interfață cu italic și culoare de token. Fiecare valoare are sursă și dată de verificare lângă ea. Bannerul persistent spune explicit: „MACHETĂ NEOFICIALĂ — date fictive. Fără aprobarea USR.”
+[Workflow-ul GitHub Pages](.github/workflows/pages.yml) rulează la push pe `main` sau prin declanșare manuală. Instalează dependențele, execută build-ul și publică `dist/`. Workflow-ul actual nu rulează testele Playwright.
 
-Unde nu există integrare live, ecranul arată un mockup de produs de date: ce câmpuri ar exista, cine le-ar menține, ce export ar fi disponibil și ce limitare trebuie afișată. Mockup-ul nu pretinde că acele date există.
+## Fișiere principale
 
-Roșul extras din `usr.ro` nu este folosit ca text normal pe fundal albastru sau alb, deoarece contrastul nu trece pragul WCAG AA pentru text obișnuit. În machetă este folosit doar ca accent non-text.
-
-Zona de membri nu include auto-postare, OAuth sau publicare externă. Interacțiunile sunt simulări locale cu date fictive.
-
-Articolele din ecranul `#/nota` sunt raportate la Statutul public de pe `usr.ro/statut`, amendat în 24.11.2022. În această versiune publică, publicarea numelor și CV-urilor aleșilor apare la art. 87(1), declarațiile apar la art. 82, iar pragul de minimum 32% către filiale apare la art. 86(2), raportat la art. 84 lit. d. Art. 7(3) descrie registrul statutar al membrilor ca evidență confidențială; nu este temei pentru directorul opt-in între colegi.
-
-## Date din repo-uri publice
-
-Repo-urile `CristianNichifor` verificate pe GitHub sunt folosite în machetă ca surse de structură, nu ca backend și nu ca date operative live.
-
-- `romania-reforms`: vocabular de proveniență, limitări, confidence și index de simulatoare.
-- `administrative-reform-simulator`: structură UAT/SIRUTA, metodologie deterministă, bugete și hărți ca link extern.
-- `public-pay-simulator`: regimuri salariale JSON, crosswalk-uri, rapoarte de import și modelul „legea ca date”.
-- `legislativ`: obligații neîndeplinite, terminologie, contradicții și verificări interne pentru proiecte normative.
-- `achizitii-deschise`: prețuri unitare, agregate pe județ, indicatori de risc și metodologia pentru drept la replică.
-
-## Avantaj strategic
-
-Integrarea cu repo-urile utile ar putea da partidului un avantaj prin timp mai scurt între analiză și material public, mesaje mai ușor de verificat, sarcini mai clare pentru membri, sprijin mai bun pentru aleși și materiale locale pregătite pentru teren. Relația cu electoratul devine bidirecțională: oamenii găsesc persoana, poziția și întâlnirea relevante; partidul vede unde lipsesc explicații, date sau prezență locală.
-
-## Surse de brand verificate
-
-- `https://usr.ro/`
-- `https://usr.ro/_next/static/chunks/b403e873072364dd.css`
-- `https://usr.ro/statut/`
-
-## Surse GitHub verificate
-
-- `https://github.com/CristianNichifor/romania-reforms`
-- `https://github.com/CristianNichifor/administrative-reform-simulator`
-- `https://github.com/CristianNichifor/public-pay-simulator`
-- `https://github.com/CristianNichifor/legislativ`
-- `https://github.com/CristianNichifor/achizitii-deschise`
+- [src/App.tsx](src/App.tsx): rutare și ecrane publice.
+- [src/features/members/MemberDemo.tsx](src/features/members/MemberDemo.tsx): ecrane, date fictive și interacțiuni pentru membri.
+- [src/components/Select.tsx](src/components/Select.tsx): controlul select comun.
+- [src/tokens.css](src/tokens.css): fonturi locale și tokenuri de temă.
+- [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.
+- [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) și [PROPOSAL_MEMO.md](PROPOSAL_MEMO.md): documente anterioare de propunere; nu descriu exclusiv funcționalități implementate.
