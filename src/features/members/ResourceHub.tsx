@@ -726,15 +726,18 @@ export default function ResourceHub({
         <>
           <h2>Proiecte colaborative</h2>
           <p>Catalog fictiv de contributii / fara conectare GitHub</p>
-          <label>
-            Competenta
-            <Select value={skill} onChange={(e) => setSkill(e.target.value)}>
-              <option>Toate</option>
-              {projects.map((p) => (
-                <option key={p.id}>{p.skill}</option>
-              ))}
-            </Select>
-          </label>
+          <div className="project-filter civic-scope civic-usr">
+            <Field id="project-skill" label="Competenta">
+              {(props) => (
+                <NativeSelect {...props} value={skill} onChange={(e) => setSkill(e.target.value)}>
+                  <option>Toate</option>
+                  {projects.map((p) => (
+                    <option key={p.id}>{p.skill}</option>
+                  ))}
+                </NativeSelect>
+              )}
+            </Field>
+          </div>
           <div className="resource-grid">
             {projects
               .filter((p) => skill === "Toate" || p.skill === skill)
