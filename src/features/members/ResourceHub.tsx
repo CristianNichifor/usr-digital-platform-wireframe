@@ -9,8 +9,17 @@ import {
   X,
   Link as LinkIcon,
 } from "lucide-react";
-import Select from "../../components/Select";
-import { Button, Checkbox, EmptyState, Field, Input, NativeSelect, Notice } from "@cristiannichifor/civic-ui";
+import { NativeSelect as Select } from "@cristiannichifor/civic-ui";
+import {
+  Button,
+  IconButton,
+  Checkbox,
+  EmptyState,
+  Field,
+  Input,
+  NativeSelect,
+  Notice,
+} from "@cristiannichifor/civic-ui";
 import "@cristiannichifor/civic-ui/styles.css";
 import "@cristiannichifor/civic-ui/themes/usr.css";
 import {
@@ -38,10 +47,10 @@ export function SocialProfileLinks({
       <h3>Profiluri sociale demonstrative</h3>
       <div className="social-buttons">
         {networks.map((platform) => (
-          <button key={platform} onClick={() => setSelected(platform)}>
+          <Button key={platform} onClick={() => setSelected(platform)}>
             <LinkIcon size={14} aria-hidden="true" />
             {platform}
-          </button>
+          </Button>
         ))}
       </div>
       {selected && (
@@ -160,7 +169,11 @@ export default function ResourceHub({
             </Field>
             <Field id="resource-kind" label="Continut">
               {(props) => (
-                <NativeSelect {...props} value={kind} onChange={(e) => setKind(e.target.value)}>
+                <NativeSelect
+                  {...props}
+                  value={kind}
+                  onChange={(e) => setKind(e.target.value)}
+                >
                   {["Toate", "Material", "Articol"].map((v) => (
                     <option key={v}>{v}</option>
                   ))}
@@ -169,15 +182,27 @@ export default function ResourceHub({
             </Field>
             <Field id="resource-scope" label="Organizatie">
               {(props) => (
-                <NativeSelect {...props} value={scope} onChange={(e) => setScope(e.target.value)}>
+                <NativeSelect
+                  {...props}
+                  value={scope}
+                  onChange={(e) => setScope(e.target.value)}
+                >
                   {["Toate", "National", "Filiala"].map((v) => (
                     <option key={v}>{v}</option>
                   ))}
                 </NativeSelect>
               )}
             </Field>
-            <Checkbox label="Doar salvate" checked={onlySaved} onChange={(e) => setOnlySaved(e.target.checked)} />
-            <Checkbox label="Scenariu indisponibil" checked={error} onChange={(e) => setError(e.target.checked)} />
+            <Checkbox
+              label="Doar salvate"
+              checked={onlySaved}
+              onChange={(e) => setOnlySaved(e.target.checked)}
+            />
+            <Checkbox
+              label="Scenariu indisponibil"
+              checked={error}
+              onChange={(e) => setError(e.target.checked)}
+            />
           </div>
           {error ? (
             <div className="resource-feedback civic-scope civic-usr">
@@ -201,12 +226,12 @@ export default function ResourceHub({
                   </p>
                   <p>{r.text}</p>
                   <div className="resource-actions">
-                    <button onClick={() => selectResource(r.id)}>
+                    <Button onClick={() => selectResource(r.id)}>
                       Vezi detalii
-                    </button>
-                    <button
+                    </Button>
+                    <IconButton
                       title="Apreciere simulata"
-                      aria-label={"Apreciere simulata: " + r.title}
+                      label={"Apreciere simulata: " + r.title}
                       aria-pressed={liked.includes(r.id)}
                       disabled={r.status === "Retras"}
                       onClick={() =>
@@ -221,22 +246,22 @@ export default function ResourceHub({
                         size={18}
                         fill={liked.includes(r.id) ? "currentColor" : "none"}
                       />
-                    </button>
-                    <button
+                    </IconButton>
+                    <IconButton
                       title="Comentariu demonstrativ"
-                      aria-label={"Comentariu demonstrativ: " + r.title}
+                      label={"Comentariu demonstrativ: " + r.title}
                       disabled={r.status === "Retras"}
                       onClick={() => selectResource(r.id)}
                     >
                       <MessageCircle size={18} />
-                    </button>
-                    <button
+                    </IconButton>
+                    <IconButton
                       title={
                         saved.includes(r.id)
                           ? "Elimina din salvate"
                           : "Salveaza resursa"
                       }
-                      aria-label={"Salveaza " + r.title}
+                      label={"Salveaza " + r.title}
                       aria-pressed={saved.includes(r.id)}
                       onClick={() => toggleSaved(r.id)}
                     >
@@ -244,7 +269,7 @@ export default function ResourceHub({
                         size={18}
                         fill={saved.includes(r.id) ? "currentColor" : "none"}
                       />
-                    </button>
+                    </IconButton>
                   </div>
                 </article>
               ))}
@@ -259,13 +284,13 @@ export default function ResourceHub({
             <section className="resource-detail" aria-label="Detalii resursa">
               <div className="resource-title">
                 <h3>{selected.title}</h3>
-                <button
-                  aria-label="Inchide detaliile"
+                <IconButton
+                  label="Inchide detaliile"
                   title="Inchide detaliile"
                   onClick={() => setDetail("")}
                 >
                   <X size={18} />
-                </button>
+                </IconButton>
               </div>
               <p>{selected.text}</p>
               <p>
@@ -280,14 +305,14 @@ export default function ResourceHub({
                 prezentare.
               </p>
               <div className="resource-actions">
-                <button
+                <Button
                   disabled={selected.status === "Retras"}
                   onClick={() => copy(selected.text)}
                 >
                   <Copy size={16} />
                   Copiaza textul fictiv
-                </button>
-                <button
+                </Button>
+                <Button
                   disabled={selected.status === "Retras"}
                   onClick={() =>
                     saveExample(
@@ -302,26 +327,28 @@ export default function ResourceHub({
                 >
                   <Download size={16} />
                   Descarca exemplul
-                </button>
+                </Button>
               </div>
-              <label>
-                Comentariu fictiv
-                <Select
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                >
-                  <option>Exemplul este clar.</option>
-                  <option>Ar fi utila o versiune accesibila.</option>
-                </Select>
-              </label>
-              <button
+              <Field id="resource-comment" label="Comentariu fictiv">
+                {(attributes) => (
+                  <Select
+                    {...attributes}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  >
+                    <option>Exemplul este clar.</option>
+                    <option>Ar fi utila o versiune accesibila.</option>
+                  </Select>
+                )}
+              </Field>
+              <Button
                 disabled={selected.status === "Retras"}
                 onClick={() =>
                   setComments((v) => ({ ...v, [selected.id]: comment }))
                 }
               >
                 Adauga comentariul demonstrativ
-              </button>
+              </Button>
               {comments[selected.id] && (
                 <p role="status">Comentariu local: {comments[selected.id]}</p>
               )}
@@ -341,29 +368,35 @@ export default function ResourceHub({
             de utilizator, nu verificate de platforme.
           </p>
           <div className="member-filters">
-            <label>
-              Platforma
-              <Select
-                value={network}
-                onChange={(e) => setNetwork(e.target.value)}
-              >
-                <option>Toate</option>
-                {platforms.map((p) => (
-                  <option key={p}>{p}</option>
-                ))}
-              </Select>
-            </label>
-            <label>
-              Urmarire
-              <Select
-                value={followFilter}
-                onChange={(e) => setFollowFilter(e.target.value)}
-              >
-                {["Toate", "Necunoscut", "Urmaresc", "Nu urmaresc"].map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </Select>
-            </label>
+            <Field id="social-platform" label="Platforma">
+              {(attributes) => (
+                <Select
+                  {...attributes}
+                  value={network}
+                  onChange={(e) => setNetwork(e.target.value)}
+                >
+                  <option>Toate</option>
+                  {platforms.map((p) => (
+                    <option key={p}>{p}</option>
+                  ))}
+                </Select>
+              )}
+            </Field>
+            <Field id="social-following" label="Urmarire">
+              {(attributes) => (
+                <Select
+                  {...attributes}
+                  value={followFilter}
+                  onChange={(e) => setFollowFilter(e.target.value)}
+                >
+                  {["Toate", "Necunoscut", "Urmaresc", "Nu urmaresc"].map(
+                    (s) => (
+                      <option key={s}>{s}</option>
+                    ),
+                  )}
+                </Select>
+              )}
+            </Field>
           </div>
           <h3>Canale oficiale - exemple</h3>
           <div className="channel-list">
@@ -378,20 +411,25 @@ export default function ResourceHub({
                     Sursa: catalog fictiv / Actualizat: 2026-09-09
                   </p>
                 </div>
-                <label>
-                  Stare pentru {c.name}
-                  <Select
-                    value={following[c.id] || "Necunoscut"}
-                    onChange={(e) =>
-                      setFollowing((v) => ({ ...v, [c.id]: e.target.value }))
-                    }
-                  >
-                    {["Necunoscut", "Urmaresc", "Nu urmaresc"].map((s) => (
-                      <option key={s}>{s}</option>
-                    ))}
-                  </Select>
-                  <small>Declarat de mine</small>
-                </label>
+                <Field
+                  id={"channel-" + c.id}
+                  label={"Stare pentru " + c.name}
+                  description="Declarat de mine"
+                >
+                  {(attributes) => (
+                    <Select
+                      {...attributes}
+                      value={following[c.id] || "Necunoscut"}
+                      onChange={(e) =>
+                        setFollowing((v) => ({ ...v, [c.id]: e.target.value }))
+                      }
+                    >
+                      {["Necunoscut", "Urmaresc", "Nu urmaresc"].map((s) => (
+                        <option key={s}>{s}</option>
+                      ))}
+                    </Select>
+                  )}
+                </Field>
               </article>
             ))}
             {visibleChannels.length === 0 && (
@@ -427,27 +465,29 @@ export default function ResourceHub({
               aria-label="Acces administrativ"
             >
               <h3>Evidenta interna - demonstratie</h3>
-              <label>
-                Scopul accesului
-                <Select
-                  value={accessPurpose}
-                  onChange={(e) => {
-                    setAccessPurpose(e.target.value);
-                    setAccessConfirmed(false);
-                  }}
-                >
-                  <option value="">Selecteaza un scop</option>
-                  <option>Administrarea evidentei</option>
-                </Select>
-              </label>
-              <button
+              <Field id="access-purpose" label="Scopul accesului">
+                {(attributes) => (
+                  <Select
+                    {...attributes}
+                    value={accessPurpose}
+                    onChange={(e) => {
+                      setAccessPurpose(e.target.value);
+                      setAccessConfirmed(false);
+                    }}
+                  >
+                    <option value="">Selecteaza un scop</option>
+                    <option>Administrarea evidentei</option>
+                  </Select>
+                )}
+              </Field>
+              <Button
                 disabled={!accessPurpose}
                 onClick={() => setAccessConfirmed((v) => !v)}
               >
                 {internalAccess
                   ? "Inchide accesul intern"
                   : "Confirma accesul pentru scopul selectat"}
-              </button>
+              </Button>
               <p>
                 {internalAccess
                   ? "Acces demonstrativ activ pentru administrarea evidentei."
@@ -456,18 +496,20 @@ export default function ResourceHub({
             </section>
           )}
           {internalAccess && (
-            <label>
-              Afiliere
-              <Select
-                value={affiliation}
-                onChange={(e) => setAffiliation(e.target.value)}
-              >
-                <option>Toate</option>
-                {people.map((p) => (
-                  <option key={p.id}>{p.membership}</option>
-                ))}
-              </Select>
-            </label>
+            <Field id="social-affiliation" label="Afiliere">
+              {(attributes) => (
+                <Select
+                  {...attributes}
+                  value={affiliation}
+                  onChange={(e) => setAffiliation(e.target.value)}
+                >
+                  <option>Toate</option>
+                  {people.map((p) => (
+                    <option key={p.id}>{p.membership}</option>
+                  ))}
+                </Select>
+              )}
+            </Field>
           )}
           <div className="resource-grid">
             {people
@@ -513,28 +555,27 @@ export default function ResourceHub({
               <p>Identitati demonstrative. Fara autentificare pe platforme.</p>
               <fieldset>
                 <legend>Publicarea afilierii mele</legend>
-                <label>
-                  Afiliere declarata
-                  <Select
-                    value={declaredAffiliation}
-                    onChange={(e) => {
-                      setDeclaredAffiliation(e.target.value);
-                      setPublicAffiliation(false);
-                    }}
-                  >
-                    <option>Membru actual</option>
-                    <option>Nu mai este membru</option>
-                    <option>Simpatizant</option>
-                  </Select>
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={publicAffiliation}
-                    onChange={(e) => setPublicAffiliation(e.target.checked)}
-                  />
-                  Accept explicit publicarea afilierii mele in comunitate
-                </label>
+                <Field id="declared-affiliation" label="Afiliere declarata">
+                  {(attributes) => (
+                    <Select
+                      {...attributes}
+                      value={declaredAffiliation}
+                      onChange={(e) => {
+                        setDeclaredAffiliation(e.target.value);
+                        setPublicAffiliation(false);
+                      }}
+                    >
+                      <option>Membru actual</option>
+                      <option>Nu mai este membru</option>
+                      <option>Simpatizant</option>
+                    </Select>
+                  )}
+                </Field>
+                <Checkbox
+                  label="Accept explicit publicarea afilierii mele in comunitate"
+                  checked={publicAffiliation}
+                  onChange={(e) => setPublicAffiliation(e.target.checked)}
+                />
                 <p>
                   Optional, separat de publicarea profilurilor sociale.
                   Debifarea retrage publicarea; schimbarea declaratiei necesita
@@ -553,7 +594,7 @@ export default function ResourceHub({
                       </p>
                     </div>
                     <div>
-                      <button
+                      <Button
                         onClick={() => {
                           setConnected((v) =>
                             v.includes(p)
@@ -566,26 +607,31 @@ export default function ResourceHub({
                         {connected.includes(p)
                           ? "Elimina profilul " + p
                           : "Adauga profil fictiv " + p}
-                      </button>
+                      </Button>
                       {connected.includes(p) && (
-                        <label>
-                          Vizibilitate {p}
-                          <Select
-                            value={visibility[p] || "Doar eu"}
-                            onChange={(e) =>
-                              setVisibility((v) => ({
-                                ...v,
-                                [p]: e.target.value,
-                              }))
-                            }
-                          >
-                            <option>Doar eu</option>
-                            {audience !== "supporter" && (
-                              <option>Colegilor</option>
-                            )}
-                            <option>Public</option>
-                          </Select>
-                        </label>
+                        <Field
+                          id={"visibility-" + p}
+                          label={"Vizibilitate " + p}
+                        >
+                          {(attributes) => (
+                            <Select
+                              {...attributes}
+                              value={visibility[p] || "Doar eu"}
+                              onChange={(e) =>
+                                setVisibility((v) => ({
+                                  ...v,
+                                  [p]: e.target.value,
+                                }))
+                              }
+                            >
+                              <option>Doar eu</option>
+                              {audience !== "supporter" && (
+                                <option>Colegilor</option>
+                              )}
+                              <option>Public</option>
+                            </Select>
+                          )}
+                        </Field>
                       )}
                     </div>
                   </article>
@@ -626,14 +672,14 @@ export default function ResourceHub({
               ["Alb", brand.surface],
               ["Fundal", brand.background],
             ].map(([name, value]) => (
-              <button
+              <Button
                 key={name}
                 title={"Copiaza " + value}
                 onClick={() => copy(value)}
               >
                 <span style={{ background: value }} aria-hidden="true" />
                 {name} {value}
-              </button>
+              </Button>
             ))}
           </div>
           <h3>Tipografie</h3>
@@ -661,7 +707,7 @@ export default function ResourceHub({
                     culori din tema USR si font Aileron din resursele locale. Nu
                     este material oficial.
                   </p>
-                  <button
+                  <Button
                     onClick={() =>
                       saveExample(
                         "sablon-demo.svg",
@@ -672,7 +718,7 @@ export default function ResourceHub({
                   >
                     <Download size={16} />
                     Descarca SVG editabil
-                  </button>
+                  </Button>
                 </article>
               ),
             )}
@@ -685,7 +731,7 @@ export default function ResourceHub({
               dimensiunea finala.
             </p>
           </details>
-          <button
+          <Button
             onClick={() =>
               saveExample(
                 "design-tokens-demo.json",
@@ -710,7 +756,7 @@ export default function ResourceHub({
           >
             <Download size={16} />
             Descarca tokenuri JSON
-          </button>
+          </Button>
         </>
       )}
       {section === "proiecte" && (
@@ -720,7 +766,11 @@ export default function ResourceHub({
           <div className="project-filter civic-scope civic-usr">
             <Field id="project-skill" label="Competenta">
               {(props) => (
-                <NativeSelect {...props} value={skill} onChange={(e) => setSkill(e.target.value)}>
+                <NativeSelect
+                  {...props}
+                  value={skill}
+                  onChange={(e) => setSkill(e.target.value)}
+                >
                   <option>Toate</option>
                   {projects.map((p) => (
                     <option key={p.id}>{p.skill}</option>
@@ -754,7 +804,7 @@ export default function ResourceHub({
                       mentenanta nu sunt estimate in demo.
                     </p>
                   </details>
-                  <button
+                  <Button
                     aria-pressed={joined.includes(p.id)}
                     onClick={() =>
                       setJoined((v) =>
@@ -767,8 +817,8 @@ export default function ResourceHub({
                     {joined.includes(p.id)
                       ? "Retrage interesul demonstrativ"
                       : "Marcheaza interesul demonstrativ"}
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() =>
                       saveExample(
                         p.id + "-contributie-demo.md",
@@ -782,7 +832,7 @@ export default function ResourceHub({
                   >
                     <Download size={16} />
                     Descarca sarcina
-                  </button>
+                  </Button>
                 </article>
               ))}
           </div>

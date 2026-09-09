@@ -113,34 +113,6 @@ select {
   min-height: 3rem;
 }
 
-.select-field {
-  position: relative;
-  display: inline-grid;
-  width: 100%;
-  min-width: 0;
-  vertical-align: middle;
-  color: var(--usr-text);
-}
-
-.select-field select {
-  appearance: none;
-  min-width: 0;
-  width: 100%;
-  padding: 12px 44px 12px 14px;
-  line-height: 1.4;
-  border-radius: var(--usr-radius-control);
-  color-scheme: light;
-}
-
-.select-chevron {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: inherit;
-}
-
 select option {
   background: var(--usr-surface);
   color: var(--usr-text);

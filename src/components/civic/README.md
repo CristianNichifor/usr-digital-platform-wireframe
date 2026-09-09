@@ -1,19 +1,42 @@
 # Civic UI Adoption
 
-Public Contacts imports native Button, IconButton, Field, Input and NativeSelect from [Civic UI v0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0). The root package manifest pins its GitHub release tarball and the lockfile records its integrity. No npm account or local filesystem dependency is needed.
+The demo uses [Civic UI v0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0). The root package manifest pins its GitHub release tarball and the lockfile records its integrity. No npm account or local filesystem dependency is needed.
 
-The screen explicitly imports `styles.css` and `themes/usr.css`, with `civic-scope civic-usr` on its root. The adapter uses this demo's existing `--usr-*` tokens and fonts. No new palette, neutral theme or brand assets are loaded.
+Shared styles and the USR adapter are loaded at the application root within a `civic-scope civic-usr` boundary. Existing narrow scope wrappers remain composition boundaries. The adapter uses this demo's existing `--usr-*` tokens and fonts. No new palette or brand assets are loaded.
 
-The resource-filter row imports Field, Input and NativeSelect for search, content and organisation, plus Checkbox for saved-only and unavailable-scenario toggles. Unavailable/retry feedback uses Notice and Button; zero results use EmptyState. These areas have narrow `civic-scope civic-usr` boundaries. State, options, reset/retry behavior and fictional records are unchanged. Social/profile controls and other ResourceHub branches retain the older Select wrapper.
+## Completed Inventory
 
-Projects uses Field and NativeSelect for the Competenta filter, scoped to its own wrapper. Project records, interest toggles, guides and downloads are unchanged. `tests/project-filter.spec.ts` checks all available skills, those actions, reset, exact labels, focus and 320/390/1440 layouts in all three engines.
+| Surface | Shared components |
+| --- | --- |
+| Public people search and static contact form | Field, Input, NativeSelect, Textarea, Button |
+| Member persona, payments and calendar | Field, NativeSelect, Button, IconButton, Table |
+| Document library | Field, Input, NativeSelect, Checkbox, Notice, Button, EmptyState |
+| Participation and profile preferences | RadioGroup, Checkbox, Button |
+| Resources and feedback | Field, Input, NativeSelect, Checkbox, Notice, EmptyState, Button, IconButton |
+| Social directory, following, affiliation and visibility | Field, NativeSelect, Checkbox, Button |
+| Projects and design downloads | Field, NativeSelect, Button |
+| Fictional public contacts and draft review | Field, Input, NativeSelect, Button, IconButton |
+| Six public reporting/inventory tables | Table, original captions and distinct scroll-region labels |
 
-The document library uses Field, Input, NativeSelect, Checkbox, Notice, Button and EmptyState within its list view. Document records, filtering, access restrictions, detail routes and synthetic downloads are unchanged. `tests/document-library.spec.ts` checks these behaviors offline, reset, storage/network isolation, keyboard focus, colors and 320/390/1440 layouts in all three engines. Other MemberDemo screens retain their existing controls.
+There are no direct native button, input, select, textarea or table elements left in application TSX. The obsolete Select wrapper and its arrow/padding CSS are removed. Every Input and NativeSelect is composed with Field, as required by v0.2 control styling.
 
-The former repository-local Civic UI implementation has been removed. Changes to shared controls now belong in the Civic UI repository and must be adopted through a reviewed version update. Other demo controls remain unmigrated.
+## Intentional Local Behavior
 
-All fictional contact fixtures, filtering, bookmarks, clipboard fallback, inline details and draft review/download behavior remain in PublicContacts. No state, storage, authentication or infrastructure integration is added.
+- Hash navigation and URL filters remain links, not action buttons or in-memory tabs.
+- Participation categories remain an aria-pressed button group: they filter one list rather than own separate tab panels.
+- Native details/summary remain disclosure controls. Domain-specific lists, media previews and template graphics remain local.
+- Public tables retain data-label cells and mobile stacked layouts. Member payment history retains a horizontally scrollable table. No sorting, pagination or records were added.
+- Inline payment, response and contact reviews remain inline, not dialogs.
+- The public contact form remains static: its simulation button sends nothing and stores nothing. Member actions, social following, consent, access scenarios and downloads remain synthetic and memory-only.
 
-`tests/civic-pilot.spec.ts` covers contacts behavior, focus, hover colors, select padding and responsive layouts. `tests/resource-filters.spec.ts` covers combined filters, empty results, saved items, reset, exact labels, keyboard focus, dropdown padding and 320/390/1440 layouts. Both run in Chromium, Firefox and WebKit. The remaining member/resource/privacy tests continue to cover the surrounding demo in Chromium. See the root README for commands and test limitations.
+State, routes, consent defaults, explicit affiliation opt-in, reset behavior and fixtures remain owned by the demo. No authentication, persistence, real social activity or infrastructure integration was introduced.
 
-Package SHA-256: `9a78cb63fd9885febc5aa94eefbb3647f7dd5841fda5e7a6b2e78192b3d0c802`. The dependency's MIT license and upstream notices remain in the release package; this does not license unrelated demo assets. Version 0.2.0 adds React DOM as an explicit peer and pinned Radix dependencies; no dialogs or menus are introduced in this migration.
+## Verification
+
+All 25 Playwright tests run in Chromium, Firefox and WebKit (75 executions). Coverage includes member/supporter routes, filtering, review/cancel/confirm, radio keyboard selection, consent withdrawal/reset, synthetic downloads, retry states, branding, focus, hover contrast and select arrow padding.
+
+The completion suite checks offline static contact behavior, shareable people search and public contact/people/table layouts at 320, 390 and 1440 pixels. Public tables retain visible captions and mobile cell labels. Existing tests cover document access restrictions, fictional contact drafts and absence of storage/external requests in representative workflows.
+
+These checks are not a full accessibility or security audit. WebKit is not certification for Safari or iOS. See the root README for commands, CI environment and artifact paths.
+
+Package SHA-256: `9a78cb63fd9885febc5aa94eefbb3647f7dd5841fda5e7a6b2e78192b3d0c802`. The dependency's MIT license and upstream notices remain in the release package; this does not license unrelated demo assets. No new dependency version or library release was required.

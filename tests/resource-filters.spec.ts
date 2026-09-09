@@ -79,7 +79,7 @@ test('resource filter labels, focus and layout fit narrow and desktop screens', 
   }
   await page.goto('/#/comunitate/social');
   await expect(page.locator('.resource-filters')).toHaveCount(0);
-  await expect(page.locator('.civic-scope')).toHaveCount(0);
+  await expect(page.getByRole('combobox', { name: 'Platforma', exact: true })).toHaveValue('Toate');
 });
 
 test('shared resource feedback preserves filters, retry and keyboard behavior offline', async ({ page, context }, info) => {
