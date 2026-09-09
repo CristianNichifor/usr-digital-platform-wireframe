@@ -72,7 +72,7 @@ npm test
 
 Playwright pornește sau reutilizează serverul local de pe portul `5187`. `DEMO_PORT` poate selecta alt port. Pentru un Chromium deja instalat, variabila `DEMO_CHROMIUM` poate indica executabilul. În CI, testele pornesc un server de previzualizare pentru build-ul din `dist/`, fără reutilizarea unui server existent.
 
-Cele 11 teste din [tests/members.spec.ts](tests/members.spec.ts), [tests/resources.spec.ts](tests/resources.spec.ts) si [tests/privacy-contacts.spec.ts](tests/privacy-contacts.spec.ts) verifica fluxuri de membri si simpatizanti, vizibilitatea profilurilor sociale, acordul separat pentru afiliere, accesul intern simulat, contactele fictive, resetarea, descarcarile, tokenurile de brand, spatiul dropdown-ului, contrastul a doua controale la hover si lipsa overflow-ului la 390px si 1440px. Fluxurile verificate includ absenta cererilor externe si a datelor in `localStorage`/`sessionStorage`; fluxul de membri verifica si erorile JavaScript.
+Cele 13 teste din [tests/members.spec.ts](tests/members.spec.ts), [tests/resources.spec.ts](tests/resources.spec.ts), [tests/privacy-contacts.spec.ts](tests/privacy-contacts.spec.ts) si [tests/civic-pilot.spec.ts](tests/civic-pilot.spec.ts) verifica fluxuri de membri si simpatizanti, vizibilitatea profilurilor sociale, acordul separat pentru afiliere, accesul intern simulat, contactele fictive, resetarea, descarcarile, tokenurile de brand, spatiul dropdown-ului, contrastul unor controale la hover si lipsa overflow-ului la 390px si 1440px. Pilotul contactelor verifica si filtrele, marcajele salvate si focusul prin tastatura. Fluxurile verificate includ absenta cererilor externe si a datelor in `localStorage`/`sessionStorage`; fluxul de membri verifica si erorile JavaScript.
 
 Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor.
 
@@ -89,6 +89,7 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 - [src/features/members/ResourceHub.tsx](src/features/members/ResourceHub.tsx): resurse si profiluri pentru comunitate; exemplele sunt in [resources.ts](src/features/members/resources.ts).
 - [src/features/members/PublicContacts.tsx](src/features/members/PublicContacts.tsx): director institutional fictiv si solicitari individuale demonstrative.
 - [src/components/Select.tsx](src/components/Select.tsx): controlul select comun.
+- [src/components/civic/README.md](src/components/civic/README.md): pilot local de controale reutilizabile, folosit pe ecranul Contacte publice; restul ecranelor nu sunt migrate.
 - [src/tokens.css](src/tokens.css): fonturi locale și tokenuri de temă.
 - [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.
 - [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md): pași de mentenanță și verificare pentru demo.
