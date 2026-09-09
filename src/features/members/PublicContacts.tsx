@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Bookmark, Copy, FileText } from "lucide-react";
-import Select from "../../components/Select";
+import {
+  Button,
+  IconButton,
+  Field,
+  Input,
+  NativeSelect as Select,
+} from "../../components/civic";
+import "../../components/civic/usr.css";
+import "./public-contacts.css";
 import { saveExample } from "./resources";
 
 const offices = [
@@ -143,47 +151,69 @@ export default function PublicContacts() {
     ? `DRAFT FICTIV - NU TRIMITE\nDestinatar: ${official.institution}\nAdresa exemplu: ${official.email}\nSubiect: ${purpose}\n\nBuna ziua,\nVa rog sa imi comunicati programul de audiente si procedura pentru depunerea unei solicitari.\nVa multumesc.\n\nExemplu de prezentare, fara date personale.`
     : "";
   return (
-    <div className="resource-hub">
+    <div className="resource-hub public-contacts civic-scope civic-usr">
       <h2>Contacte publice</h2>
       <p>
         Institutii si titulari fictivi. Adresele .example nu sunt adrese reale.
       </p>
-      <div className="member-filters">
-        <label>
-          Cauta nume, institutie sau localitate
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </label>
-        <label>
-          Nivel
-          <Select value={level} onChange={(e) => setLevel(e.target.value)}>
-            {["Toate", "Local", "Judetean", "National", "European"].map((v) => (
-              <option key={v}>{v}</option>
-            ))}
-          </Select>
-        </label>
-        <label>
-          Judet
-          <Select value={county} onChange={(e) => setCounty(e.target.value)}>
-            {["Toate", "Judetul Model", "Judetul Exemplu", "National"].map(
-              (v) => (
-                <option key={v}>{v}</option>
-              ),
-            )}
-          </Select>
-        </label>
-        <label>
-          Functie
-          <Select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option>Toate</option>
-            {offices.map((o) => (
-              <option key={o.id}>{o.role}</option>
-            ))}
-          </Select>
-        </label>
+      <div className="contact-filters">
+        <Field
+          id="contact-search"
+          label="Cauta nume, institutie sau localitate"
+        >
+          {(props) => (
+            <Input
+              {...props}
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          )}
+        </Field>
+        <Field id="contact-level" label="Nivel">
+          {(props) => (
+            <Select
+              {...props}
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+            >
+              {["Toate", "Local", "Judetean", "National", "European"].map(
+                (v) => (
+                  <option key={v}>{v}</option>
+                ),
+              )}
+            </Select>
+          )}
+        </Field>
+        <Field id="contact-county" label="Judet">
+          {(props) => (
+            <Select
+              {...props}
+              value={county}
+              onChange={(e) => setCounty(e.target.value)}
+            >
+              {["Toate", "Judetul Model", "Judetul Exemplu", "National"].map(
+                (v) => (
+                  <option key={v}>{v}</option>
+                ),
+              )}
+            </Select>
+          )}
+        </Field>
+        <Field id="contact-role" label="Functie">
+          {(props) => (
+            <Select
+              {...props}
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option>Toate</option>
+              {offices.map((o) => (
+                <option key={o.id}>{o.role}</option>
+              ))}
+            </Select>
+          )}
+        </Field>
       </div>
       <div className="resource-grid">
         {rows.map((o) => (
@@ -194,33 +224,35 @@ export default function PublicContacts() {
             </p>
             <p>{o.institution}</p>
             <p>{o.status}</p>
-            <button
-              onClick={() => {
-                setSelected(o.id);
-                setDraft(false);
-                setReview(false);
-                setNotice("");
-              }}
-            >
-              Detalii {o.name}
-            </button>
-            <button
-              title="Salveaza contactul"
-              aria-label={"Salveaza " + o.name}
-              aria-pressed={saved.includes(o.id)}
-              onClick={() =>
-                setSaved((v) =>
-                  v.includes(o.id)
-                    ? v.filter((id) => id !== o.id)
-                    : [...v, o.id],
-                )
-              }
-            >
-              <Bookmark
-                size={18}
-                fill={saved.includes(o.id) ? "currentColor" : "none"}
-              />
-            </button>
+            <div className="contact-actions">
+              <Button
+                onClick={() => {
+                  setSelected(o.id);
+                  setDraft(false);
+                  setReview(false);
+                  setNotice("");
+                }}
+              >
+                Detalii {o.name}
+              </Button>
+              <IconButton
+                label={"Salveaza " + o.name}
+                aria-pressed={saved.includes(o.id)}
+                onClick={() =>
+                  setSaved((v) =>
+                    v.includes(o.id)
+                      ? v.filter((id) => id !== o.id)
+                      : [...v, o.id],
+                  )
+                }
+              >
+                <Bookmark
+                  aria-hidden="true"
+                  size={18}
+                  fill={saved.includes(o.id) ? "currentColor" : "none"}
+                />
+              </IconButton>
+            </div>
           </article>
         ))}
         {!rows.length && <p>Niciun contact gasit.</p>}
@@ -256,67 +288,73 @@ export default function PublicContacts() {
           <p>
             Afilierea politica nu este necesara pentru contactarea institutiei.
           </p>
-          <button
-            disabled={!official.email}
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(official.email);
-                setNotice("Adresa fictiva copiata.");
-              } catch {
-                setNotice("Copiere indisponibila.");
-              }
-            }}
-          >
-            <Copy size={16} />
-            Copiaza adresa fictiva
-          </button>
-          <button
-            disabled={!official.email}
-            onClick={() => {
-              setDraft(true);
-              setReview(false);
-            }}
-          >
-            <FileText size={16} />
-            Pregateste solicitarea
-          </button>
-          <button
-            onClick={() => {
-              setSelected("");
-              setDraft(false);
-            }}
-          >
-            Inchide contactul
-          </button>
+          <div className="contact-actions">
+            <Button
+              disabled={!official.email}
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(official.email);
+                  setNotice("Adresa fictiva copiata.");
+                } catch {
+                  setNotice("Copiere indisponibila.");
+                }
+              }}
+            >
+              <Copy size={16} />
+              Copiaza adresa fictiva
+            </Button>
+            <Button
+              disabled={!official.email}
+              onClick={() => {
+                setDraft(true);
+                setReview(false);
+              }}
+            >
+              <FileText size={16} />
+              Pregateste solicitarea
+            </Button>
+            <Button
+              onClick={() => {
+                setSelected("");
+                setDraft(false);
+              }}
+            >
+              Inchide contactul
+            </Button>
+          </div>
           {draft && (
             <>
               <h4>Solicitare individuala demonstrativa</h4>
-              <label>
-                Tip solicitare
-                <Select
-                  value={purpose}
-                  onChange={(e) => {
-                    setPurpose(e.target.value);
-                    setReview(false);
-                  }}
-                >
-                  <option>Solicitare de informatii publice</option>
-                  <option>Cerere de audienta</option>
-                  <option>Intrebare despre servicii publice</option>
-                </Select>
-              </label>
+              <div className="contact-purpose">
+                <Field id="contact-purpose" label="Tip solicitare">
+                  {(props) => (
+                    <Select
+                      {...props}
+                      value={purpose}
+                      onChange={(e) => {
+                        setPurpose(e.target.value);
+                        setReview(false);
+                      }}
+                    >
+                      <option>Solicitare de informatii publice</option>
+                      <option>Cerere de audienta</option>
+                      <option>Intrebare despre servicii publice</option>
+                    </Select>
+                  )}
+                </Field>
+              </div>
               <p>Continut fictiv, fara destinatar real sau trimitere.</p>
-              <button onClick={() => setReview(true)}>
+              <Button onClick={() => setReview(true)}>
                 Revizuieste draftul
-              </button>
+              </Button>
               {review && (
                 <>
                   <pre className="contact-draft">{message}</pre>
-                  <button
+                  <Button
                     onClick={() => saveExample("solicitare-demo.txt", message)}
                   >
                     Descarca draftul fictiv
-                  </button>
+                  </Button>
                 </>
               )}
             </>
