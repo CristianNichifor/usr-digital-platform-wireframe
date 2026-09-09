@@ -95,6 +95,11 @@
 .resource-hub .member-filters > label {
   min-width: 150px;
 }
+.resource-filters > .civic-field {
+  min-width: 150px;
+  max-width: 100%;
+  margin: 10px 0;
+}
 .resource-hub input[type="search"] {
   width: 100%;
 }
@@ -128,6 +133,9 @@
     padding: 16px;
   }
   .resource-hub .member-filters > label {
+    width: 100%;
+  }
+  .resource-filters > .civic-field {
     width: 100%;
   }
 }

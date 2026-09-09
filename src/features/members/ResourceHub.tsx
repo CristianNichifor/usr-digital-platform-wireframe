@@ -10,6 +10,9 @@ import {
   Link as LinkIcon,
 } from "lucide-react";
 import Select from "../../components/Select";
+import { Field, Input, NativeSelect } from "@cristiannichifor/civic-ui";
+import "@cristiannichifor/civic-ui/styles.css";
+import "@cristiannichifor/civic-ui/themes/usr.css";
 import {
   channels,
   people,
@@ -144,31 +147,35 @@ export default function ResourceHub({
         <>
           <h2>Resurse si lectura</h2>
           <p>Materiale si articole fictive / colectie demonstrativa</p>
-          <div className="member-filters">
-            <label>
-              Cauta resurse
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-              />
-            </label>
-            <label>
-              Continut
-              <Select value={kind} onChange={(e) => setKind(e.target.value)}>
-                {["Toate", "Material", "Articol"].map((v) => (
-                  <option key={v}>{v}</option>
-                ))}
-              </Select>
-            </label>
-            <label>
-              Organizatie
-              <Select value={scope} onChange={(e) => setScope(e.target.value)}>
-                {["Toate", "National", "Filiala"].map((v) => (
-                  <option key={v}>{v}</option>
-                ))}
-              </Select>
-            </label>
+          <div className="member-filters resource-filters civic-scope civic-usr">
+            <Field id="resource-search" label="Cauta resurse">
+              {(props) => (
+                <Input
+                  {...props}
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+              )}
+            </Field>
+            <Field id="resource-kind" label="Continut">
+              {(props) => (
+                <NativeSelect {...props} value={kind} onChange={(e) => setKind(e.target.value)}>
+                  {["Toate", "Material", "Articol"].map((v) => (
+                    <option key={v}>{v}</option>
+                  ))}
+                </NativeSelect>
+              )}
+            </Field>
+            <Field id="resource-scope" label="Organizatie">
+              {(props) => (
+                <NativeSelect {...props} value={scope} onChange={(e) => setScope(e.target.value)}>
+                  {["Toate", "National", "Filiala"].map((v) => (
+                    <option key={v}>{v}</option>
+                  ))}
+                </NativeSelect>
+              )}
+            </Field>
             <label>
               <input
                 type="checkbox"
