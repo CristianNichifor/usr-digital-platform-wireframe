@@ -15,8 +15,18 @@ export default defineConfig({
     baseURL,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    launchOptions: process.env.DEMO_CHROMIUM ? { executablePath: process.env.DEMO_CHROMIUM } : {},
   },
+  projects: [
+    {
+      name: 'chromium',
+      use: { browserName: 'chromium', launchOptions: process.env.DEMO_CHROMIUM ? { executablePath: process.env.DEMO_CHROMIUM } : {} },
+    },
+    ...(['firefox', 'webkit'] as const).map(browserName => ({
+      name: browserName,
+      testMatch: '**/civic-pilot.spec.ts',
+      use: { browserName },
+    })),
+  ],
   webServer: {
     command: `npm run ${isCI ? 'preview' : 'dev'} -- --host 127.0.0.1 --port ${port} --strictPort`,
     url: baseURL,
