@@ -1,15 +1,13 @@
-# Civic Controls Pilot
+# Civic UI Adoption
 
-Reusable native controls used by the contacts screen. Not a published package.
+Public Contacts imports native Button, IconButton, Field, Input and NativeSelect from [Civic UI v0.1.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.1.0). The root package manifest pins its GitHub release tarball and the lockfile records its integrity. No npm account or local filesystem dependency is needed.
 
-Import controls from this directory's index. Put `civic-scope` on their ancestor and provide the semantic color tokens. For the existing demo, import `usr.css` and add `civic-usr`; it maps directly to the existing `--usr-*` palette. No new palette or font assets are introduced into the demo.
+The screen explicitly imports `styles.css` and `themes/usr.css`, with `civic-scope civic-usr` on its root. The adapter uses this demo's existing `--usr-*` tokens and fonts. No new palette, neutral theme or brand assets are loaded.
 
-`foundations.css` owns shared control dimensions and spacing. `controls.css` is scoped using CSS nesting and supplies native control styles only. It must not style unrelated routes. Target browser support for native CSS nesting needs review before distribution outside the current tested Chromium/Vite setup.
+The former repository-local implementation has been removed. Changes to shared controls now belong in the Civic UI repository and must be adopted through a reviewed version update. Other demo screens retain their existing controls; this is not a wider migration.
 
-The contacts pilot retains inline details and draft review and does not add a dialog, a UI-library dependency, or change its data flow.
+All fictional contact fixtures, filtering, bookmarks, clipboard fallback, inline details and draft review/download behavior remain in PublicContacts. No state, storage, authentication or infrastructure integration is added.
 
-The Field render callback supplies id, description association, and invalid state to its child. Pass these attributes to the actual input/select. Callers own IDs, values, validation, permissions, and event handling. Button forwards native attributes and defaults to type="button". NativeSelect preserves the native select and decorative Lucide chevron. IconButton requires a label and provides an accessible name and title.
+`tests/civic-pilot.spec.ts` covers contacts behavior, focus, hover colors, select padding and responsive layouts. The remaining member/resource/privacy tests continue to cover the surrounding demo. See the root README for commands and test limitations.
 
-Migration scope: only `PublicContacts.tsx`. All fictional office fixtures, filters, bookmarks, clipboard fallback, review/download behavior, and disabled-contact states remain local to that screen. No data layer, storage, authentication, or dependency changes were made to the main app.
-
-Verification: `tests/civic-pilot.spec.ts` covers search, level filtering, bookmarks, keyboard focus, hover colors, select padding, unavailable-contact states, and desktop/mobile layouts. `tests/privacy-contacts.spec.ts` retains the draft-download and no-external-request checks. Other member screens keep their existing controls.
+Package SHA-256: `67aa86d0c6672917e25efdfe777b4827eef71847e6b11834be2c9d1cbe0b598f`. The dependency's MIT license and upstream notices remain in the release package; this does not license unrelated demo assets.

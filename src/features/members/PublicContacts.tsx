@@ -6,8 +6,9 @@ import {
   Field,
   Input,
   NativeSelect as Select,
-} from "../../components/civic";
-import "../../components/civic/usr.css";
+} from "@cristiannichifor/civic-ui";
+import "@cristiannichifor/civic-ui/styles.css";
+import "@cristiannichifor/civic-ui/themes/usr.css";
 import "./public-contacts.css";
 import { saveExample } from "./resources";
 

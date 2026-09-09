@@ -89,7 +89,7 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 - [src/features/members/ResourceHub.tsx](src/features/members/ResourceHub.tsx): resurse si profiluri pentru comunitate; exemplele sunt in [resources.ts](src/features/members/resources.ts).
 - [src/features/members/PublicContacts.tsx](src/features/members/PublicContacts.tsx): director institutional fictiv si solicitari individuale demonstrative.
 - [src/components/Select.tsx](src/components/Select.tsx): controlul select comun.
-- [src/components/civic/README.md](src/components/civic/README.md): pilot local de controale reutilizabile, folosit pe ecranul Contacte publice; restul ecranelor nu sunt migrate.
+- [src/components/civic/README.md](src/components/civic/README.md): adoptarea Civic UI v0.1.0 din GitHub Releases pe ecranul Contacte publice; restul ecranelor nu sunt migrate.
 - [src/tokens.css](src/tokens.css): fonturi locale și tokenuri de temă.
 - [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.
 - [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md): pași de mentenanță și verificare pentru demo.
