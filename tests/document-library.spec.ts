@@ -1,0 +1,93 @@
+import { readFile } from 'node:fs/promises';
+import { expect, test } from '@playwright/test';
+
+test('document filters, restrictions and synthetic downloads work offline without persistence', async ({ page, context, baseURL }) => {
+  const errors: string[] = [];
+  const external: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('request', request => {
+    if (/^https?:/.test(request.url()) && new URL(request.url()).origin !== new URL(baseURL!).origin) external.push(request.url());
+  });
+  await page.goto('/#/membri/documente');
+  const links = page.locator('.document-library .member-list > a');
+  const search = page.getByLabel('Cauta documente', { exact: true });
+  const type = page.getByLabel('Tip', { exact: true });
+  const unavailable = page.getByLabel('Scenariu indisponibil', { exact: true });
+  await expect(links.locator('strong')).toHaveText(['Proces-verbal de sedinta', 'Ordinea de zi a adunarii', 'Raport administrativ']);
+  await expect(type.locator('option')).toHaveText(['Toate', 'Proces-verbal', 'Ordine de zi', 'Raport']);
+  await context.setOffline(true);
+  await type.selectOption('Raport');
+  await search.fill('ADMINISTRATIV');
+  await expect(links).toHaveCount(1);
+  await search.fill('absent');
+  await expect(links).toHaveCount(0);
+  await expect(page.locator('.document-library .civic-empty')).toHaveText('Niciun document gasit.');
+  await search.fill('ADMINISTRATIV');
+  await unavailable.focus();
+  await page.keyboard.press('Space');
+  await expect(unavailable).toBeChecked();
+  await expect(links).toHaveCount(0);
+  await expect(page.getByRole('alert')).toHaveClass(/civic-notice/);
+  await page.getByRole('button', { name: 'Reincearca', exact: true }).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  await expect(unavailable).not.toBeChecked();
+  await expect(search).toHaveValue('ADMINISTRATIV');
+  await expect(type).toHaveValue('Raport');
+  await links.first().click();
+  await expect(page).toHaveURL(/#\/membri\/documente\/raport$/);
+  await expect(page.getByText('Acces rezervat profilului Administrator Model.')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Descarca exemplul' })).toHaveCount(0);
+  await page.getByLabel('Profil demonstrativ').selectOption('Administrator Model');
+  const downloaded = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Descarca exemplul' }).click();
+  const download = await downloaded;
+  expect(download.suggestedFilename()).toBe('raport-fictiv.txt');
+  expect(await readFile((await download.path())!, 'utf8')).toBe('DOCUMENT FICTIV\nRaport administrativ\nFiliala Model\nMaterial sintetic pentru prezentare. Nu reprezinta un document intern.');
+  await page.getByRole('link', { name: 'Documente', exact: true }).click();
+  await expect(search).toHaveValue('ADMINISTRATIV');
+  await page.getByRole('button', { name: 'Reseteaza demonstratia' }).click();
+  await expect(search).toHaveValue('');
+  await expect(type).toHaveValue('Toate');
+  await expect(links).toHaveCount(3);
+  expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
+  expect(errors).toEqual([]);
+  expect(external).toEqual([]);
+});
+
+test('document controls and feedback retain focus, spacing and colors across viewports', async ({ page }, info) => {
+  await page.goto('/#/membri/documente');
+  await expect(page.locator('.document-library .civic-field')).toHaveCount(2);
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.getByLabel('Cauta documente', { exact: true }).focus();
+    await page.keyboard.press('Tab');
+    const type = page.getByLabel('Tip', { exact: true });
+    await expect(type).toBeFocused();
+    await expect(type).toHaveCSS('padding-right', '44px');
+    await expect(type).toHaveCSS('color', 'rgb(0, 42, 89)');
+    await page.keyboard.press('Tab');
+    const unavailable = page.getByLabel('Scenariu indisponibil', { exact: true });
+    await expect(unavailable).toBeFocused();
+    await expect(unavailable).toHaveCSS('outline-style', 'solid');
+    await page.keyboard.press('Space');
+    const notice = page.getByRole('alert');
+    const retry = notice.getByRole('button', { name: 'Reincearca', exact: true });
+    await retry.focus();
+    await expect(retry).toHaveCSS('outline-style', 'solid');
+    const gap = await notice.evaluate(el => {
+      const title = el.querySelector('strong')!.getBoundingClientRect();
+      const button = el.querySelector('button')!.getBoundingClientRect();
+      return button.top - title.bottom;
+    });
+    expect(gap).toBeGreaterThanOrEqual(8);
+    await retry.hover();
+    await expect(retry).toHaveCSS('color', 'rgb(0, 42, 89)');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    await page.screenshot({ path: info.outputPath(`document-feedback-${width}.png`), fullPage: true });
+    await retry.click();
+    await expect(page.locator('.document-library .member-list > a')).toHaveCount(3);
+  }
+  await page.getByRole('link', { name: 'Calendar', exact: true }).click();
+  await expect(page.locator('.document-library')).toHaveCount(0);
+});
