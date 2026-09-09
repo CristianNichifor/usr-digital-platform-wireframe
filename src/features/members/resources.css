@@ -23,6 +23,12 @@
   min-width: 0;
   background: var(--usr-surface);
 }
+.resource-empty {
+  grid-column: 1 / -1;
+}
+.resource-feedback .civic-notice .civic-button {
+  margin-top: 8px;
+}
 .resource-item h3 {
   margin: 0 0 12px;
 }
