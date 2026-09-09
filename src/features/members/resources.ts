@@ -1,3 +1,5 @@
+import aileronFont from "../../assets/usr/AileronRegular.woff2?inline";
+
 export const platforms = [
   "Facebook",
   "Instagram",
@@ -208,5 +210,22 @@ export function saveExample(
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export const template = (title: string) =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080"><rect width="1080" height="1080" fill="#f0f2f5"/><rect x="0" y="0" width="1080" height="44" fill="#075f4c"/><text x="80" y="150" font-family="Arial" font-size="28" fill="#243431">DEMO / MATERIAL FICTIV</text><text x="80" y="440" font-family="Arial" font-size="54" fill="#243431">${title}</text><text x="80" y="550" font-family="Arial" font-size="30" fill="#52665c">Data / Loc / Organizator</text><path d="M80 860H1000" stroke="#075f4c" stroke-width="4"/><text x="80" y="950" font-family="Arial" font-size="24" fill="#243431">Model de prezentare. Fara identitate oficiala.</text></svg>`;
+export function brandTokens() {
+  const style = getComputedStyle(document.documentElement);
+  const read = (key: string) => style.getPropertyValue(key).trim();
+  return {
+    navy: read("--usr-navy"),
+    red: read("--usr-red"),
+    blue: read("--usr-blue-mid"),
+    background: read("--usr-surface-muted"),
+    surface: read("--usr-surface"),
+    text: read("--usr-text"),
+    muted: read("--usr-text-muted"),
+    font: "Aileron",
+  };
+}
+
+export const template = (title: string) => {
+  const colors = brandTokens();
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080"><defs><style>@font-face{font-family:Aileron;src:url("${aileronFont}") format("woff2");}</style></defs><rect width="1080" height="1080" fill="${colors.background}"/><rect width="1080" height="44" fill="${colors.navy}"/><text x="80" y="150" font-family="Aileron,Arial" font-size="28" fill="${colors.navy}">DEMO / MATERIAL FICTIV</text><text x="80" y="440" font-family="Aileron,Arial" font-size="54" fill="${colors.navy}">${title}</text><text x="80" y="550" font-family="Aileron,Arial" font-size="30" fill="${colors.muted}">Data / Loc / Organizator</text><path d="M80 860H1000" stroke="${colors.red}" stroke-width="4"/><text x="80" y="950" font-family="Aileron,Arial" font-size="24" fill="${colors.navy}">Model de prezentare. Nu este material oficial.</text></svg>`;
+};

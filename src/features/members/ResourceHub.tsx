@@ -1,5 +1,14 @@
-import { useState } from "react";
-import { Bookmark, Download, Copy, Heart, MessageCircle, X, Link as LinkIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import PublicContacts from "./PublicContacts";
+import {
+  Bookmark,
+  Download,
+  Copy,
+  Heart,
+  MessageCircle,
+  X,
+  Link as LinkIcon,
+} from "lucide-react";
 import Select from "../../components/Select";
 import {
   channels,
@@ -9,10 +18,17 @@ import {
   resources,
   saveExample,
   template,
+  brandTokens,
 } from "./resources";
 import "./resources.css";
 
-export function SocialProfileLinks({ name, networks = platforms }: { name: string; networks?: readonly string[] }) {
+export function SocialProfileLinks({
+  name,
+  networks = platforms,
+}: {
+  name: string;
+  networks?: readonly string[];
+}) {
   const [selected, setSelected] = useState("");
   return (
     <div className="profile-social">
@@ -39,12 +55,12 @@ export default function ResourceHub({
   audience = "member",
 }: {
   section: string;
-  audience?: "member" | "supporter";
+  audience?: "member" | "supporter" | "administrator";
 }) {
   const [saved, setSaved] = useState<string[]>([]);
   const [liked, setLiked] = useState<string[]>([]);
   const [comments, setComments] = useState<Record<string, string>>({});
-  const [comment, setComment] = useState('Exemplul este clar.');
+  const [comment, setComment] = useState("Exemplul este clar.");
   const [kind, setKind] = useState("Toate");
   const [scope, setScope] = useState("Toate");
   const [query, setQuery] = useState("");
@@ -55,6 +71,20 @@ export default function ResourceHub({
   const [connected, setConnected] = useState<string[]>([]);
   const [visibility, setVisibility] = useState<Record<string, string>>({});
   const [affiliation, setAffiliation] = useState("Toate");
+  const [publicAffiliation, setPublicAffiliation] = useState(false);
+  const [declaredAffiliation, setDeclaredAffiliation] =
+    useState("Membru actual");
+  const [accessPurpose, setAccessPurpose] = useState("");
+  const [accessConfirmed, setAccessConfirmed] = useState(false);
+  useEffect(() => {
+    setAccessConfirmed(false);
+    setAccessPurpose("");
+    setAffiliation("Toate");
+  }, [audience]);
+  const internalAccess =
+    audience === "administrator" &&
+    accessPurpose === "Administrarea evidentei" &&
+    accessConfirmed;
   const [detail, setDetail] = useState("");
   const [skill, setSkill] = useState("Toate");
   const [joined, setJoined] = useState<string[]>([]);
@@ -62,6 +92,7 @@ export default function ResourceHub({
   const toggleSaved = (id: string) =>
     setSaved((v) => (v.includes(id) ? v.filter((x) => x !== id) : [...v, id]));
   const [error, setError] = useState(false);
+  const brand = brandTokens();
   const content = resources.filter(
     (r) =>
       (kind === "Toate" || kind === r.type) &&
@@ -96,11 +127,13 @@ export default function ResourceHub({
       "proiecte",
       "setari",
       "organizatie",
+      "contacte-publice",
     ].includes(section)
   )
     return null;
   return (
     <div className="resource-hub">
+      {section === "contacte-publice" && <PublicContacts />}
       {audience === "supporter" && (
         <p>
           Acces pentru simpatizanti: resurse, proiecte si profiluri publice.{" "}
@@ -177,8 +210,32 @@ export default function ResourceHub({
                     <button onClick={() => selectResource(r.id)}>
                       Vezi detalii
                     </button>
-                    <button title="Apreciere simulata" aria-label={'Apreciere simulata: ' + r.title} aria-pressed={liked.includes(r.id)} disabled={r.status === 'Retras'} onClick={() => setLiked(v => v.includes(r.id) ? v.filter(x => x !== r.id) : [...v, r.id])}><Heart size={18} fill={liked.includes(r.id) ? 'currentColor' : 'none'} /></button>
-                    <button title="Comentariu demonstrativ" aria-label={'Comentariu demonstrativ: ' + r.title} disabled={r.status === 'Retras'} onClick={() => selectResource(r.id)}><MessageCircle size={18} /></button>
+                    <button
+                      title="Apreciere simulata"
+                      aria-label={"Apreciere simulata: " + r.title}
+                      aria-pressed={liked.includes(r.id)}
+                      disabled={r.status === "Retras"}
+                      onClick={() =>
+                        setLiked((v) =>
+                          v.includes(r.id)
+                            ? v.filter((x) => x !== r.id)
+                            : [...v, r.id],
+                        )
+                      }
+                    >
+                      <Heart
+                        size={18}
+                        fill={liked.includes(r.id) ? "currentColor" : "none"}
+                      />
+                    </button>
+                    <button
+                      title="Comentariu demonstrativ"
+                      aria-label={"Comentariu demonstrativ: " + r.title}
+                      disabled={r.status === "Retras"}
+                      onClick={() => selectResource(r.id)}
+                    >
+                      <MessageCircle size={18} />
+                    </button>
                     <button
                       title={
                         saved.includes(r.id)
@@ -213,7 +270,10 @@ export default function ResourceHub({
                 </button>
               </div>
               <p>{selected.text}</p>
-              <p>Aprecierile si comentariile sunt locale, fara publicare pe platforme.</p>
+              <p>
+                Aprecierile si comentariile sunt locale, fara publicare pe
+                platforme.
+              </p>
               <p>
                 Sursa: {selected.source}. Actualizat: {selected.date}.
               </p>
@@ -246,9 +306,27 @@ export default function ResourceHub({
                   Descarca exemplul
                 </button>
               </div>
-              <label>Comentariu fictiv<Select value={comment} onChange={e => setComment(e.target.value)}><option>Exemplul este clar.</option><option>Ar fi utila o versiune accesibila.</option></Select></label>
-              <button disabled={selected.status === 'Retras'} onClick={() => setComments(v => ({ ...v, [selected.id]: comment }))}>Adauga comentariul demonstrativ</button>
-              {comments[selected.id] && <p role="status">Comentariu local: {comments[selected.id]}</p>}
+              <label>
+                Comentariu fictiv
+                <Select
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                >
+                  <option>Exemplul este clar.</option>
+                  <option>Ar fi utila o versiune accesibila.</option>
+                </Select>
+              </label>
+              <button
+                disabled={selected.status === "Retras"}
+                onClick={() =>
+                  setComments((v) => ({ ...v, [selected.id]: comment }))
+                }
+              >
+                Adauga comentariul demonstrativ
+              </button>
+              {comments[selected.id] && (
+                <p role="status">Comentariu local: {comments[selected.id]}</p>
+              )}
               <p>
                 Publicatia si materialul sunt fictive. Nu exista postare sau
                 articol extern.
@@ -332,38 +410,94 @@ export default function ResourceHub({
               : "Niciun profil personal distribuit public."}
           </p>
           <h3>Reprezentanti publici - exemple</h3>
-          <label>
-            Afiliere
-            <Select
-              value={affiliation}
-              onChange={(e) => setAffiliation(e.target.value)}
+          {publicAffiliation && (
+            <article
+              className="resource-item"
+              aria-label="Afiliere publicata voluntar"
             >
-              <option>Toate</option>
-              {people.map((p) => (
-                <option key={p.id}>{p.membership}</option>
-              ))}
-            </Select>
-          </label>
+              <h3>Profil Model</h3>
+              <p>Afiliere declarata: {declaredAffiliation}</p>
+              <p>
+                Publicare acceptata explicit in setarile profilului
+                demonstrativ. Sursa: declaratie fictiva, nu registrul intern.
+              </p>
+            </article>
+          )}
+          {audience === "administrator" && (
+            <section
+              className="resource-detail"
+              aria-label="Acces administrativ"
+            >
+              <h3>Evidenta interna - demonstratie</h3>
+              <label>
+                Scopul accesului
+                <Select
+                  value={accessPurpose}
+                  onChange={(e) => {
+                    setAccessPurpose(e.target.value);
+                    setAccessConfirmed(false);
+                  }}
+                >
+                  <option value="">Selecteaza un scop</option>
+                  <option>Administrarea evidentei</option>
+                </Select>
+              </label>
+              <button
+                disabled={!accessPurpose}
+                onClick={() => setAccessConfirmed((v) => !v)}
+              >
+                {internalAccess
+                  ? "Inchide accesul intern"
+                  : "Confirma accesul pentru scopul selectat"}
+              </button>
+              <p>
+                {internalAccess
+                  ? "Acces demonstrativ activ pentru administrarea evidentei."
+                  : "Istoricul afilierii nu este afisat."}
+              </p>
+            </section>
+          )}
+          {internalAccess && (
+            <label>
+              Afiliere
+              <Select
+                value={affiliation}
+                onChange={(e) => setAffiliation(e.target.value)}
+              >
+                <option>Toate</option>
+                {people.map((p) => (
+                  <option key={p.id}>{p.membership}</option>
+                ))}
+              </Select>
+            </label>
+          )}
           <div className="resource-grid">
             {people
               .filter(
-                (p) => affiliation === "Toate" || p.membership === affiliation,
+                (p) =>
+                  !internalAccess ||
+                  affiliation === "Toate" ||
+                  p.membership === affiliation,
               )
               .map((p) => (
                 <article className="resource-item" key={p.id}>
                   <h3>{p.name}</h3>
                   <dl>
-                    <dt>Afiliere</dt>
-                    <dd>{p.membership}</dd>
                     <dt>Functie</dt>
                     <dd>{p.office}</dd>
-                    <dt>Sustinere</dt>
-                    <dd>{p.endorsement}</dd>
+                    {internalAccess && (
+                      <>
+                        <dt>Afiliere interna</dt>
+                        <dd>{p.membership}</dd>
+                        <dt>Sustinere interna</dt>
+                        <dd>{p.endorsement}</dd>
+                      </>
+                    )}
                   </dl>
                   <p className="resource-meta">
                     Sursa: registru fictiv / Actualizat: 2026-09-09
                   </p>
-                <SocialProfileLinks name={p.name} networks={p.networks} />
+                  <SocialProfileLinks name={p.name} networks={p.networks} />
                 </article>
               ))}
           </div>
@@ -379,6 +513,36 @@ export default function ResourceHub({
           {section === "setari" ? (
             <>
               <p>Identitati demonstrative. Fara autentificare pe platforme.</p>
+              <fieldset>
+                <legend>Publicarea afilierii mele</legend>
+                <label>
+                  Afiliere declarata
+                  <Select
+                    value={declaredAffiliation}
+                    onChange={(e) => {
+                      setDeclaredAffiliation(e.target.value);
+                      setPublicAffiliation(false);
+                    }}
+                  >
+                    <option>Membru actual</option>
+                    <option>Nu mai este membru</option>
+                    <option>Simpatizant</option>
+                  </Select>
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={publicAffiliation}
+                    onChange={(e) => setPublicAffiliation(e.target.checked)}
+                  />
+                  Accept explicit publicarea afilierii mele in comunitate
+                </label>
+                <p>
+                  Optional, separat de publicarea profilurilor sociale.
+                  Debifarea retrage publicarea; schimbarea declaratiei necesita
+                  o noua acceptare.
+                </p>
+              </fieldset>
               <div className="channel-list">
                 {platforms.map((p) => (
                   <article key={p}>
@@ -418,7 +582,7 @@ export default function ResourceHub({
                             }
                           >
                             <option>Doar eu</option>
-                            {audience === "member" && (
+                            {audience !== "supporter" && (
                               <option>Colegilor</option>
                             )}
                             <option>Public</option>
@@ -459,9 +623,10 @@ export default function ResourceHub({
           <h3>Culori</h3>
           <div className="design-swatches">
             {[
-              ["Verde", "#075f4c"],
-              ["Text", "#243431"],
-              ["Fundal", "#f0f2f5"],
+              ["Albastru USR", brand.navy],
+              ["Rosu USR", brand.red],
+              ["Alb", brand.surface],
+              ["Fundal", brand.background],
             ].map(([name, value]) => (
               <button
                 key={name}
@@ -475,7 +640,7 @@ export default function ResourceHub({
           </div>
           <h3>Tipografie</h3>
           <p>
-            Arial / exemple de 24, 32 si 54 px in sablon. Textul ramane
+            Aileron / exemple de 24, 32 si 54 px in sablon. Textul ramane
             editabil.
           </p>
           <h3>Sabloane editabile</h3>
@@ -494,8 +659,9 @@ export default function ResourceHub({
                   <h3>{title}</h3>
                   <p>1080 x 1080 / SVG / v1.0 / Curent</p>
                   <p>
-                    Responsabil: Echipa Design Model. Utilizare: CC0 pentru
-                    grafica sintetica; fara sigle sau identitate oficiala.
+                    Responsabil: Echipa Design Model. Grafica demonstrativa,
+                    culori din tema USR si font Aileron din resursele locale. Nu
+                    este material oficial.
                   </p>
                   <button
                     onClick={() =>
@@ -528,13 +694,14 @@ export default function ResourceHub({
                 JSON.stringify(
                   {
                     version: "1.0",
-                    license: "CC0-1.0",
+                    source: "src/tokens.css",
                     colors: {
-                      accent: "#075f4c",
-                      text: "#243431",
-                      background: "#f0f2f5",
+                      accent: brand.red,
+                      navy: brand.navy,
+                      text: brand.text,
+                      background: brand.background,
                     },
-                    font: "Arial",
+                    font: brand.font,
                   },
                   null,
                   2,

@@ -4,7 +4,7 @@ Prototip neoficial pentru prezentarea unei alternative de site public și zonă 
 
 [Deschide demo-ul](https://cristiannichifor.github.io/usr-digital-platform-wireframe/#/) · [Zona membrilor](https://cristiannichifor.github.io/usr-digital-platform-wireframe/#/membri)
 
-Comunitatea este accesibila prin `#/comunitate`, fara calitatea de membru. Profilul demonstrativ de simpatizant are acces la resurse, director social, design, proiecte si propriile profiluri sociale. Cotizatiile si celelalte ecrane interne raman separate in demonstratie; schimbarea rolului nu este autentificare reala.
+Comunitatea este accesibila prin `#/comunitate`, fara calitatea de membru. Profilul demonstrativ de simpatizant are acces la resurse, director social, contacte institutionale fictive, design, proiecte si propriile profiluri sociale. Cotizatiile si celelalte ecrane interne raman separate in demonstratie; schimbarea rolului nu este autentificare reala.
 
 ## Ce include
 
@@ -21,10 +21,13 @@ Comunitatea este accesibila prin `#/comunitate`, fara calitatea de membru. Profi
 | Resurse | Materiale centrale/locale si articole fictive, filtre, salvare, aprecieri si comentarii locale, copiere si descarcare |
 | Director social | Facebook, grupuri Facebook, Instagram, LinkedIn, GitHub, X, TikTok si YouTube; urmarire auto-declarata |
 | Profiluri sociale | Identitati fictive, ascunse implicit; optiuni de vizibilitate publica sau pentru colegi |
+| Contacte publice | Functii locale, judetene, nationale si europene fictive; filtre, detalii, adrese `.example` si descarcarea unei solicitari individuale fictive, fara trimitere |
 | Design | Sabloane SVG editabile si tokenuri JSON sintetice, cu versiune si conditii de utilizare |
 | Proiecte | Repository-uri fictive, sarcini introductive, ghiduri si interes demonstrativ pentru contributii |
 
-Directorul reprezentantilor separa afilierea, mandatul si sustinerea. Exemplele includ membru actual, fost membru, independent si afiliere neconfirmata, cu sursa si data fictive. Nu exista recomandari automate de unfollow sau actiuni executate pe platforme. Profilele sociale folosesc identitati prestabilite; demo-ul nu solicita adrese de cont reale. Biblioteca de design nu este un kit de identitate oficiala, iar catalogul de proiecte nu reprezinta repository-uri operative sau promisiuni de cost zero.
+Directorul reprezentantilor afiseaza public functia, nu afilierea sau sustinerea. Publicarea propriei afilieri declarate necesita un acord separat, dezactivat implicit si revocabil. Exemplele interne de afiliere sunt vizibile numai dupa selectarea profilului administrator si confirmarea scopului accesului. Schimbarea profilului inchide acest acces. Nu exista recomandari automate de unfollow sau actiuni executate pe platforme. Profilele sociale folosesc identitati prestabilite; demo-ul nu solicita adrese de cont reale.
+
+Interfata si exporturile de design folosesc tokenurile comune USR din `src/tokens.css` si fontul local Aileron. Biblioteca de design nu este un kit de identitate oficiala, iar catalogul de proiecte nu reprezinta repository-uri operative sau promisiuni de cost zero.
 
 Zona de membri începe la `#/membri`; `#/implica-te` este un alias. Paginile publice includ și ecrane explicative despre strategie, arhitectură și costuri. Acestea prezintă propuneri, nu capabilități operaționale.
 
@@ -33,6 +36,7 @@ Zona de membri începe la `#/membri`; `#/implica-te` este un alias. Paginile pub
 - Persoanele, cotizațiile, documentele și răspunsurile din zona de membri sunt fictive. Nu sunt incluse parole, date de card sau înregistrări private din e-USR.
 - Accesul la e-USR a fost folosit pentru observarea funcționalităților. Demo-ul nu necesită cont, API intern sau autentificare.
 - Schimbarea profilului demonstrativ modifică interfața; nu reprezintă un sistem de autorizare.
+- Toate exemplele sunt incluse in fisierele statice, inclusiv cele ascunse de interfata. Controalele de acord si acces nu protejeaza date reale si nu reprezinta o certificare de conformitate GDPR. O implementare operationala necesita autorizare pe server si evaluare juridica separata.
 - Starea zonei de membri rămâne în memoria paginii. Resetarea, reîncărcarea sau părăsirea zonei de membri o șterg. Filtrele membrilor nu se păstrează la reîncărcare.
 - Unele pagini publice folosesc parametri în URL pentru filtre și vizualizări. Nu introduceți informații private în demo.
 - Aplicația conține referințe publice și legături externe, inclusiv către USR și GitHub. Deschiderea lor părăsește demo-ul; serviciile externe au propriul comportament.
@@ -68,7 +72,7 @@ npm test
 
 Playwright pornește sau reutilizează serverul local de pe portul `5187`. `DEMO_PORT` poate selecta alt port. Pentru un Chromium deja instalat, variabila `DEMO_CHROMIUM` poate indica executabilul. În CI, testele pornesc un server de previzualizare pentru build-ul din `dist/`, fără reutilizarea unui server existent.
 
-Cele opt teste din [tests/members.spec.ts](tests/members.spec.ts) si [tests/resources.spec.ts](tests/resources.spec.ts) verifica fluxuri de membri si simpatizanti, vizibilitatea profilurilor sociale, resetarea, descarcarile fictive, spatiul dropdown-ului, contrastul a doua controale la hover si lipsa overflow-ului la 390px si 1440px. Fluxurile verificate includ absenta cererilor externe si a datelor in `localStorage`/`sessionStorage`; fluxul de membri verifica si erorile JavaScript.
+Cele 11 teste din [tests/members.spec.ts](tests/members.spec.ts), [tests/resources.spec.ts](tests/resources.spec.ts) si [tests/privacy-contacts.spec.ts](tests/privacy-contacts.spec.ts) verifica fluxuri de membri si simpatizanti, vizibilitatea profilurilor sociale, acordul separat pentru afiliere, accesul intern simulat, contactele fictive, resetarea, descarcarile, tokenurile de brand, spatiul dropdown-ului, contrastul a doua controale la hover si lipsa overflow-ului la 390px si 1440px. Fluxurile verificate includ absenta cererilor externe si a datelor in `localStorage`/`sessionStorage`; fluxul de membri verifica si erorile JavaScript.
 
 Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor.
 
@@ -83,6 +87,7 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 - [src/App.tsx](src/App.tsx): rutare și ecrane publice.
 - [src/features/members/MemberDemo.tsx](src/features/members/MemberDemo.tsx): ecrane, date fictive și interacțiuni pentru membri.
 - [src/features/members/ResourceHub.tsx](src/features/members/ResourceHub.tsx): resurse si profiluri pentru comunitate; exemplele sunt in [resources.ts](src/features/members/resources.ts).
+- [src/features/members/PublicContacts.tsx](src/features/members/PublicContacts.tsx): director institutional fictiv si solicitari individuale demonstrative.
 - [src/components/Select.tsx](src/components/Select.tsx): controlul select comun.
 - [src/tokens.css](src/tokens.css): fonturi locale și tokenuri de temă.
 - [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.

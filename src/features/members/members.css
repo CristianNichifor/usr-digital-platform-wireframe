@@ -1,5 +1,5 @@
 .member-demo {
-  color: var(--member-color-1);
+  color: var(--usr-text);
   letter-spacing: 0;
 }
 .member-heading {
@@ -30,27 +30,27 @@
   display: block;
   max-width: 100%;
   padding: 9px;
-  border: 1px solid var(--member-color-2);
-  background: white;
-  color: var(--member-color-1);
-  border-radius: 4px;
+  border: 1px solid var(--usr-line-strong);
+  background: var(--usr-surface);
+  color: var(--usr-text);
+  border-radius: var(--usr-radius-control);
   font: inherit;
 }
 .member-demo button {
   padding: 10px 14px;
   min-height: 44px;
-  border: 1px solid var(--member-color-3);
-  border-radius: 4px;
-  background: var(--member-color-4);
-  color: var(--member-color-1);
+  border: 1px solid var(--usr-line-strong);
+  border-radius: var(--usr-radius-control);
+  background: var(--usr-surface);
+  color: var(--usr-text);
   font: inherit;
   cursor: pointer;
   margin: 4px 8px 4px 0;
 }
 .member-demo button:disabled {
   opacity: 1;
-  color: var(--member-color-10);
-  background: var(--member-color-8);
+  color: var(--usr-text-muted);
+  background: var(--usr-surface-raised);
   cursor: not-allowed;
 }
 .member-demo .select-field select {
@@ -71,7 +71,7 @@
   margin: 0;
 }
 .member-demo .select-field {
-  color: var(--member-color-1);
+  color: var(--usr-text);
 }
 .member-demo button {
   display: inline-flex;
@@ -82,25 +82,25 @@
 }
 .member-demo button:hover:not(:disabled),
 .member-demo button:active:not(:disabled) {
-  background: var(--member-color-8);
-  color: var(--member-color-7);
-  border-color: var(--member-color-7);
+  background: var(--usr-surface-raised);
+  color: var(--usr-navy);
+  border-color: var(--usr-navy);
 }
 .member-demo a {
-  color: var(--member-color-7);
+  color: var(--usr-navy);
 }
 .member-demo a:hover {
-  color: var(--member-color-1);
+  color: var(--usr-text);
   text-decoration: underline;
   text-underline-offset: 4px;
 }
 .member-summary a:hover,
 .member-list > a:hover {
-  background: var(--member-color-8);
+  background: var(--usr-surface-raised);
 }
 .member-demo select:hover:not(:disabled),
 .member-demo input[type="search"]:hover:not(:disabled) {
-  border-color: var(--member-color-7);
+  border-color: var(--usr-navy);
 }
 .member-demo label > .select-field,
 .member-demo label > input[type="search"] {
@@ -110,18 +110,18 @@
   border-bottom-width: 3px;
 }
 .member-demo .member-tabs button[aria-pressed="true"] {
-  background: var(--member-color-8);
-  color: var(--member-color-7);
+  background: var(--usr-surface-raised);
+  color: var(--usr-navy);
 }
 .member-demo :focus-visible {
-  outline: 3px solid var(--member-color-5);
+  outline: 3px solid var(--usr-focus);
   outline-offset: 3px;
 }
 .member-nav {
   display: flex;
   flex-wrap: wrap;
   gap: 4px 20px;
-  border-bottom: 1px solid var(--member-color-6);
+  border-bottom: 1px solid var(--usr-line);
   margin: 24px 0;
 }
 .member-nav a {
@@ -131,8 +131,8 @@
 }
 .member-nav a[aria-current],
 .member-tabs button[aria-pressed="true"] {
-  color: var(--member-color-7);
-  border-bottom: 3px solid var(--member-color-7);
+  color: var(--usr-navy);
+  border-bottom: 3px solid var(--usr-navy);
   font-weight: bold;
 }
 .member-content {
@@ -148,7 +148,7 @@
 .member-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-block: 1px solid var(--member-color-6);
+  border-block: 1px solid var(--usr-line);
   margin: 24px 0;
 }
 .member-summary a {
@@ -158,7 +158,7 @@
   gap: 10px;
 }
 .member-summary a:nth-child(2) {
-  background: var(--member-color-8);
+  background: var(--usr-surface-raised);
 }
 .member-summary strong {
   font-size: 24px;
@@ -166,18 +166,18 @@
 .member-list > a,
 .member-list > article {
   display: block;
-  border-bottom: 1px solid var(--member-color-9);
+  border-bottom: 1px solid var(--usr-line);
   padding: 18px 0;
   text-decoration: none;
 }
 .member-list span {
   display: block;
   margin-top: 6px;
-  color: var(--member-color-10);
+  color: var(--usr-text-muted);
 }
 .member-review {
-  border-left: 4px solid var(--member-color-11);
-  background: var(--member-color-12);
+  border-left: 4px solid var(--usr-red);
+  background: var(--usr-surface-callout);
   padding: 20px;
   margin: 20px 0;
   max-width: 640px;
@@ -200,10 +200,10 @@
 .member-table td {
   text-align: left;
   padding: 14px;
-  border-bottom: 1px solid var(--member-color-6);
+  border-bottom: 1px solid var(--usr-line);
 }
 .member-demo fieldset {
-  border: 1px solid var(--member-color-6);
+  border: 1px solid var(--usr-line);
   margin: 20px 0;
   max-width: 600px;
   padding: 16px;
@@ -211,13 +211,13 @@
 .member-demo input[type="checkbox"],
 .member-demo input[type="radio"] {
   margin-right: 10px;
-  accent-color: var(--member-color-7);
+  accent-color: var(--usr-navy);
   width: 18px;
   height: 18px;
 }
 .member-notice {
   min-height: 24px;
-  color: var(--member-color-7);
+  color: var(--usr-navy);
 }
 .member-media {
   max-width: 640px;

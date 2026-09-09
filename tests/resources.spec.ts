@@ -29,9 +29,10 @@ test('supporters can explore resources without exposing private social profiles'
   await page.getByLabel('Stare pentru Grupul oficial al filialei Model').selectOption('Urmaresc');
   await page.getByRole('combobox', { name: 'Urmarire', exact: true }).selectOption('Urmaresc');
   await expect(page.locator('.channel-list > article')).toHaveCount(1);
-  await page.getByRole('combobox', { name: 'Afiliere', exact: true }).selectOption('Nu mai este membru');
-  await expect(page.getByText('Consilier local - mandat in curs')).toBeVisible();
-  await expect(page.getByText('Sustinere anterioara', { exact: true })).toBeVisible();
+  await expect(page.getByRole('combobox', { name: 'Afiliere', exact: true })).toHaveCount(0);
+  await expect(page.getByText('Consilier local - mandat in curs').first()).toBeVisible();
+  await expect(page.getByText('Nu mai este membru', { exact: true })).toHaveCount(0);
+  await expect(page.getByText('Sustinere anterioara', { exact: true })).toHaveCount(0);
   await expect(page.getByRole('button', { name: /unfollow/i })).toHaveCount(0);
   await page.getByRole('button', { name: 'Reseteaza demonstratia' }).click();
   await expect(page.getByText('Niciun profil personal distribuit public.')).toBeVisible();
@@ -69,7 +70,7 @@ test('design downloads, resource states and project interest remain synthetic', 
 for (const width of [390, 1440]) {
   test(`community routes fit at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 950 });
-    for (const section of ['resurse', 'social', 'design', 'proiecte', 'setari']) {
+    for (const section of ['resurse', 'social', 'design', 'proiecte', 'setari', 'contacte-publice']) {
       await page.goto('/#/comunitate/' + section);
       await expect(page.getByRole('heading', { name: 'Spatiul meu' })).toBeVisible();
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

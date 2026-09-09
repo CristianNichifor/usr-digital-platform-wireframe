@@ -23,19 +23,6 @@
 }
 
 :root {
-  /* Presentation-only member workspace accents. */
-  --member-color-1: #243431;
-  --member-color-2: #73847e;
-  --member-color-3: #637970;
-  --member-color-4: #fff;
-  --member-color-5: #ac4c24;
-  --member-color-6: #bac8c2;
-  --member-color-7: #075f4c;
-  --member-color-8: #edf4f0;
-  --member-color-9: #d5ded9;
-  --member-color-10: #52665c;
-  --member-color-11: #bb662e;
-  --member-color-12: #faf2eb;
   /*
     Values extracted from the public usr.ro page source and CSS on 2026-09-08:
     - b403e873072364dd.css
