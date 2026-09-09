@@ -23,7 +23,7 @@ export default defineConfig({
     },
     ...(['firefox', 'webkit'] as const).map(browserName => ({
       name: browserName,
-      testMatch: '**/civic-pilot.spec.ts',
+      testMatch: ['**/civic-pilot.spec.ts', '**/resource-filters.spec.ts'],
       use: { browserName },
     })),
   ],
