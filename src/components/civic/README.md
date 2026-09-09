@@ -6,6 +6,8 @@ The screen explicitly imports `styles.css` and `themes/usr.css`, with `civic-sco
 
 The resource-filter row also imports Field, Input and NativeSelect for its search, content and organisation filters. Only that row has `civic-scope civic-usr`; its checkboxes retain their native markup. Its state, options, reset behavior and fictional records are unchanged. Social/profile controls and other ResourceHub branches retain the older Select wrapper.
 
+Projects uses Field and NativeSelect for the Competenta filter, scoped to its own wrapper. Project records, interest toggles, guides and downloads are unchanged. `tests/project-filter.spec.ts` checks all available skills, those actions, reset, exact labels, focus and 320/390/1440 layouts in all three engines. No new dependency or library release is required.
+
 The former repository-local Civic UI implementation has been removed. Changes to shared controls now belong in the Civic UI repository and must be adopted through a reviewed version update. Other demo controls remain unmigrated.
 
 All fictional contact fixtures, filtering, bookmarks, clipboard fallback, inline details and draft review/download behavior remain in PublicContacts. No state, storage, authentication or infrastructure integration is added.

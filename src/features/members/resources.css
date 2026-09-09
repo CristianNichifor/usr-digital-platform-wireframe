@@ -118,6 +118,10 @@
 .resource-hub > label {
   max-width: 360px;
 }
+.project-filter {
+  max-width: 360px;
+  margin: 10px 0;
+}
 .resource-hub button svg {
   flex-shrink: 0;
 }
