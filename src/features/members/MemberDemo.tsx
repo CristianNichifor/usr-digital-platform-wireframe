@@ -1,5 +1,5 @@
-import Select from '../../components/Select';
-import ResourceHub from './ResourceHub';
+import Select from "../../components/Select";
+import ResourceHub from "./ResourceHub";
 import { useState } from "react";
 import "./members.css";
 import { RotateCcw, Download, Film } from "lucide-react";
@@ -17,6 +17,7 @@ const sections = [
   ["social", "Director social"],
   ["design", "Design"],
   ["proiecte", "Proiecte"],
+  ["contacte-publice", "Contacte publice"],
   ["setari", "Setari"],
 ];
 const events = [
@@ -126,7 +127,13 @@ function download(name: string, contents: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-export default function MemberDemo({ path, supporter = false }: { path: string; supporter?: boolean }) {
+export default function MemberDemo({
+  path,
+  supporter = false,
+}: {
+  path: string;
+  supporter?: boolean;
+}) {
   const [revision, setRevision] = useState(0);
   return (
     <MemberWorkspace
@@ -138,8 +145,18 @@ export default function MemberDemo({ path, supporter = false }: { path: string; 
   );
 }
 
-function MemberWorkspace({ path, reset, supporter }: { path: string; reset: () => void; supporter: boolean }) {
-  const [persona, setPersona] = useState(supporter ? "Simpatizant Model" : "Membru Model");
+function MemberWorkspace({
+  path,
+  reset,
+  supporter,
+}: {
+  path: string;
+  reset: () => void;
+  supporter: boolean;
+}) {
+  const [persona, setPersona] = useState(
+    supporter ? "Simpatizant Model" : "Membru Model",
+  );
   const [visible, setVisible] = useState(false);
   const [savedVisible, setSavedVisible] = useState(false);
   const [notice, setNotice] = useState("");
@@ -159,8 +176,15 @@ function MemberWorkspace({ path, reset, supporter }: { path: string; reset: () =
   const [saveError, setSaveError] = useState(false);
   const [section = "", id] = path.replace(/^\/membri\/?/, "").split("/");
   const current = path === "/implica-te" ? "" : section;
-  const community = persona === 'Simpatizant Model';
-  const openSections = ['resurse', 'social', 'design', 'proiecte', 'setari'];
+  const community = persona === "Simpatizant Model";
+  const openSections = [
+    "resurse",
+    "social",
+    "design",
+    "proiecte",
+    "setari",
+    "contacte-publice",
+  ];
   const restricted = community && !openSections.includes(current);
   const event = events.find((e) => e.id === id);
   const doc = documents.find((d) => d.id === id);
@@ -181,7 +205,11 @@ function MemberWorkspace({ path, reset, supporter }: { path: string; reset: () =
     <div className="member-demo">
       <header className="member-heading">
         <div>
-          <p className="eyebrow">{community ? 'Comunitate deschisa' : 'Zona membrilor / Filiala Model'}</p>
+          <p className="eyebrow">
+            {community
+              ? "Comunitate deschisa"
+              : "Zona membrilor / Filiala Model"}
+          </p>
           <h1>Spatiul meu</h1>
           <p>Date fictive. Platile si raspunsurile sunt simulate.</p>
         </div>
@@ -210,19 +238,38 @@ function MemberWorkspace({ path, reset, supporter }: { path: string; reset: () =
         </div>
       </header>
       <nav className="member-nav" aria-label="Navigare membri">
-        {sections.filter(([key]) => !community || openSections.includes(key)).map(([key, title]) => (
-          <a
-            key={key}
-            href={community ? '#/comunitate/' + key : link(key)}
-            aria-current={current === key ? "page" : undefined}
-          >
-            {title}
-          </a>
-        ))}
+        {sections
+          .filter(([key]) => !community || openSections.includes(key))
+          .map(([key, title]) => (
+            <a
+              key={key}
+              href={community ? "#/comunitate/" + key : link(key)}
+              aria-current={current === key ? "page" : undefined}
+            >
+              {title}
+            </a>
+          ))}
       </nav>
       <div className="member-content">
-        <ResourceHub section={restricted || missing ? '' : current} audience={community ? 'supporter' : 'member'} />
-        {restricted ? <><h2>Zona rezervata membrilor</h2><p>Resursele comunitatii sunt disponibile fara calitatea de membru.</p><a href={link('resurse')}>Deschide resursele</a></> : missing ? (
+        <ResourceHub
+          section={restricted || missing ? "" : current}
+          audience={
+            community
+              ? "supporter"
+              : persona === "Administrator Model"
+                ? "administrator"
+                : "member"
+          }
+        />
+        {restricted ? (
+          <>
+            <h2>Zona rezervata membrilor</h2>
+            <p>
+              Resursele comunitatii sunt disponibile fara calitatea de membru.
+            </p>
+            <a href={link("resurse")}>Deschide resursele</a>
+          </>
+        ) : missing ? (
           <>
             <h2>Pagina indisponibila</h2>
             <a href={link()}>Inapoi la spatiul meu</a>
