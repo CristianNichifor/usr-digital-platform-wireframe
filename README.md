@@ -4,6 +4,8 @@ Prototip neoficial pentru prezentarea unei alternative de site public și zonă 
 
 [Deschide demo-ul](https://cristiannichifor.github.io/usr-digital-platform-wireframe/#/) · [Zona membrilor](https://cristiannichifor.github.io/usr-digital-platform-wireframe/#/membri)
 
+Comunitatea este accesibila prin `#/comunitate`, fara calitatea de membru. Profilul demonstrativ de simpatizant are acces la resurse, director social, design, proiecte si propriile profiluri sociale. Cotizatiile si celelalte ecrane interne raman separate in demonstratie; schimbarea rolului nu este autentificare reala.
+
 ## Ce include
 
 | Zonă | Conținut |
@@ -16,6 +18,13 @@ Prototip neoficial pentru prezentarea unei alternative de site public și zonă 
 | Participare internă | Alegeri și consultări fictive cu selecție, revizuire și confirmare; exemplu de dezbatere închisă |
 | Organizație și profil | Roluri fictive, vizibilitate în director dezactivată implicit și salvare simulată |
 | Media | Stări fără transmisie sau înregistrare video și o transcriere fictivă |
+| Resurse | Materiale centrale/locale si articole fictive, filtre, salvare, aprecieri si comentarii locale, copiere si descarcare |
+| Director social | Facebook, grupuri Facebook, Instagram, LinkedIn, GitHub, X, TikTok si YouTube; urmarire auto-declarata |
+| Profiluri sociale | Identitati fictive, ascunse implicit; optiuni de vizibilitate publica sau pentru colegi |
+| Design | Sabloane SVG editabile si tokenuri JSON sintetice, cu versiune si conditii de utilizare |
+| Proiecte | Repository-uri fictive, sarcini introductive, ghiduri si interes demonstrativ pentru contributii |
+
+Directorul reprezentantilor separa afilierea, mandatul si sustinerea. Exemplele includ membru actual, fost membru, independent si afiliere neconfirmata, cu sursa si data fictive. Nu exista recomandari automate de unfollow sau actiuni executate pe platforme. Profilele sociale folosesc identitati prestabilite; demo-ul nu solicita adrese de cont reale. Biblioteca de design nu este un kit de identitate oficiala, iar catalogul de proiecte nu reprezinta repository-uri operative sau promisiuni de cost zero.
 
 Zona de membri începe la `#/membri`; `#/implica-te` este un alias. Paginile publice includ și ecrane explicative despre strategie, arhitectură și costuri. Acestea prezintă propuneri, nu capabilități operaționale.
 
@@ -59,7 +68,7 @@ npm test
 
 Playwright pornește sau reutilizează serverul local de pe portul `5187`. `DEMO_PORT` poate selecta alt port. Pentru un Chromium deja instalat, variabila `DEMO_CHROMIUM` poate indica executabilul. În CI, testele pornesc un server de previzualizare pentru build-ul din `dist/`, fără reutilizarea unui server existent.
 
-Cele patru teste din [tests/members.spec.ts](tests/members.spec.ts) verifică fluxuri de membri, resetarea, spațiul pentru săgeata dropdown-ului, contrastul a două controale la hover și lipsa overflow-ului paginilor de membri la lățimi de 390px și 1440px. Un flux verifică și absența cererilor externe, a erorilor JavaScript și a datelor în `localStorage`/`sessionStorage`.
+Cele opt teste din [tests/members.spec.ts](tests/members.spec.ts) si [tests/resources.spec.ts](tests/resources.spec.ts) verifica fluxuri de membri si simpatizanti, vizibilitatea profilurilor sociale, resetarea, descarcarile fictive, spatiul dropdown-ului, contrastul a doua controale la hover si lipsa overflow-ului la 390px si 1440px. Fluxurile verificate includ absenta cererilor externe si a datelor in `localStorage`/`sessionStorage`; fluxul de membri verifica si erorile JavaScript.
 
 Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor.
 
@@ -73,6 +82,7 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 
 - [src/App.tsx](src/App.tsx): rutare și ecrane publice.
 - [src/features/members/MemberDemo.tsx](src/features/members/MemberDemo.tsx): ecrane, date fictive și interacțiuni pentru membri.
+- [src/features/members/ResourceHub.tsx](src/features/members/ResourceHub.tsx): resurse si profiluri pentru comunitate; exemplele sunt in [resources.ts](src/features/members/resources.ts).
 - [src/components/Select.tsx](src/components/Select.tsx): controlul select comun.
 - [src/tokens.css](src/tokens.css): fonturi locale și tokenuri de temă.
 - [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.

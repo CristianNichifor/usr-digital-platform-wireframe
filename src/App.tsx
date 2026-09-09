@@ -1,4 +1,5 @@
 import Select from './components/Select';
+import { SocialProfileLinks } from './features/members/ResourceHub';
 import { useEffect, useMemo, useState } from 'react';
 import MemberDemo from './features/members/MemberDemo';
 
@@ -42,6 +43,7 @@ type RepoModule = {
 };
 
 const topNav = [
+  { path: '/comunitate', label: 'Comunitate', href: '#/comunitate' },
   { path: '/stiri', label: 'Știri', href: '#/stiri' },
   { path: '/oameni', label: 'Oameni', href: '#/oameni' },
   { path: '/guvernare', label: 'Guvernare', href: '#/guvernare' },
@@ -628,6 +630,7 @@ export default function App() {
   const route = useHashRoute();
 
   const screen = useMemo(() => {
+    if (route.path === '/comunitate' || route.path.startsWith('/comunitate/')) return <MemberDemo path={'/membri/' + (route.path.slice('/comunitate/'.length) || 'resurse')} supporter />;
     if (route.path === '/') return <IndexScreen />;
     if (route.path === '/stiri') return <NewsScreen />;
     if (route.path === '/oameni') return <PeopleScreen route={route} />;
@@ -1149,6 +1152,7 @@ function PersonScreen({ route }: { route: HashRoute }) {
       </section>
 
       <section className="wire-section" aria-labelledby="record-state-title">
+        <SocialProfileLinks name={record.name} />
         <p className="eyebrow">Stare record</p>
         <h2 id="record-state-title">Aceeași înregistrare, trei straturi de acces</h2>
         <div className="record-state-grid">

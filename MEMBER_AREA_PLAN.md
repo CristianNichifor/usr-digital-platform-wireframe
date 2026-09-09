@@ -3,6 +3,8 @@
 Date: 2026-09-09. Scope: member administration, navigation and usability.
 Status: core presentation workflows implemented locally. All prototype records remain synthetic.
 
+Community extension: `#/comunitate` opens supporter access to resources, social profiles, design assets and collaborative project examples. Member status is not required for these sections. Public social visibility is opt-in, account links and follow status are simulated, and affiliation is separate from office and endorsement. The test suite now has eight tests, including supporter access, profile visibility and synthetic downloads. No real social account, article, repository or private profile is connected.
+
 Implemented: member overview/navigation, dues simulation with result states, event list/detail and calendar export, searchable document examples, participation selection/review/confirmation, organization, media empty states and fictional transcript, opt-in settings and reset. Four browser tests cover core workflows, selected control styles, external requests and desktop/mobile overflow. The shared CI workflow runs the build and browser checks on pull requests and before Pages deployment. No private records or credentials were copied into the demo.
 
 Remaining presentation refinements: filters currently persist across member navigation in memory, not reload; media intentionally has no playable recording; stakeholder walkthroughs and a full accessibility audit remain future review work. The phase estimates below describe the original proposal, not a measured completion time.
