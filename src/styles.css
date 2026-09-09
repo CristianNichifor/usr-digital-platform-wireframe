@@ -95,7 +95,7 @@ button {
   padding: var(--usr-space-2) var(--usr-space-5);
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background: var(--usr-blue-mid);
 }
 
@@ -111,6 +111,45 @@ select {
 
 select {
   min-height: 3rem;
+}
+
+.select-field {
+  position: relative;
+  display: inline-grid;
+  width: 100%;
+  min-width: 0;
+  vertical-align: middle;
+  color: var(--usr-text);
+}
+
+.select-field select {
+  appearance: none;
+  min-width: 0;
+  width: 100%;
+  padding: 12px 44px 12px 14px;
+  line-height: 1.4;
+  border-radius: var(--usr-radius-control);
+  color-scheme: light;
+}
+
+.select-chevron {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: inherit;
+}
+
+select option {
+  background: var(--usr-surface);
+  color: var(--usr-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--usr-text-muted);
+  opacity: 1;
 }
 
 textarea {
@@ -270,8 +309,18 @@ tbody tr:hover {
   color: var(--usr-on-navy);
 }
 
-.header-action--join:hover {
+.header-action--join:hover,
+.header-action--member:hover {
   background: transparent;
+}
+
+.primary-nav a:hover,
+.record-switcher a:hover,
+.filter-row a:hover,
+.export-row a:hover,
+.text-button:hover {
+  background: var(--usr-surface-raised);
+  color: var(--usr-navy);
 }
 
 .header-action--donate:hover {

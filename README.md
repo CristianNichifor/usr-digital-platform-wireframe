@@ -25,7 +25,22 @@ npm run build
 
 Vite este configurat cu `base: './'`, iar navigarea folosește hash routes, deci ecranele rămân shareable într-un build static.
 
-Planul de implementare este în [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md). Argumentul politic și decizional este în [`PROPOSAL_MEMO.md`](PROPOSAL_MEMO.md).
+Planul zonei de membri este în [`MEMBER_AREA_PLAN.md`](MEMBER_AREA_PLAN.md). Demo-ul este o alternativă de prezentare independentă; accesul la e-USR a fost doar pentru observarea funcționalităților. Nu există integrare cu infrastructura internă. Documentele anterioare [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) și [`PROPOSAL_MEMO.md`](PROPOSAL_MEMO.md) păstrează contextul propunerii.
+
+## Demo membri
+
+Intrare: `#/membri` (și aliasul `#/implica-te`). Include cotizații cu plată simulată, calendar cu export ICS fictiv, documente sintetice descărcabile, alegeri și consultări simulate, structură organizațională, stări media și setări de vizibilitate.
+
+Toate modificările rămân în memoria paginii. Reîncărcarea sau resetarea le șterge. Directorul este ascuns implicit. Nu sunt colectate parole, date de card sau date reale de membri. Nu sunt folosite API-uri interne, analytics sau stocare persistentă. Profilurile demonstrative nu reprezintă autentificare. Zona media are o transcriere fictivă și stări fără transmisie/video, nu înregistrări interne.
+
+Verificare browser:
+
+```bash
+npx playwright install chromium
+npm test
+```
+
+Alternativ, `DEMO_CHROMIUM` poate indica executabilul Chromium deja instalat. Testele verifică fluxurile, resetarea, lipsa cererilor externe și layout-ul la 390px și 1440px. Capturile și rezultatele testelor sunt scrise în `/tmp`.
 
 ## Ecrane
 
@@ -37,7 +52,9 @@ Planul de implementare este în [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.m
 - `#/ce-propunem` bibliotecă poziții și revizii
 - `#/declaratii` scan, câmpuri structurate și diff anual
 - `#/date-locale` date locale cu buget, HCL, UAT și exporturi
-- `#/implica-te` zonă de membri cu sarcini, fapte de azi și director opt-in
+- `#/membri` spațiu de membri; `#/implica-te` este alias
+- `#/membri/cotizatii`, `#/membri/calendar`, `#/membri/documente`
+- `#/membri/participare`, `#/membri/organizatie`, `#/membri/media`, `#/membri/setari`
 - `#/bani` subvenții, prag de 32% către filiale și cheltuieli centrale
 - `#/presa` sală de presă cu contacte, active și dosare de date
 - `#/proiecte-date` inventar al repo-urilor publice care pot alimenta site-ul
@@ -53,7 +70,7 @@ Unde nu există integrare live, ecranul arată un mockup de produs de date: ce c
 
 Roșul extras din `usr.ro` nu este folosit ca text normal pe fundal albastru sau alb, deoarece contrastul nu trece pragul WCAG AA pentru text obișnuit. În machetă este folosit doar ca accent non-text.
 
-Modelul de partajare nu include auto-postare, OAuth sau publicare coordonată identică. `Fapte de azi` oferă text editabil, copiere în clipboard și link de tip share-intent care deschide composerul platformei. Membrul editează și publică manual.
+Zona de membri nu include auto-postare, OAuth sau publicare externă. Interacțiunile sunt simulări locale cu date fictive.
 
 Articolele din ecranul `#/nota` sunt raportate la Statutul public de pe `usr.ro/statut`, amendat în 24.11.2022. În această versiune publică, publicarea numelor și CV-urilor aleșilor apare la art. 87(1), declarațiile apar la art. 82, iar pragul de minimum 32% către filiale apare la art. 86(2), raportat la art. 84 lit. d. Art. 7(3) descrie registrul statutar al membrilor ca evidență confidențială; nu este temei pentru directorul opt-in între colegi.
 

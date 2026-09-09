@@ -1,7 +1,9 @@
+import Select from './components/Select';
 import { useEffect, useMemo, useState } from 'react';
+import MemberDemo from './features/members/MemberDemo';
 
 // Low-to-medium fidelity rebuilt usr.ro prototype.
-// All UI state is encoded in the URL hash.
+// Shareable navigation uses the URL hash; member demo state stays in memory.
 
 type ViewMode = 'public' | 'membru' | 'birou';
 
@@ -48,6 +50,7 @@ const topNav = [
 ];
 
 const headerActions = [
+  { href: '#/membri', label: 'Membri', variant: 'member' },
   { href: '#/inscriere', label: 'Înscriere', variant: 'join' },
   { href: '#/doneaza', label: 'Donează', variant: 'donate' },
 ];
@@ -676,7 +679,7 @@ export default function App() {
     if (route.path === '/ce-propunem') return <PositionsScreen />;
     if (route.path === '/declaratii') return <DeclarationsScreen route={route} />;
     if (route.path === '/date-locale') return <LocalDataScreen route={route} />;
-    if (route.path === '/implica-te') return <MemberZoneScreen route={route} />;
+    if (route.path === '/implica-te' || route.path === '/membri' || route.path.startsWith('/membri/')) return <MemberDemo path={route.path} />;
     if (route.path === '/bani') return <MoneyScreen route={route} />;
     if (route.path === '/presa') return <PressRoomScreen />;
     if (route.path === '/organizare') return <OrganizationScreen />;
@@ -1740,7 +1743,7 @@ function MemberZoneScreen({ route }: { route: HashRoute }) {
   const county = route.params.get('judet') ?? 'Județul Model';
   const fact = route.params.get('fapt') ?? 'buget';
   const variant = route.params.get('variant') ?? 'direct';
-  const consent = route.params.get('consimtamant') === 'nu' ? 'nu' : 'da';
+  const consent = route.params.get('consimtamant') === 'da' ? 'da' : 'nu';
   const copied = route.params.get('copiat') === 'da';
   const item = facts.find((candidate) => candidate.id === fact) ?? facts[0];
   const defaultText = item.variants[variant] ?? item.variants.direct;
@@ -2265,12 +2268,12 @@ function ContactScreen() {
             <label className="field-label" htmlFor="contact-type">
               Tip mesaj
             </label>
-            <select id="contact-type" defaultValue="problema-locala">
+            <Select id="contact-type" defaultValue="problema-locala">
               <option value="problema-locala">Problemă locală</option>
               <option value="idee-lege">Idee de lege</option>
               <option value="verificare">Sesizare de verificat</option>
               <option value="presa">Cerere presă</option>
-            </select>
+            </Select>
             <label className="field-label" htmlFor="contact-message">
               Mesaj
             </label>
