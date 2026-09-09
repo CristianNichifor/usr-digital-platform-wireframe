@@ -1,4 +1,4 @@
-import Select from './components/Select';
+import { Button, Field, Input, NativeSelect as Select, Table, Textarea } from '@cristiannichifor/civic-ui';
 import { SocialProfileLinks } from './features/members/ResourceHub';
 import { useEffect, useMemo, useState } from 'react';
 import MemberDemo from './features/members/MemberDemo';
@@ -1059,16 +1059,17 @@ function PeopleScreen({ route }: { route: HashRoute }) {
 
       <section className="wire-section" aria-labelledby="filters-title">
         <h2 id="filters-title">Căutare și filtre</h2>
-        <label className="field-label" htmlFor="people-search">
-          Căutare
-        </label>
-        <input
-          id="people-search"
-          type="search"
-          value={q}
-          placeholder="Căutați un nume, județ sau rol"
-          onChange={(event) => setHashParam(route, 'q', event.target.value)}
-        />
+        <Field id="people-search" label="Căutare">
+          {(attributes) => (
+            <Input
+              {...attributes}
+              type="search"
+              value={q}
+              placeholder="Căutați un nume, județ sau rol"
+              onChange={(event) => setHashParam(route, 'q', event.target.value)}
+            />
+          )}
+        </Field>
         <div className="filter-row" aria-label="Filtru rol">
           {['toate', 'Primar', 'Viceprimar', 'Consilier local', 'Parlamentar'].map((value) => (
             <a
@@ -1606,7 +1607,7 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
 
       <section className="wire-section table-wrap">
         <h2>Voturi HCL</h2>
-        <table>
+        <Table label="Hotărâri locale fictive">
           <caption>Hotărâri locale fictive</caption>
           <thead>
             <tr>
@@ -1639,12 +1640,12 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </section>
 
       <section className="wire-section table-wrap">
         <h2>Completitudine pe UAT</h2>
-        <table>
+        <Table label="Completitudine pe UAT">
           <caption>Procente sintetice de completitudine</caption>
           <thead>
             <tr>
@@ -1676,7 +1677,7 @@ function LocalDataScreen({ route }: { route: HashRoute }) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </section>
 
       <section className="wire-section" aria-labelledby="local-modules-title">
@@ -1824,7 +1825,7 @@ function PressRoomScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Purtători de cuvânt pe domeniu</h2>
-        <table>
+        <Table label="Rute de contact fictive">
           <caption>Rute de contact fictive</caption>
           <thead>
             <tr>
@@ -1846,7 +1847,7 @@ function PressRoomScreen() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </section>
 
       <section className="split-layout">
@@ -1982,20 +1983,22 @@ function ContactScreen() {
         <div className="wire-section">
           <h2>Formular propus</h2>
           <div className="mini-form" aria-label="Formular static de contact">
-            <label className="field-label" htmlFor="contact-type">
-              Tip mesaj
-            </label>
-            <Select id="contact-type" defaultValue="problema-locala">
-              <option value="problema-locala">Problemă locală</option>
-              <option value="idee-lege">Idee de lege</option>
-              <option value="verificare">Sesizare de verificat</option>
-              <option value="presa">Cerere presă</option>
-            </Select>
-            <label className="field-label" htmlFor="contact-message">
-              Mesaj
-            </label>
-            <textarea id="contact-message" defaultValue="Descrie problema, localitatea și documentul sursă dacă există." />
-            <button type="button">Simulează trimiterea</button>
+            <Field id="contact-type" label="Tip mesaj">
+              {(attributes) => (
+                <Select {...attributes} defaultValue="problema-locala">
+                  <option value="problema-locala">Problemă locală</option>
+                  <option value="idee-lege">Idee de lege</option>
+                  <option value="verificare">Sesizare de verificat</option>
+                  <option value="presa">Cerere presă</option>
+                </Select>
+              )}
+            </Field>
+            <Field id="contact-message" label="Mesaj">
+              {(attributes) => (
+                <Textarea {...attributes} defaultValue="Descrie problema, localitatea și documentul sursă dacă există." />
+              )}
+            </Field>
+            <Button type="button">Simulează trimiterea</Button>
           </div>
         </div>
       </section>
@@ -2137,7 +2140,7 @@ function ProjectDataScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Inventar de reutilizare</h2>
-        <table>
+        <Table label="Inventar de reutilizare">
           <caption>Repo-uri verificate pe GitHub în 08 septembrie 2026</caption>
           <thead>
             <tr>
@@ -2163,7 +2166,7 @@ function ProjectDataScreen() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </section>
 
       <section className="wire-section" aria-labelledby="data-products-title">
@@ -2348,7 +2351,7 @@ function ArchitectureScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Conectori</h2>
-        <table>
+        <Table label="Integrări simulate">
           <caption>Integrări simulate, fără backend</caption>
           <thead>
             <tr>
@@ -2374,7 +2377,7 @@ function ArchitectureScreen() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </section>
 
       <section className="note-panel">
@@ -2478,7 +2481,7 @@ function CostNoteScreen() {
 
       <section className="wire-section table-wrap">
         <h2>Costuri și temei statutar</h2>
-        <table>
+        <Table label="Costuri și temei statutar">
           <caption>Costul este exprimat ca muncă și guvernanță, nu ca buget estimat.</caption>
           <thead>
             <tr>
@@ -2498,7 +2501,7 @@ function CostNoteScreen() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </Table>
       </section>
 
       <OpenQuestions screen="note" />

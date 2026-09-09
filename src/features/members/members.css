@@ -17,74 +17,17 @@
   align-items: end;
   flex-wrap: wrap;
 }
-.member-controls > label {
+.member-controls > .civic-field {
   width: 240px;
   max-width: 100%;
 }
-.member-demo label {
-  display: block;
-  margin: 10px 0;
-}
-.member-demo select,
-.member-demo input[type="search"] {
-  display: block;
-  max-width: 100%;
-  padding: 9px;
-  border: 1px solid var(--usr-line-strong);
-  background: var(--usr-surface);
-  color: var(--usr-text);
-  border-radius: var(--usr-radius-control);
-  font: inherit;
-}
-.member-demo button {
-  padding: 10px 14px;
-  min-height: 44px;
-  border: 1px solid var(--usr-line-strong);
-  border-radius: var(--usr-radius-control);
-  background: var(--usr-surface);
-  color: var(--usr-text);
-  font: inherit;
-  cursor: pointer;
-  margin: 4px 8px 4px 0;
-}
-.member-demo button:disabled {
-  opacity: 1;
-  color: var(--usr-text-muted);
-  background: var(--usr-surface-raised);
-  cursor: not-allowed;
-}
-.member-demo .select-field select {
-  padding: 12px 44px 12px 14px;
-}
-.member-demo input[type="search"] {
-  min-height: 48px;
-  padding: 12px 14px;
-  line-height: 1.4;
-  border-radius: var(--usr-radius-control);
-}
-.member-controls > label {
+.member-controls > .civic-field {
   margin: 0;
 }
 .member-controls > button {
   width: 48px;
   height: 48px;
   margin: 0;
-}
-.member-demo .select-field {
-  color: var(--usr-text);
-}
-.member-demo button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  line-height: 1.4;
-}
-.member-demo button:hover:not(:disabled),
-.member-demo button:active:not(:disabled) {
-  background: var(--usr-surface-raised);
-  color: var(--usr-navy);
-  border-color: var(--usr-navy);
 }
 .member-demo a {
   color: var(--usr-navy);
@@ -98,15 +41,7 @@
 .member-list > a:hover {
   background: var(--usr-surface-raised);
 }
-.member-demo select:hover:not(:disabled),
-.member-demo input[type="search"]:hover:not(:disabled) {
-  border-color: var(--usr-navy);
-}
-.member-demo label > .select-field,
-.member-demo label > input[type="search"] {
-  margin-top: 6px;
-}
-.member-tabs button {
+.member-demo .member-tabs .civic-button {
   border-bottom-width: 3px;
 }
 .member-demo .member-tabs button[aria-pressed="true"] {
@@ -202,31 +137,13 @@
   }
 }
 .member-table {
-  overflow: auto;
   margin: 20px 0;
-}
-.member-table table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.member-table th,
-.member-table td {
-  text-align: left;
-  padding: 14px;
-  border-bottom: 1px solid var(--usr-line);
 }
 .member-demo fieldset {
   border: 1px solid var(--usr-line);
   margin: 20px 0;
   max-width: 600px;
   padding: 16px;
-}
-.member-demo input[type="checkbox"],
-.member-demo input[type="radio"] {
-  margin-right: 10px;
-  accent-color: var(--usr-navy);
-  width: 18px;
-  height: 18px;
 }
 .member-notice {
   min-height: 24px;
@@ -252,6 +169,27 @@
 .member-actions {
   margin-top: 16px;
 }
+.member-demo .civic-button {
+  margin: 4px 8px 4px 0;
+}
+.member-controls .civic-button {
+  margin: 0;
+}
+.member-content > .civic-field,
+.resource-hub > .civic-field,
+.resource-detail > .civic-field,
+.member-review > .civic-field {
+  max-width: 360px;
+  margin: 12px 0;
+}
+.member-filters > .civic-field {
+  min-width: 150px;
+  max-width: 100%;
+  margin: 10px 0;
+}
+.member-demo .civic-choice {
+  margin: 10px 0;
+}
 @media (max-width: 700px) {
   .member-heading {
     display: block;
@@ -259,10 +197,10 @@
   .member-controls {
     display: block;
   }
-  .member-controls > label {
+  .member-controls > .civic-field {
     width: 100%;
   }
-  .member-controls > button {
+  .member-controls .civic-button {
     margin-top: 12px;
   }
   .member-summary {

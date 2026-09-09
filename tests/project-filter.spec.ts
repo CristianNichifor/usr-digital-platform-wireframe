@@ -68,5 +68,5 @@ test('project filter keeps keyboard focus, branding and responsive layouts', asy
   }
   await page.goto('/#/comunitate/setari');
   await expect(page.locator('.project-filter')).toHaveCount(0);
-  await expect(page.locator('.civic-scope')).toHaveCount(0);
+  await expect(page.getByLabel('Accept explicit publicarea afilierii mele in comunitate')).not.toBeChecked();
 });

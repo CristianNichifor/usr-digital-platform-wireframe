@@ -60,8 +60,8 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
     page.getByRole("region", { name: "Detalii contact" }),
   ).toHaveCount(0);
   await page.goto("/#/comunitate/setari");
-  await expect(page.locator(".civic-scope")).toHaveCount(0);
-  await expect(page.locator(".member-demo .civic-button")).toHaveCount(0);
+  await expect(page.getByLabel("Accept explicit publicarea afilierii mele in comunitate")).not.toBeChecked();
+  await expect(page.getByLabel("Afiliere declarata")).toHaveValue("Membru actual");
   expect(errors).toEqual([]);
 });
 

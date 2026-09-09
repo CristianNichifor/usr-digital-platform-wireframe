@@ -1,4 +1,4 @@
-import Select from "../../components/Select";
+import { NativeSelect as Select } from "@cristiannichifor/civic-ui";
 import ResourceHub from "./ResourceHub";
 import { useState } from "react";
 import "./members.css";
@@ -6,6 +6,9 @@ import { RotateCcw, Download, Film } from "lucide-react";
 import { createEvent } from "ics";
 import {
   Button,
+  IconButton,
+  RadioGroup,
+  Table,
   Checkbox,
   EmptyState,
   Field,
@@ -206,11 +209,11 @@ function MemberWorkspace({
   ];
   const missing = Boolean(
     id &&
-      !(
-        (current === "calendar" && event) ||
-        (current === "documente" && doc) ||
-        (current === "participare" && item)
-      ),
+    !(
+      (current === "calendar" && event) ||
+      (current === "documente" && doc) ||
+      (current === "participare" && item)
+    ),
   );
   return (
     <div className="member-demo">
@@ -225,27 +228,25 @@ function MemberWorkspace({
           <p>Date fictive. Platile si raspunsurile sunt simulate.</p>
         </div>
         <div className="member-controls">
-          <label>
-            Profil demonstrativ
-            <Select
-              value={persona}
-              onChange={(e) => {
-                setPersona(e.target.value);
-                setNotice("");
-              }}
-            >
-              <option>Membru Model</option>
-              <option>Administrator Model</option>
-              <option>Simpatizant Model</option>
-            </Select>
-          </label>
-          <button
-            onClick={reset}
-            aria-label="Reseteaza demonstratia"
-            title="Reseteaza demonstratia"
-          >
+          <Field id="member-persona" label="Profil demonstrativ">
+            {(attributes) => (
+              <Select
+                {...attributes}
+                value={persona}
+                onChange={(e) => {
+                  setPersona(e.target.value);
+                  setNotice("");
+                }}
+              >
+                <option>Membru Model</option>
+                <option>Administrator Model</option>
+                <option>Simpatizant Model</option>
+              </Select>
+            )}
+          </Field>
+          <IconButton onClick={reset} label="Reseteaza demonstratia">
             <RotateCcw size={18} aria-hidden="true" />
-          </button>
+          </IconButton>
         </div>
       </header>
       <nav className="member-nav" aria-label="Navigare membri">
@@ -344,12 +345,12 @@ function MemberWorkspace({
                 <p>
                   Octombrie 2026: <strong>30 RON / {payment}</strong>
                 </p>
-                <button
+                <Button
                   disabled={payment === "Achitat" || payment === "In asteptare"}
                   onClick={() => setReviewPayment(true)}
                 >
                   Simuleaza plata
-                </button>
+                </Button>
                 {reviewPayment && (
                   <section
                     className="member-review"
@@ -357,18 +358,20 @@ function MemberWorkspace({
                   >
                     <h3>Verifica plata fictiva</h3>
                     <p>30 RON pentru octombrie 2026 / Filiala Model</p>
-                    <label>
-                      Rezultat demonstrativ
-                      <Select
-                        value={paymentResult}
-                        onChange={(e) => setPaymentResult(e.target.value)}
-                      >
-                        <option>In asteptare</option>
-                        <option>Achitat</option>
-                        <option>Esuat</option>
-                      </Select>
-                    </label>
-                    <button
+                    <Field id="payment-result" label="Rezultat demonstrativ">
+                      {(attributes) => (
+                        <Select
+                          {...attributes}
+                          value={paymentResult}
+                          onChange={(e) => setPaymentResult(e.target.value)}
+                        >
+                          <option>In asteptare</option>
+                          <option>Achitat</option>
+                          <option>Esuat</option>
+                        </Select>
+                      )}
+                    </Field>
+                    <Button
                       onClick={() => {
                         setPayment(paymentResult);
                         setReviewPayment(false);
@@ -376,27 +379,29 @@ function MemberWorkspace({
                       }}
                     >
                       Confirma simularea
-                    </button>
-                    <button onClick={() => setReviewPayment(false)}>
+                    </Button>
+                    <Button onClick={() => setReviewPayment(false)}>
                       Anuleaza
-                    </button>
+                    </Button>
                   </section>
                 )}
                 <h3>Istoric</h3>
-                <label>
-                  Perioada
-                  <Select
-                    value={period}
-                    onChange={(e) => setPeriod(e.target.value)}
-                  >
-                    <option>Toate</option>
-                    {rows.map((r) => (
-                      <option key={r.month}>{r.month}</option>
-                    ))}
-                  </Select>
-                </label>
+                <Field id="payment-period" label="Perioada">
+                  {(attributes) => (
+                    <Select
+                      {...attributes}
+                      value={period}
+                      onChange={(e) => setPeriod(e.target.value)}
+                    >
+                      <option>Toate</option>
+                      {rows.map((r) => (
+                        <option key={r.month}>{r.month}</option>
+                      ))}
+                    </Select>
+                  )}
+                </Field>
                 <div className="member-table">
-                  <table>
+                  <Table label="Istoric cotizatii">
                     <thead>
                       <tr>
                         <th>Perioada</th>
@@ -415,7 +420,7 @@ function MemberWorkspace({
                           </tr>
                         ))}
                     </tbody>
-                  </table>
+                  </Table>
                 </div>
                 <p>
                   Donatiile sunt separate de cotizatii.{" "}
@@ -440,7 +445,7 @@ function MemberWorkspace({
                       Organizator: Secretar Model. Ordine de zi: organizare
                       administrativa si intrebari.
                     </p>
-                    <button
+                    <Button
                       disabled={event.status === "Anulat"}
                       onClick={() =>
                         setJoined((v) =>
@@ -453,35 +458,37 @@ function MemberWorkspace({
                       {joined.includes(event.id)
                         ? "Anuleaza participarea simulata"
                         : "Confirma participarea simulata"}
-                    </button>
+                    </Button>
                     <p role="status">
                       {joined.includes(event.id)
                         ? "Participare confirmata in demonstratie."
                         : ""}
                     </p>
-                    <button
+                    <Button
                       title="Descarca evenimentul fictiv"
                       onClick={() => exportCalendar(event)}
                     >
                       <Download size={16} aria-hidden="true" /> Calendar .ics
-                    </button>
+                    </Button>
                     <a href={link("documente/ordine-de-zi")}>
                       Vezi ordinea de zi
                     </a>
                   </>
                 ) : (
                   <>
-                    <label>
-                      Stare
-                      <Select
-                        value={eventFilter}
-                        onChange={(e) => setEventFilter(e.target.value)}
-                      >
-                        <option>Toate</option>
-                        <option>Programat</option>
-                        <option>Anulat</option>
-                      </Select>
-                    </label>
+                    <Field id="event-status" label="Stare">
+                      {(attributes) => (
+                        <Select
+                          {...attributes}
+                          value={eventFilter}
+                          onChange={(e) => setEventFilter(e.target.value)}
+                        >
+                          <option>Toate</option>
+                          <option>Programat</option>
+                          <option>Anulat</option>
+                        </Select>
+                      )}
+                    </Field>
                     <div className="member-list">
                       {events
                         .filter(
@@ -521,7 +528,7 @@ function MemberWorkspace({
                           Document demonstrativ. Sedinta fictiva despre
                           organizarea bibliotecii interne.
                         </p>
-                        <button
+                        <Button
                           onClick={() =>
                             download(
                               doc.id + "-fictiv.txt",
@@ -533,7 +540,7 @@ function MemberWorkspace({
                         >
                           <Download size={16} aria-hidden="true" /> Descarca
                           exemplul
-                        </button>
+                        </Button>
                       </>
                     )}
                   </>
@@ -629,35 +636,30 @@ function MemberWorkspace({
                       </p>
                     ) : item.status === "Deschis" ? (
                       <div key={item.id}>
-                        <fieldset>
-                          <legend>Alegere demonstrativa</legend>
-                          {item.choices.map((c) => (
-                            <label key={c}>
-                              <input
-                                type="radio"
-                                name="choice"
-                                value={c}
-                                checked={choice === c}
-                                onChange={() => {
-                                  setChoice(c);
-                                  setReviewChoice(false);
-                                }}
-                              />
-                              {c}
-                            </label>
-                          ))}
-                        </fieldset>
-                        <button
+                        <RadioGroup
+                          label="Alegere demonstrativa"
+                          name="choice"
+                          value={choice}
+                          options={item.choices.map((c) => ({
+                            value: c,
+                            label: c,
+                          }))}
+                          onValueChange={(value) => {
+                            setChoice(value);
+                            setReviewChoice(false);
+                          }}
+                        />
+                        <Button
                           disabled={!item.choices.includes(choice)}
                           onClick={() => setReviewChoice(true)}
                         >
                           Revizuieste alegerea
-                        </button>
+                        </Button>
                         {reviewChoice && item.choices.includes(choice) && (
                           <section className="member-review">
                             <h3>Confirma raspunsul fictiv</h3>
                             <p>{choice}</p>
-                            <button
+                            <Button
                               onClick={() => {
                                 setResponses((v) => ({
                                   ...v,
@@ -668,10 +670,10 @@ function MemberWorkspace({
                               }}
                             >
                               Confirma in demonstratie
-                            </button>
-                            <button onClick={() => setReviewChoice(false)}>
+                            </Button>
+                            <Button onClick={() => setReviewChoice(false)}>
                               Inapoi
-                            </button>
+                            </Button>
                           </section>
                         )}
                       </div>
@@ -690,13 +692,13 @@ function MemberWorkspace({
                       aria-label="Tip participare"
                     >
                       {["Consultari", "Alegeri", "Dezbateri"].map((t) => (
-                        <button
+                        <Button
                           key={t}
                           aria-pressed={tab === t}
                           onClick={() => setTab(t)}
                         >
                           {t}
-                        </button>
+                        </Button>
                       ))}
                     </div>
                     <div className="member-list">
@@ -768,25 +770,19 @@ function MemberWorkspace({
               <>
                 <h2>Setarile profilului</h2>
                 <p>Membru Model / Filiala Model</p>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={visible}
-                    onChange={(e) => setVisible(e.target.checked)}
-                  />
-                  Afiseaza profilul fictiv in director
-                </label>
+                <Checkbox
+                  label="Afiseaza profilul fictiv in director"
+                  checked={visible}
+                  onChange={(e) => setVisible(e.target.checked)}
+                />
                 <p>Stare salvata: {savedVisible ? "Vizibil" : "Ascuns"}</p>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={saveError}
-                    onChange={(e) => setSaveError(e.target.checked)}
-                  />
-                  Scenariu eroare la salvare
-                </label>
+                <Checkbox
+                  label="Scenariu eroare la salvare"
+                  checked={saveError}
+                  onChange={(e) => setSaveError(e.target.checked)}
+                />
                 <div className="member-actions">
-                  <button
+                  <Button
                     onClick={() => {
                       if (saveError) {
                         setNotice(
@@ -799,15 +795,15 @@ function MemberWorkspace({
                     }}
                   >
                     Salveaza preferinta
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => {
                       setVisible(savedVisible);
                       setNotice("Modificarile au fost anulate.");
                     }}
                   >
                     Anuleaza
-                  </button>
+                  </Button>
                 </div>
               </>
             )}
