@@ -1,6 +1,6 @@
 # Civic UI Adoption
 
-The demo uses [Civic UI v0.2.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.2.0). The root package manifest pins its GitHub release tarball and the lockfile records its integrity. No npm account or local filesystem dependency is needed.
+The demo uses [Civic UI v0.4.0](https://github.com/CristianNichifor/civic-ui/releases/tag/v0.4.0). The root package manifest pins its GitHub release tarball and the lockfile records its integrity. No npm account or local filesystem dependency is needed.
 
 Shared styles and the USR adapter are loaded at the application root within a `civic-scope civic-usr` boundary. Existing narrow scope wrappers remain composition boundaries. The adapter uses this demo's existing `--usr-*` tokens and fonts. No new palette or brand assets are loaded.
 

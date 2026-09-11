@@ -23,7 +23,7 @@ test("accepts the reviewed public release and integrity-locked dependency tree",
 });
 
 for (const replacement of [
-  "^0.2.0",
+  "^0.4.0",
   "https://example.org/civic-ui.tgz",
   "file:../civic-ui",
   "workspace:*",
@@ -33,7 +33,7 @@ for (const replacement of [
     manifest.dependencies[name] = replacement;
     assert.ok(
       validateCivicContract(manifest, lock).some((error) =>
-        error.includes("reviewed v0.2.0"),
+        error.includes("reviewed v0.4.0"),
       ),
     );
   });
@@ -53,7 +53,7 @@ for (const property of ["version", "resolved", "integrity"]) {
 
 test("rejects mismatching lockfile root and missing package entry", () => {
   const { manifest, lock } = fixture();
-  lock.packages[""].dependencies[name] = "^0.2.0";
+  lock.packages[""].dependencies[name] = "^0.4.0";
   delete lock.packages[entry];
   assert.equal(validateCivicContract(manifest, lock).length, 2);
 });

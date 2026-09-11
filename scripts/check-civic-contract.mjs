@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 
 const packageName = "@cristiannichifor/civic-ui";
 const release =
-  "https://github.com/CristianNichifor/civic-ui/releases/download/v0.2.0/civic-ui-0.2.0.tgz";
+  "https://github.com/CristianNichifor/civic-ui/releases/download/v0.4.0/civic-ui-0.4.0.tgz";
 const integrity =
-  "sha512-njM2sa8x280dzdNdL5WUcnuRYOYcfNS7d/QE3xX7YM12/BiedF0l5AE4Z+rlKjE1Zj10O6GLDI2yrxOoYmYTIw==";
+  "sha512-AUWcUEr5AoeGYbEMkEr9TB8GsLi2YnRNcUCXTuzbcfN8G7jRTxXgiD1wSCzAV9o4rndLG4TA7KrgkfoRVmmH8Q==";
 const dependencyGroups = [
   "dependencies",
   "devDependencies",
@@ -28,13 +28,13 @@ export function validateCivicContract(manifest, lock) {
   const errors = [];
   if (manifest.dependencies?.[packageName] !== release)
     errors.push(
-      "Civic UI must use the reviewed v0.2.0 GitHub release tarball.",
+      "Civic UI must use the reviewed v0.4.0 GitHub release tarball.",
     );
   if (lock.packages?.[""]?.dependencies?.[packageName] !== release)
     errors.push("The lockfile root must match the Civic UI release pin.");
   const installed = lock.packages?.["node_modules/" + packageName];
   if (
-    installed?.version !== "0.2.0" ||
+    installed?.version !== "0.4.0" ||
     installed?.resolved !== release ||
     installed?.integrity !== integrity
   ) {
