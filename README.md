@@ -95,3 +95,10 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 - [MEMBER_AREA_PLAN.md](MEMBER_AREA_PLAN.md): planul și limitele alternativei de prezentare.
 - [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md): pași de mentenanță și verificare pentru demo.
 - [PROPOSAL_MEMO.md](PROPOSAL_MEMO.md): scopul prezentării și criterii de feedback.
+
+## Licență
+
+Codul din acest depozit este licențiat MIT — vezi [`LICENSE`](LICENSE).
+
+Licența acoperă codul. Nu acoperă numele, sigla sau identitatea vizuală USR: prototipul este
+neoficial, nu este aprobat de USR, iar textele, persoanele și cifrele afișate sunt sintetice.
