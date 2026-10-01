@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  verify:
+  demo-checks:
     name: Build and browser checks
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -45,3 +45,15 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
+  verify:
+    name: verify
+    if: ${{ always() }}
+    needs: [demo-checks]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Require every correctness job to succeed
+        env:
+          CHECK_RESULT: ${{ needs.demo-checks.result }}
+        run: test "$CHECK_RESULT" = success

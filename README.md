@@ -65,6 +65,10 @@ Build-ul verifică tipurile TypeScript și generează fișierele statice în `di
 
 ## Teste
 
+Ghidul [CONTRIBUTING.md](CONTRIBUTING.md) descrie verificarea completa, criteriile
+de acceptare si limitele datelor fictive. `npm run verify` ruleaza build-ul si apoi
+toata suita de browsere pe `dist/`, cu `CI=1`, fara reutilizarea serverului local.
+
 ```bash
 npx --no-install playwright install chromium firefox webkit
 npm test
@@ -80,7 +84,9 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 
 ## Publicare
 
-[Verificările automate](.github/workflows/checks.yml) rulează la fiecare pull request: instalarea dependențelor, build TypeScript/Vite și matricea Playwright descrisa mai sus. Rapoartele și capturile sunt păstrate ca artefacte timp de șapte zile.
+[Verificările automate](.github/workflows/checks.yml) rulează la fiecare pull request: instalarea dependențelor, build TypeScript/Vite și matricea Playwright descrisa mai sus. Rapoartele și capturile sunt păstrate ca artefacte timp de șapte zile. Statusul agregat
+`verify` accepta numai succesul jobului de build si browsere; esecurile, anularile
+si verificarile omise nu trec acest prag.
 
 [Workflow-ul GitHub Pages](.github/workflows/pages.yml) rulează la push pe `main` sau prin declanșare manuală. Apelează aceleași verificări și publică `dist/` numai după succesul lor. Obligativitatea verificărilor înainte de merge depinde de regulile configurate pentru ramura din GitHub.
 
