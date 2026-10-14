@@ -226,8 +226,8 @@ function MemberWorkspace({
   const doc = documents.find((d) => d.id === id);
   const item = participation.find((p) => p.id === id);
   const rows = [
-    { month: "Octombrie 2026", amount: "30 RON", status: payment },
-    { month: "Septembrie 2026", amount: "30 RON", status: "Achitat" },
+    { month: "Octombrie 2026", amount: "30 lei", status: payment },
+    { month: "Septembrie 2026", amount: "30 lei", status: "Achitat" },
   ];
   const missing = Boolean(
     id &&
@@ -347,7 +347,7 @@ function MemberWorkspace({
                 <div className="member-summary">
                   <a href={link("cotizatii")}>
                     <span>Cotizație octombrie</span>
-                    <strong>30 RON</strong>
+                    <strong>30 lei</strong>
                     <span>
                       <StatusChip status={payment} />
                     </span>
@@ -398,7 +398,7 @@ function MemberWorkspace({
               <>
                 <h2>Cotizațiile mele</h2>
                 <p>
-                  Octombrie 2026: <strong>30 RON / {payment}</strong>
+                  Octombrie 2026: <strong>30 lei / {payment}</strong>
                 </p>
                 <Button
                   disabled={payment === "Achitat" || payment === "În așteptare"}
@@ -412,7 +412,7 @@ function MemberWorkspace({
                     aria-label="Revizuire plata"
                   >
                     <h3>Verifică plata fictivă</h3>
-                    <p>30 RON pentru octombrie 2026 / Filiala Model</p>
+                    <p>30 lei pentru octombrie 2026 / Filiala Model</p>
                     <Field id="payment-result" label="Rezultat demonstrativ">
                       {(attributes) => (
                         <Select
