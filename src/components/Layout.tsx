@@ -1,3 +1,5 @@
+import { Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { footerNav, headerActions, topNav } from '../data/navigation';
 import { officials } from '../data/officials';
 import type { OfficialRecord } from '../data/officials';
@@ -7,6 +9,15 @@ import type { HashRoute, ViewMode } from '../routing';
 export function Layout({ route, children }: { route: HashRoute; children: React.ReactNode }) {
   const recordId = recordIdFromPath(route.path);
   const record = officials.find((item) => item.id === recordId);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => setMenuOpen(false), [route.path]);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setMenuOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
 
   return (
     <>
@@ -15,18 +26,37 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
       </a>
       <header className="site-header">
         <div className="prototype-banner" role="note">
-          Machetă neoficială, neafiliată USR — date fictive.
+          Machetă neoficială, neafiliată USR — date fictive. <a href="#/strategie">Despre machetă</a>
         </div>
-        <div className="header-main">
-          <a className="neutral-mark" href="#/" aria-label="Machetă site public, index">
-            <span aria-hidden="true">MP</span>
+        <div className="header-main" data-menu={menuOpen ? 'open' : 'closed'}>
+          <a className="wordmark" href="#/">
+            <span className="wordmark__name">Platformă digitală</span>
+            <span className="wordmark__note">machetă</span>
           </a>
-          <nav className="primary-nav" aria-label="Navigare principală">
+          <button
+            type="button"
+            className="menu-toggle"
+            aria-expanded={menuOpen}
+            aria-controls="primary-nav"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
+            <span className="menu-toggle__label">Meniu</span>
+          </button>
+          <nav id="primary-nav" className="primary-nav" aria-label="Navigare principală">
             {topNav.map((item) => (
-              <a key={item.path} href={item.href} aria-current={route.path.startsWith(item.path) ? 'page' : undefined}>
+              <a
+                key={item.path}
+                href={item.href}
+                aria-current={route.path.startsWith(item.path) ? 'page' : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
                 {item.label}
               </a>
             ))}
+            <a className="primary-nav__join" href="#/inscriere" onClick={() => setMenuOpen(false)}>
+              Înscriere
+            </a>
           </nav>
           <nav className="header-actions" aria-label="Acțiuni principale">
             {headerActions.map((item) => (
