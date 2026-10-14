@@ -67,7 +67,7 @@ These are recorded as USR-17 to USR-19 in `docs/specs/production-readiness.md`.
 | USR-18 status chips with glyph and text, dues table source line | done | #32 |
 | USR-18 summary cards are links, payment failure is `role="alert"` with "Reîncearcă" | already true before this round | — |
 | USR-19 toggle reads "Închide" when open, Escape returns focus to it | done | #34 |
-| USR-19 menu links ≥ 44 px tall | done, via `src/components/layout.css` | #36 |
+| USR-19 menu links ≥ 44 px tall | done | #36 |
 | PNG captures of the mockups and the live site | open: no browser runs allowed on the fleet laptop | — |
 
 Tests: `tests/homepage-status.spec.ts`, `tests/footer.spec.ts`, `tests/member-currency.spec.ts`,
