@@ -1,5 +1,6 @@
 import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import './layout.css';
 import { footerNav, headerActions, topNav } from '../data/navigation';
 import { officials } from '../data/officials';
 import type { OfficialRecord } from '../data/officials';
