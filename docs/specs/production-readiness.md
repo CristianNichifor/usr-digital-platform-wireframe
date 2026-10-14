@@ -4,11 +4,11 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 
 | ID | Item | Status |
 | --- | --- | --- |
-| USR-1 | `noindex,nofollow` and a persistent "unofficial, not affiliated" banner | todo |
-| USR-2 | Aileron font licence file | todo |
-| USR-3 | Romanian diacritics normalised in `src/**` and README, checked in the build | todo |
-| USR-4 | Each route sets its own `document.title` | todo |
-| USR-5 | Open Graph title, description and a synthetic image | todo |
+| USR-1 | `noindex,nofollow` and a persistent "unofficial, not affiliated" banner | done |
+| USR-2 | Aileron font licence file | done |
+| USR-3 | Romanian diacritics normalised in `src/**` and README, checked in the build | done (wording needs human review) |
+| USR-4 | Each route sets its own `document.title` | done |
+| USR-5 | Open Graph title, description and a synthetic image | done |
 | USR-6 | Civic UI upgrade | blocked (waits for civic-ui 0.8) |
 | USR-7 | Split `src/App.tsx` into feature routes, `App.tsx` under 500 lines | todo (separate PR) |
 
@@ -26,7 +26,9 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 - Given the bundled Aileron `.woff2` files in `src/assets/usr/`,
   when the upstream licence can be confirmed,
   then `LICENSE-Aileron.txt` states it and names the source; otherwise the item is `needs-human`.
-- Proof: upstream reference recorded in this spec.
+- Proof: https://dotcolon.net/font/aileron/ states "Aileron is No Rights Reserved." and links to
+  CC0 1.0; the bundled files' name table says "No Rights Reserved." (designer Sora Sagano,
+  vendor URL dotcolon.net). Recorded in `LICENSE-Aileron.txt`.
 
 ## USR-3 Diacritics
 
@@ -48,7 +50,8 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 ## USR-5 Open Graph
 
 - Given the built page, then it has `og:title`, `og:description`, `og:type`, `og:image`
-  (a synthetic image in `public/`, no USR logo) and `twitter:card`.
+  (a synthetic image in `public/`, no USR logo) and `twitter:card`. The image was rendered
+  once from plain HTML with Playwright; it shows only the wireframe's name and placeholder boxes.
 - Given `og:image`, then the file exists in the build output.
 - Test: `tests/meta.spec.ts` › "open graph" case.
 
