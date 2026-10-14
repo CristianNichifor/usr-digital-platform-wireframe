@@ -29,12 +29,15 @@ export function PlaceholderBox({ label, tall = false }: { label: string; tall?: 
   );
 }
 
-export function OpenQuestions({ screen }: { screen: keyof typeof screenQuestions }) {
+type QuestionScreen = keyof typeof screenQuestions;
+
+export function OpenQuestions({ screen }: { screen: QuestionScreen | QuestionScreen[] }) {
+  const screens = Array.isArray(screen) ? screen : [screen];
   return (
     <aside className="open-questions" aria-labelledby="open-questions-title">
       <h2 id="open-questions-title">Întrebări deschise</h2>
       <ul>
-        {[...(screenQuestions[screen] ?? []), ...genericOpenQuestions].map((item) => (
+        {[...screens.flatMap((key) => screenQuestions[key] ?? []), ...genericOpenQuestions].map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>

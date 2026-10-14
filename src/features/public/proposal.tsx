@@ -108,17 +108,9 @@ export function ProjectDataScreen() {
   );
 }
 
-export function StrategyScreen() {
+export function StrategySections() {
   return (
-    <div className="stack">
-      <section className="page-heading">
-        <p className="eyebrow">De ce contează</p>
-        <h1>Avantaj strategic prin date, oameni și muncă repetabilă</h1>
-        <p>
-          Integrarea cu repo-urile publice nu este un exercițiu tehnic. Este o metodă de a transforma analiză verificată
-          în materiale, întâlniri și acțiuni pe care organizația le poate repeta în fiecare filială.
-        </p>
-      </section>
+    <>
 
       <section className="wire-section" aria-labelledby="strategy-benefits-title">
         <h2 id="strategy-benefits-title">Beneficii pentru partid</h2>
@@ -244,8 +236,7 @@ export function StrategyScreen() {
         </p>
       </section>
 
-      <OpenQuestions screen="strategy" />
-    </div>
+    </>
   );
 }
 

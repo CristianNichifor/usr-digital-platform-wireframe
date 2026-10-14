@@ -5,12 +5,12 @@ import { useEffect, useMemo } from 'react';
 import { Layout } from './components/Layout';
 import MemberDemo from './features/members/MemberDemo';
 import { GovernmentScreen, PositionsScreen, VerificationScreen } from './features/public/government';
-import { IndexScreen, NotFound } from './features/public/home';
+import { AboutScreen, HomeScreen, NotFound } from './features/public/home';
 import { LocalDataScreen } from './features/public/local-data';
 import { NewsScreen, PressRoomScreen } from './features/public/news';
 import { ContactScreen, DonateScreen, OrganizationScreen, SignupScreen } from './features/public/participation';
 import { PeopleScreen, PersonScreen } from './features/public/people';
-import { ArchitectureScreen, CostNoteScreen, ProjectDataScreen, StrategyScreen } from './features/public/proposal';
+import { ArchitectureScreen, CostNoteScreen, ProjectDataScreen } from './features/public/proposal';
 import { DeclarationsScreen, MoneyScreen } from './features/public/transparency';
 import { useHashRoute } from './routing';
 import { routeTitle } from './titles';
@@ -20,7 +20,7 @@ export default function App() {
 
   const screen = useMemo(() => {
     if (route.path === '/comunitate' || route.path.startsWith('/comunitate/')) return <MemberDemo path={'/membri/' + (route.path.slice('/comunitate/'.length) || 'resurse')} supporter />;
-    if (route.path === '/') return <IndexScreen />;
+    if (route.path === '/') return <HomeScreen />;
     if (route.path === '/stiri') return <NewsScreen />;
     if (route.path === '/oameni') return <PeopleScreen route={route} />;
     if (route.path.startsWith('/oameni/')) return <PersonScreen route={route} />;
@@ -37,7 +37,7 @@ export default function App() {
     if (route.path === '/inscriere') return <SignupScreen />;
     if (route.path === '/doneaza') return <DonateScreen />;
     if (route.path === '/proiecte-date') return <ProjectDataScreen />;
-    if (route.path === '/strategie') return <StrategyScreen />;
+    if (route.path === '/strategie') return <AboutScreen />;
     if (route.path === '/arhitectura') return <ArchitectureScreen />;
     if (route.path === '/nota') return <CostNoteScreen />;
     return <NotFound route={route} />;

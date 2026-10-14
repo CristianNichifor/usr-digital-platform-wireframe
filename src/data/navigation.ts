@@ -22,7 +22,7 @@ export const footerNav = [
   { href: '#/organizare', label: 'Organizare' },
   { href: '#/contact', label: 'Contact' },
   { href: '#/proiecte-date', label: 'Proiecte și date' },
-  { href: '#/strategie', label: 'De ce contează' },
+  { href: '#/strategie', label: 'Despre machetă' },
   { href: '#/arhitectura', label: 'Arhitectură date' },
   { href: '#/nota', label: 'Notă costuri' },
   { href: 'https://usr.ro/statut', label: 'Statut public' },
