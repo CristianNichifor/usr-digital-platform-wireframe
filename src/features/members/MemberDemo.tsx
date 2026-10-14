@@ -40,6 +40,19 @@ const sectionGroups: [string, string[]][] = [
   ["Resurse", ["resurse", "social", "design", "proiecte", "contacte-publice"]],
 ];
 const sectionLabel = (key: string) => sections.find(([k]) => k === key)?.[1] ?? key;
+const chipGlyph: Record<string, string> = {
+  Achitat: "✓",
+  "În așteptare": "◷",
+  Restant: "◷",
+  Eșuat: "!",
+};
+function StatusChip({ status }: { status: string }) {
+  return (
+    <span className="member-chip" data-status={status}>
+      <span aria-hidden="true">{chipGlyph[status] ?? "·"}</span> {status}
+    </span>
+  );
+}
 const events = [
   {
     id: "adunare",
@@ -335,7 +348,9 @@ function MemberWorkspace({
                   <a href={link("cotizatii")}>
                     <span>Cotizație octombrie</span>
                     <strong>30 RON</strong>
-                    <span>{payment}</span>
+                    <span>
+                      <StatusChip status={payment} />
+                    </span>
                   </a>
                   <a href={link("calendar/adunare")}>
                     <span>Următoarea adunare</span>
@@ -440,6 +455,10 @@ function MemberWorkspace({
                     </Select>
                   )}
                 </Field>
+                <p className="fake-meta member-table__source">
+                  Istoric cotizații · sursă: date fictive, generate în machetă · verificat: 08
+                  septembrie 2026
+                </p>
                 <div className="member-table">
                   <Table label="Istoric cotizații">
                     <thead>
@@ -456,7 +475,9 @@ function MemberWorkspace({
                           <tr key={r.month}>
                             <td>{r.month}</td>
                             <td>{r.amount}</td>
-                            <td>{r.status}</td>
+                            <td>
+                              <StatusChip status={r.status} />
+                            </td>
                           </tr>
                         ))}
                     </tbody>
