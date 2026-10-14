@@ -19,21 +19,40 @@ import {
 import "@cristiannichifor/civic-ui/styles.css";
 import "@cristiannichifor/civic-ui/themes/usr.css";
 
-const sections = [
-  ["", "Acasa"],
-  ["cotizatii", "Cotizatii"],
+export const sections = [
+  ["", "Acasă"],
+  ["cotizatii", "Cotizații"],
   ["calendar", "Calendar"],
   ["documente", "Documente"],
   ["participare", "Participare"],
-  ["organizatie", "Organizatie"],
+  ["organizatie", "Organizație"],
   ["media", "Media"],
   ["resurse", "Resurse"],
   ["social", "Director social"],
   ["design", "Design"],
   ["proiecte", "Proiecte"],
   ["contacte-publice", "Contacte publice"],
-  ["setari", "Setari"],
+  ["setari", "Setări"],
 ];
+const sectionGroups: [string, string[]][] = [
+  ["Eu", ["", "cotizatii", "participare", "setari"]],
+  ["Filială", ["calendar", "documente", "organizatie", "media"]],
+  ["Resurse", ["resurse", "social", "design", "proiecte", "contacte-publice"]],
+];
+const sectionLabel = (key: string) => sections.find(([k]) => k === key)?.[1] ?? key;
+const chipGlyph: Record<string, string> = {
+  Achitat: "✓",
+  "În așteptare": "◷",
+  Restant: "◷",
+  Eșuat: "!",
+};
+function StatusChip({ status }: { status: string }) {
+  return (
+    <span className="member-chip" data-status={status}>
+      <span aria-hidden="true">{chipGlyph[status] ?? "·"}</span> {status}
+    </span>
+  );
+}
 const events = [
   {
     id: "adunare",
@@ -50,14 +69,14 @@ const events = [
     title: "Atelier pentru membri noi",
     date: "2026-10-22",
     time: "17:30",
-    place: "Sala Demonstratie",
+    place: "Sala Demonstrație",
     utcHour: 14,
     minute: 30,
     status: "Programat",
   },
   {
     id: "arhiva",
-    title: "Sedinta de organizare",
+    title: "Ședință de organizare",
     date: "2026-09-01",
     time: "18:00",
     place: "Sala Exemplu",
@@ -69,14 +88,14 @@ const events = [
 const documents = [
   {
     id: "proces-verbal",
-    title: "Proces-verbal de sedinta",
+    title: "Proces-verbal de ședință",
     type: "Proces-verbal",
     date: "2026-09-01",
     restricted: false,
   },
   {
     id: "ordine-de-zi",
-    title: "Ordinea de zi a adunarii",
+    title: "Ordinea de zi a adunării",
     type: "Ordine de zi",
     date: "2026-10-15",
     restricted: false,
@@ -92,11 +111,11 @@ const documents = [
 const participation = [
   {
     id: "consultare",
-    type: "Consultari",
-    title: "Programul intalnirilor interne",
+    type: "Consultări",
+    title: "Programul întâlnirilor interne",
     status: "Deschis",
     deadline: "20 octombrie 2026",
-    choices: ["In timpul saptamanii", "In weekend"],
+    choices: ["În timpul săptămânii", "În weekend"],
   },
   {
     id: "alegere",
@@ -110,7 +129,7 @@ const participation = [
     id: "dezbatere",
     type: "Dezbateri",
     title: "Organizarea bibliotecii interne",
-    status: "Inchis",
+    status: "Închis",
     deadline: "1 septembrie 2026",
     choices: [],
   },
@@ -176,13 +195,13 @@ function MemberWorkspace({
   const [notice, setNotice] = useState("");
   const [payment, setPayment] = useState("Restant");
   const [reviewPayment, setReviewPayment] = useState(false);
-  const [paymentResult, setPaymentResult] = useState("In asteptare");
+  const [paymentResult, setPaymentResult] = useState("În așteptare");
   const [period, setPeriod] = useState("Toate");
   const [query, setQuery] = useState("");
   const [docType, setDocType] = useState("Toate");
   const [eventFilter, setEventFilter] = useState("Toate");
   const [joined, setJoined] = useState<string[]>([]);
-  const [tab, setTab] = useState("Consultari");
+  const [tab, setTab] = useState("Consultări");
   const [choice, setChoice] = useState("");
   const [reviewChoice, setReviewChoice] = useState(false);
   const [responses, setResponses] = useState<Record<string, string>>({});
@@ -200,12 +219,15 @@ function MemberWorkspace({
     "contacte-publice",
   ];
   const restricted = community && !openSections.includes(current);
+  const visibleGroups = sectionGroups
+    .map(([group, keys]) => [group, keys.filter((key) => !community || openSections.includes(key))] as const)
+    .filter(([, keys]) => keys.length > 0);
   const event = events.find((e) => e.id === id);
   const doc = documents.find((d) => d.id === id);
   const item = participation.find((p) => p.id === id);
   const rows = [
-    { month: "Octombrie 2026", amount: "30 RON", status: payment },
-    { month: "Septembrie 2026", amount: "30 RON", status: "Achitat" },
+    { month: "Octombrie 2026", amount: "30 lei", status: payment },
+    { month: "Septembrie 2026", amount: "30 lei", status: "Achitat" },
   ];
   const missing = Boolean(
     id &&
@@ -221,11 +243,11 @@ function MemberWorkspace({
         <div>
           <p className="eyebrow">
             {community
-              ? "Comunitate deschisa"
+              ? "Comunitate deschisă"
               : "Zona membrilor / Filiala Model"}
           </p>
-          <h1>Spatiul meu</h1>
-          <p>Date fictive. Platile si raspunsurile sunt simulate.</p>
+          <h1>Spațiul meu</h1>
+          <p>Date fictive. Plățile și răspunsurile sunt simulate.</p>
         </div>
         <div className="member-controls">
           <Field id="member-persona" label="Profil demonstrativ">
@@ -244,23 +266,54 @@ function MemberWorkspace({
               </Select>
             )}
           </Field>
-          <IconButton onClick={reset} label="Reseteaza demonstratia">
+          <IconButton onClick={reset} label="Resetează demonstrația">
             <RotateCcw size={18} aria-hidden="true" />
           </IconButton>
         </div>
       </header>
+      <div className="member-layout">
       <nav className="member-nav" aria-label="Navigare membri">
-        {sections
-          .filter(([key]) => !community || openSections.includes(key))
-          .map(([key, title]) => (
-            <a
-              key={key}
-              href={community ? "#/comunitate/" + key : link(key)}
-              aria-current={current === key ? "page" : undefined}
-            >
-              {title}
-            </a>
+        <div className="member-nav__select">
+          <Field id="member-section" label="Secțiune">
+            {(attributes) => (
+              <Select
+                {...attributes}
+                value={current}
+                onChange={(e) => {
+                  window.location.hash = (community ? "#/comunitate/" + e.target.value : link(e.target.value)).replace(/\/$/, "");
+                }}
+              >
+                {visibleGroups.map(([group, keys]) => (
+                  <optgroup label={group} key={group}>
+                    {keys.map((key) => (
+                      <option value={key} key={key}>
+                        {sectionLabel(key)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </Select>
+            )}
+          </Field>
+        </div>
+        <div className="member-nav__groups">
+          {visibleGroups.map(([group, keys]) => (
+            <section className="member-nav__group" key={group} aria-labelledby={"member-nav-" + keys[0]}>
+              <h2 className="member-nav__title" id={"member-nav-" + keys[0]}>
+                {group}
+              </h2>
+              {keys.map((key) => (
+                <a
+                  key={key}
+                  href={community ? "#/comunitate/" + key : link(key)}
+                  aria-current={current === key ? "page" : undefined}
+                >
+                  {sectionLabel(key)}
+                </a>
+              ))}
+            </section>
           ))}
+        </div>
       </nav>
       <div className="member-content">
         <ResourceHub
@@ -275,39 +328,41 @@ function MemberWorkspace({
         />
         {restricted ? (
           <>
-            <h2>Zona rezervata membrilor</h2>
+            <h2>Zona rezervată membrilor</h2>
             <p>
-              Resursele comunitatii sunt disponibile fara calitatea de membru.
+              Resursele comunității sunt disponibile fără calitatea de membru.
             </p>
             <a href={link("resurse")}>Deschide resursele</a>
           </>
         ) : missing ? (
           <>
-            <h2>Pagina indisponibila</h2>
-            <a href={link()}>Inapoi la spatiul meu</a>
+            <h2>Pagină indisponibilă</h2>
+            <a href={link()}>Înapoi la spațiul meu</a>
           </>
         ) : (
           <>
             {current === "" && (
               <>
-                <h2>Buna ziua, {persona}</h2>
+                <h2>Bună ziua, {persona}</h2>
                 <div className="member-summary">
                   <a href={link("cotizatii")}>
-                    <span>Cotizatie octombrie</span>
-                    <strong>30 RON</strong>
-                    <span>{payment}</span>
+                    <span>Cotizație octombrie</span>
+                    <strong>30 lei</strong>
+                    <span>
+                      <StatusChip status={payment} />
+                    </span>
                   </a>
                   <a href={link("calendar/adunare")}>
-                    <span>Urmatoarea adunare</span>
+                    <span>Următoarea adunare</span>
                     <strong>15 octombrie</strong>
                     <span>18:00 / Europe/Bucharest</span>
                   </a>
                   <a href={link("participare")}>
                     <span>Participare</span>
                     <strong>
-                      {2 - Object.keys(responses).length} in asteptare
+                      {2 - Object.keys(responses).length} în așteptare
                     </strong>
-                    <span>Alegeri si consultari</span>
+                    <span>Alegeri și consultări</span>
                   </a>
                 </div>
                 <h2>Acces rapid</h2>
@@ -316,18 +371,18 @@ function MemberWorkspace({
                     [
                       "documente",
                       "Documentele filialei",
-                      "Ordini de zi, procese-verbale si rapoarte",
+                      "Ordini de zi, procese-verbale și rapoarte",
                     ],
                     [
                       "organizatie",
-                      "Organizatia mea",
-                      "Roluri si responsabilitati",
+                      "Organizația mea",
+                      "Roluri și responsabilități",
                     ],
                     [
                       "setari",
                       "Profilul meu",
                       savedVisible
-                        ? "Vizibil in directorul fictiv"
+                        ? "Vizibil în directorul fictiv"
                         : "Ascuns din directorul fictiv",
                     ],
                   ].map(([key, title, description]) => (
@@ -341,23 +396,23 @@ function MemberWorkspace({
             )}
             {current === "cotizatii" && (
               <>
-                <h2>Cotizatiile mele</h2>
+                <h2>Cotizațiile mele</h2>
                 <p>
-                  Octombrie 2026: <strong>30 RON / {payment}</strong>
+                  Octombrie 2026: <strong>30 lei / {payment}</strong>
                 </p>
                 <Button
-                  disabled={payment === "Achitat" || payment === "In asteptare"}
+                  disabled={payment === "Achitat" || payment === "În așteptare"}
                   onClick={() => setReviewPayment(true)}
                 >
-                  Simuleaza plata
+                  Simulează plata
                 </Button>
                 {reviewPayment && (
                   <section
                     className="member-review"
                     aria-label="Revizuire plata"
                   >
-                    <h3>Verifica plata fictiva</h3>
-                    <p>30 RON pentru octombrie 2026 / Filiala Model</p>
+                    <h3>Verifică plata fictivă</h3>
+                    <p>30 lei pentru octombrie 2026 / Filiala Model</p>
                     <Field id="payment-result" label="Rezultat demonstrativ">
                       {(attributes) => (
                         <Select
@@ -365,9 +420,9 @@ function MemberWorkspace({
                           value={paymentResult}
                           onChange={(e) => setPaymentResult(e.target.value)}
                         >
-                          <option>In asteptare</option>
+                          <option>În așteptare</option>
                           <option>Achitat</option>
-                          <option>Esuat</option>
+                          <option>Eșuat</option>
                         </Select>
                       )}
                     </Field>
@@ -375,13 +430,13 @@ function MemberWorkspace({
                       onClick={() => {
                         setPayment(paymentResult);
                         setReviewPayment(false);
-                        setNotice("Plata simulata: " + paymentResult);
+                        setNotice("Plata simulată: " + paymentResult);
                       }}
                     >
-                      Confirma simularea
+                      Confirmă simularea
                     </Button>
                     <Button onClick={() => setReviewPayment(false)}>
-                      Anuleaza
+                      Anulează
                     </Button>
                   </section>
                 )}
@@ -400,8 +455,12 @@ function MemberWorkspace({
                     </Select>
                   )}
                 </Field>
+                <p className="fake-meta member-table__source">
+                  Istoric cotizații · sursă: date fictive, generate în machetă · verificat: 08
+                  septembrie 2026
+                </p>
                 <div className="member-table">
-                  <Table label="Istoric cotizatii">
+                  <Table label="Istoric cotizații">
                     <thead>
                       <tr>
                         <th>Perioada</th>
@@ -416,16 +475,18 @@ function MemberWorkspace({
                           <tr key={r.month}>
                             <td>{r.month}</td>
                             <td>{r.amount}</td>
-                            <td>{r.status}</td>
+                            <td>
+                              <StatusChip status={r.status} />
+                            </td>
                           </tr>
                         ))}
                     </tbody>
                   </Table>
                 </div>
                 <p>
-                  Donatiile sunt separate de cotizatii.{" "}
-                  <a href="#/doneaza">Donatii</a> /{" "}
-                  <a href="#/bani">Raportare publica</a>
+                  Donațiile sunt separate de cotizații.{" "}
+                  <a href="#/doneaza">Donații</a> /{" "}
+                  <a href="#/bani">Raportare publică</a>
                 </p>
               </>
             )}
@@ -434,7 +495,7 @@ function MemberWorkspace({
                 <h2>{event ? event.title : "Calendarul filialei"}</h2>
                 {event ? (
                   <>
-                    <a href={link("calendar")}>Inapoi la calendar</a>
+                    <a href={link("calendar")}>Înapoi la calendar</a>
                     <p>
                       {event.date}, {event.time} / Europe/Bucharest
                     </p>
@@ -443,7 +504,7 @@ function MemberWorkspace({
                     </p>
                     <p>
                       Organizator: Secretar Model. Ordine de zi: organizare
-                      administrativa si intrebari.
+                      administrativă și întrebări.
                     </p>
                     <Button
                       disabled={event.status === "Anulat"}
@@ -456,16 +517,16 @@ function MemberWorkspace({
                       }
                     >
                       {joined.includes(event.id)
-                        ? "Anuleaza participarea simulata"
-                        : "Confirma participarea simulata"}
+                        ? "Anulează participarea simulată"
+                        : "Confirmă participarea simulată"}
                     </Button>
                     <p role="status">
                       {joined.includes(event.id)
-                        ? "Participare confirmata in demonstratie."
+                        ? "Participare confirmată în demonstrație."
                         : ""}
                     </p>
                     <Button
-                      title="Descarca evenimentul fictiv"
+                      title="Descarcă evenimentul fictiv"
                       onClick={() => exportCalendar(event)}
                     >
                       <Download size={16} aria-hidden="true" /> Calendar .ics
@@ -513,7 +574,7 @@ function MemberWorkspace({
                 <h2>{doc ? doc.title : "Biblioteca de documente"}</h2>
                 {doc ? (
                   <>
-                    <a href={link("documente")}>Inapoi la documente</a>
+                    <a href={link("documente")}>Înapoi la documente</a>
                     <p>
                       {doc.date} / {doc.type} / Filiala Model
                     </p>
@@ -525,7 +586,7 @@ function MemberWorkspace({
                     ) : (
                       <>
                         <p>
-                          Document demonstrativ. Sedinta fictiva despre
+                          Document demonstrativ. Ședință fictivă despre
                           organizarea bibliotecii interne.
                         </p>
                         <Button
@@ -534,11 +595,11 @@ function MemberWorkspace({
                               doc.id + "-fictiv.txt",
                               "DOCUMENT FICTIV\n" +
                                 doc.title +
-                                "\nFiliala Model\nMaterial sintetic pentru prezentare. Nu reprezinta un document intern.",
+                                "\nFiliala Model\nMaterial sintetic pentru prezentare. Nu reprezintă un document intern.",
                             )
                           }
                         >
-                          <Download size={16} aria-hidden="true" /> Descarca
+                          <Download size={16} aria-hidden="true" /> Descarcă
                           exemplul
                         </Button>
                       </>
@@ -548,7 +609,7 @@ function MemberWorkspace({
                   <>
                     <div className="document-library civic-scope civic-usr">
                       <div className="member-filters document-filters">
-                        <Field id="document-search" label="Cauta documente">
+                        <Field id="document-search" label="Caută documente">
                           {(attributes) => (
                             <Input
                               {...attributes}
@@ -582,10 +643,10 @@ function MemberWorkspace({
                         <Notice
                           role="alert"
                           tone="danger"
-                          title="Biblioteca este indisponibila in acest scenariu."
+                          title="Biblioteca este indisponibilă în acest scenariu."
                         >
                           <Button onClick={() => setUnavailable(false)}>
-                            Reincearca
+                            Reîncearcă
                           </Button>
                         </Notice>
                       ) : (
@@ -613,7 +674,7 @@ function MemberWorkspace({
                                 .toLowerCase()
                                 .includes(query.toLowerCase()) &&
                               (docType === "Toate" || d.type === docType),
-                          ) && <EmptyState title="Niciun document gasit." />}
+                          ) && <EmptyState title="Niciun document găsit." />}
                         </div>
                       )}
                     </div>
@@ -623,21 +684,21 @@ function MemberWorkspace({
             )}
             {current === "participare" && (
               <>
-                <h2>{item ? item.title : "Participare interna"}</h2>
+                <h2>{item ? item.title : "Participare internă"}</h2>
                 {item ? (
                   <>
-                    <a href={link("participare")}>Inapoi la participare</a>
+                    <a href={link("participare")}>Înapoi la participare</a>
                     <p>
                       {item.status} / Termen: {item.deadline}
                     </p>
                     {responses[item.id] ? (
                       <p role="status">
-                        Raspuns fictiv inregistrat: {responses[item.id]}
+                        Răspuns fictiv înregistrat: {responses[item.id]}
                       </p>
                     ) : item.status === "Deschis" ? (
                       <div key={item.id}>
                         <RadioGroup
-                          label="Alegere demonstrativa"
+                          label="Alegere demonstrativă"
                           name="choice"
                           value={choice}
                           options={item.choices.map((c) => ({
@@ -653,11 +714,11 @@ function MemberWorkspace({
                           disabled={!item.choices.includes(choice)}
                           onClick={() => setReviewChoice(true)}
                         >
-                          Revizuieste alegerea
+                          Revizuiește alegerea
                         </Button>
                         {reviewChoice && item.choices.includes(choice) && (
                           <section className="member-review">
-                            <h3>Confirma raspunsul fictiv</h3>
+                            <h3>Confirmă răspunsul fictiv</h3>
                             <p>{choice}</p>
                             <Button
                               onClick={() => {
@@ -669,18 +730,18 @@ function MemberWorkspace({
                                 setReviewChoice(false);
                               }}
                             >
-                              Confirma in demonstratie
+                              Confirmă în demonstrație
                             </Button>
                             <Button onClick={() => setReviewChoice(false)}>
-                              Inapoi
+                              Înapoi
                             </Button>
                           </section>
                         )}
                       </div>
                     ) : (
                       <p>
-                        Discutie inchisa. Concluzie fictiva: documentele vor fi
-                        grupate dupa tip si data.
+                        Discuție închisă. Concluzie fictivă: documentele vor fi
+                        grupate după tip și dată.
                       </p>
                     )}
                   </>
@@ -691,7 +752,7 @@ function MemberWorkspace({
                       role="group"
                       aria-label="Tip participare"
                     >
-                      {["Consultari", "Alegeri", "Dezbateri"].map((t) => (
+                      {["Consultări", "Alegeri", "Dezbateri"].map((t) => (
                         <Button
                           key={t}
                           aria-pressed={tab === t}
@@ -709,7 +770,7 @@ function MemberWorkspace({
                             <strong>{p.title}</strong>
                             <span>
                               {responses[p.id]
-                                ? "Raspuns fictiv trimis"
+                                ? "Răspuns fictiv trimis"
                                 : p.status}{" "}
                               / {p.deadline}
                             </span>
@@ -723,12 +784,12 @@ function MemberWorkspace({
             {current === "organizatie" && (
               <>
                 <h2>Filiala Model</h2>
-                <p>Structura demonstrativa</p>
+                <p>Structură demonstrativă</p>
                 <div className="member-list">
                   {[
-                    ["Coordonator Model", "Coordonare administrativa"],
-                    ["Secretar Model", "Sedinte si documente"],
-                    ["Trezorier Model", "Cotizatii si evidenta financiara"],
+                    ["Coordonator Model", "Coordonare administrativă"],
+                    ["Secretar Model", "Ședințe și documente"],
+                    ["Trezorier Model", "Cotizații și evidență financiară"],
                   ].map(([name, role]) => (
                     <article key={name}>
                       <h3>{name}</h3>
@@ -740,42 +801,42 @@ function MemberWorkspace({
                 <p>
                   {savedVisible
                     ? "Membru Model / Profil fictiv vizibil"
-                    : "Profilul tau fictiv nu apare in director."}
+                    : "Profilul tău fictiv nu apare în director."}
                 </p>
-                <a href={link("setari")}>Gestioneaza vizibilitatea</a>
+                <a href={link("setari")}>Gestionează vizibilitatea</a>
               </>
             )}
             {current === "media" && (
               <>
                 <h2>Media</h2>
                 <h3>Transmisii live</h3>
-                <p>Nicio transmisie programata.</p>
-                <h3>Arhiva</h3>
+                <p>Nicio transmisie programată.</p>
+                <h3>Arhivă</h3>
                 <article className="member-media">
                   <Film size={40} aria-hidden="true" />
                   <h3>Organizarea documentelor</h3>
                   <details>
-                    <summary>Deschide transcrierea fictiva</summary>
+                    <summary>Deschide transcrierea fictivă</summary>
                     <p>
-                      Exemplu: documentele se grupeaza dupa tip, data si
-                      filiala. Materialul nu provine dintr-o inregistrare
-                      interna.
+                      Exemplu: documentele se grupează după tip, dată și
+                      filială. Materialul nu provine dintr-o înregistrare
+                      internă.
                     </p>
                   </details>
-                  <p>Inregistrare video indisponibila in demonstratie.</p>
+                  <p>Înregistrare video indisponibilă în demonstrație.</p>
                 </article>
               </>
             )}
             {current === "setari" && !community && (
               <>
-                <h2>Setarile profilului</h2>
+                <h2>Setările profilului</h2>
                 <p>Membru Model / Filiala Model</p>
                 <Checkbox
-                  label="Afiseaza profilul fictiv in director"
+                  label="Afișează profilul fictiv în director"
                   checked={visible}
                   onChange={(e) => setVisible(e.target.checked)}
                 />
-                <p>Stare salvata: {savedVisible ? "Vizibil" : "Ascuns"}</p>
+                <p>Stare salvată: {savedVisible ? "Vizibil" : "Ascuns"}</p>
                 <Checkbox
                   label="Scenariu eroare la salvare"
                   checked={saveError}
@@ -786,31 +847,31 @@ function MemberWorkspace({
                     onClick={() => {
                       if (saveError) {
                         setNotice(
-                          "Salvarea simulata a esuat. Preferinta nu a fost modificata.",
+                          "Salvarea simulată a eșuat. Preferința nu a fost modificată.",
                         );
                         return;
                       }
                       setSavedVisible(visible);
-                      setNotice("Preferinta demonstrativa a fost salvata.");
+                      setNotice("Preferința demonstrativă a fost salvată.");
                     }}
                   >
-                    Salveaza preferinta
+                    Salvează preferința
                   </Button>
                   <Button
                     onClick={() => {
                       setVisible(savedVisible);
-                      setNotice("Modificarile au fost anulate.");
+                      setNotice("Modificările au fost anulate.");
                     }}
                   >
-                    Anuleaza
+                    Anulează
                   </Button>
                 </div>
               </>
             )}
             {!sections.some(([key]) => key === current) && (
               <>
-                <h2>Pagina inexistenta</h2>
-                <a href={link()}>Spatiul meu</a>
+                <h2>Pagină inexistentă</h2>
+                <a href={link()}>Spațiul meu</a>
               </>
             )}
           </>
@@ -818,6 +879,7 @@ function MemberWorkspace({
         <p className="member-notice" role="status">
           {notice}
         </p>
+      </div>
       </div>
     </div>
   );

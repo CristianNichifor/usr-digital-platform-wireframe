@@ -44,47 +44,47 @@ test("participation review and consent use shared keyboard controls", async ({
   await page.goto("/#/membri/participare");
   await context.setOffline(true);
   await page
-    .getByRole("link", { name: /Programul intalnirilor interne/ })
+    .getByRole("link", { name: /Programul întâlnirilor interne/ })
     .click();
-  const choice = page.getByRole("radio", { name: "In weekend", exact: true });
+  const choice = page.getByRole("radio", { name: "În weekend", exact: true });
   await expect(page.locator(".civic-radio-group")).toHaveCount(1);
   await expect(
-    page.getByRole("button", { name: "Revizuieste alegerea" }),
+    page.getByRole("button", { name: "Revizuiește alegerea" }),
   ).toBeDisabled();
   await choice.focus();
   await page.keyboard.press("Space");
   await expect(choice).toBeChecked();
-  await page.getByRole("button", { name: "Revizuieste alegerea" }).click();
+  await page.getByRole("button", { name: "Revizuiește alegerea" }).click();
   await choice.focus();
   await page.keyboard.press("ArrowUp");
   await expect(choice).not.toBeChecked();
   await expect(
-    page.getByRole("button", { name: "Confirma in demonstratie" }),
+    page.getByRole("button", { name: "Confirmă în demonstrație" }),
   ).toHaveCount(0);
   await choice.focus();
   await page.keyboard.press("Space");
-  await page.getByRole("button", { name: "Revizuieste alegerea" }).click();
-  await page.getByRole("button", { name: "Inapoi", exact: true }).click();
+  await page.getByRole("button", { name: "Revizuiește alegerea" }).click();
+  await page.getByRole("button", { name: "Înapoi", exact: true }).click();
   await expect(choice).toBeChecked();
-  await page.getByRole("button", { name: "Revizuieste alegerea" }).click();
-  await page.getByRole("button", { name: "Confirma in demonstratie" }).click();
+  await page.getByRole("button", { name: "Revizuiește alegerea" }).click();
+  await page.getByRole("button", { name: "Confirmă în demonstrație" }).click();
   await expect(
-    page.getByText("Raspuns fictiv inregistrat: In weekend"),
+    page.getByText("Răspuns fictiv înregistrat: În weekend"),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Setari", exact: true }).click();
+  await page.getByRole("link", { name: "Setări", exact: true }).click();
   const consent = page.getByLabel(
-    "Accept explicit publicarea afilierii mele in comunitate",
+    "Accept explicit publicarea afilierii mele în comunitate",
   );
   await expect(consent).not.toBeChecked();
   await consent.focus();
   await page.keyboard.press("Space");
   await expect(consent).toBeChecked();
   await expect(consent).toHaveCSS("width", "20px");
-  await page.getByLabel("Afiliere declarata").selectOption("Simpatizant");
+  await page.getByLabel("Afiliere declarată").selectOption("Simpatizant");
   await expect(consent).not.toBeChecked();
-  await page.getByRole("button", { name: "Reseteaza demonstratia" }).click();
+  await page.getByRole("button", { name: "Resetează demonstrația" }).click();
   await expect(
-    page.getByLabel("Afiseaza profilul fictiv in director"),
+    page.getByLabel("Afișează profilul fictiv în director"),
   ).not.toBeChecked();
 });
 
