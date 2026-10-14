@@ -32,4 +32,5 @@ export const footerNav = [
   { href: 'https://usr.ro/statut', label: 'Statut public' },
   { href: 'https://usr.ro/solicitari-informatii-publice', label: 'Solicitări 544' },
   { href: 'https://usr.ro/mandatari-financiari', label: 'Mandatari financiari' },
+  { href: 'https://projects.cristian-nichifor.com/ro/', label: 'Toate proiectele civice' },
 ];
