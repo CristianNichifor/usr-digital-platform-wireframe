@@ -9,7 +9,7 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   const pilot = page.locator(".public-contacts");
   await expect(pilot.locator(".resource-item")).toHaveCount(8);
   const bookmark = page.getByRole("button", {
-    name: "Salveaza Primar Model",
+    name: "Salvează Primar Model",
     exact: true,
   });
   await expect(bookmark).toHaveCSS("width", "44px");
@@ -87,7 +87,7 @@ test("contact pilot responsive baselines include details and draft", async ({
     await page.getByLabel("Tip solicitare").selectOption("Cerere de audiență");
     await page.getByRole("button", { name: "Revizuiește draftul" }).click();
     await expect(page.locator(".contact-draft")).toContainText(
-      "Subiect: Cerere de audienta",
+      "Subiect: Cerere de audiență",
     );
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),

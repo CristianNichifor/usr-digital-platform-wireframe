@@ -43,7 +43,7 @@ test('document filters, restrictions and synthetic downloads work offline withou
   await page.getByRole('button', { name: 'Descarcă exemplul' }).click();
   const download = await downloaded;
   expect(download.suggestedFilename()).toBe('raport-fictiv.txt');
-  expect(await readFile((await download.path())!, 'utf8')).toBe('DOCUMENT FICTIV\nRaport administrativ\nFiliala Model\nMaterial sintetic pentru prezentare. Nu reprezinta un document intern.');
+  expect(await readFile((await download.path())!, 'utf8')).toBe('DOCUMENT FICTIV\nRaport administrativ\nFiliala Model\nMaterial sintetic pentru prezentare. Nu reprezintă un document intern.');
   await page.getByRole('link', { name: 'Documente', exact: true }).click();
   await expect(search).toHaveValue('ADMINISTRATIV');
   await page.getByRole('button', { name: 'Resetează demonstrația' }).click();

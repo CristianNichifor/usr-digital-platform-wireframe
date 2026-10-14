@@ -66,7 +66,7 @@ test("Civic fields retain composition in conditionally displayed controls", asyn
 }) => {
   await page.goto("/#/membri/setari");
   await page
-    .getByRole("button", { name: "Adauga profil fictiv LinkedIn", exact: true })
+    .getByRole("button", { name: "Adaugă profil fictiv LinkedIn", exact: true })
     .click();
   await expect(page.getByLabel("Vizibilitate LinkedIn")).toBeVisible();
   await expectCivicComposition(page);

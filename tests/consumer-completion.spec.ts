@@ -44,7 +44,7 @@ test("participation review and consent use shared keyboard controls", async ({
   await page.goto("/#/membri/participare");
   await context.setOffline(true);
   await page
-    .getByRole("link", { name: /Programul intalnirilor interne/ })
+    .getByRole("link", { name: /Programul întâlnirilor interne/ })
     .click();
   const choice = page.getByRole("radio", { name: "În weekend", exact: true });
   await expect(page.locator(".civic-radio-group")).toHaveCount(1);
@@ -69,7 +69,7 @@ test("participation review and consent use shared keyboard controls", async ({
   await page.getByRole("button", { name: "Revizuiește alegerea" }).click();
   await page.getByRole("button", { name: "Confirmă în demonstrație" }).click();
   await expect(
-    page.getByText("Raspuns fictiv inregistrat: In weekend"),
+    page.getByText("Răspuns fictiv înregistrat: În weekend"),
   ).toBeVisible();
   await page.getByRole("link", { name: "Setări", exact: true }).click();
   const consent = page.getByLabel(

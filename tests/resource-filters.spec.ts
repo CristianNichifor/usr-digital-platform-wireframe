@@ -22,14 +22,14 @@ test('resource filters preserve combinations, saved items, empty results and res
   await expect(items).toContainText('Actualizare a programului bibliotecii');
   await search.fill('GAZETA');
   await expect(items).toHaveCount(1);
-  await search.fill('fara rezultat');
+  await search.fill('fără rezultat');
   await expect(items).toHaveCount(0);
   await expect(page.getByText('Nicio resursă găsită.')).toBeVisible();
   await search.fill('');
   await kind.selectOption('Toate');
   await scope.selectOption('Toate');
   await expect(items).toHaveCount(5);
-  await page.getByRole('button', { name: 'Salveaza Invitatie la intalnirea de organizare', exact: true }).click();
+  await page.getByRole('button', { name: 'Salvează Invitație la întâlnirea de organizare', exact: true }).click();
   await page.getByLabel('Doar salvate', { exact: true }).check();
   await expect(items).toHaveCount(1);
   await scope.selectOption('Filială');

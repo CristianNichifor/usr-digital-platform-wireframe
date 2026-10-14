@@ -16,7 +16,7 @@ test("affiliation requires separate opt-in; internal history requires a purpose 
     .getByRole("link", { name: "Director social", exact: true })
     .click();
   await expect(
-    page.getByText("Afiliere declarata: Nu mai este membru"),
+    page.getByText("Afiliere declarată: Nu mai este membru"),
   ).toBeVisible();
   await page.getByRole("link", { name: "Setări", exact: true }).click();
   await consent.uncheck();
@@ -24,7 +24,7 @@ test("affiliation requires separate opt-in; internal history requires a purpose 
     .getByRole("link", { name: "Director social", exact: true })
     .click();
   await expect(
-    page.getByText("Afiliere declarata: Nu mai este membru"),
+    page.getByText("Afiliere declarată: Nu mai este membru"),
   ).toHaveCount(0);
   await page.getByLabel("Profil demonstrativ").selectOption("Membru Model");
   await expect(
