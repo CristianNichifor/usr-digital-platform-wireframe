@@ -175,7 +175,7 @@ export const repoModules: RepoModule[] = [
   {
     repo: 'legislativ',
     label: 'Linter legislativ',
-    href: 'https://github.com/CristianNichifor/legislativ',
+    href: 'https://github.com/CristianNichifor/legislation-linter',
     reusableData: 'obligații neîndeplinite, terminologie, contradicții, schemă de proveniență',
     prototypeUse: 'Zona membrilor: sarcini pentru echipa de cercetare; Ce propunem: verificare poziții',
     integrationMode: 'intern în primă fază; publicăm doar rezultate validate manual',
@@ -185,7 +185,7 @@ export const repoModules: RepoModule[] = [
   {
     repo: 'achizitii-deschise',
     label: 'Achiziții deschise',
-    href: 'https://github.com/CristianNichifor/achizitii-deschise',
+    href: 'https://github.com/CristianNichifor/open-procurement',
     reusableData: 'prețuri unitare, agregate pe județ, indicatori de risc, metodologie OCDS',
     prototypeUse: 'Date locale, Fapte de azi, Sala de presă, Bani publici',
     integrationMode: 'link extern pentru explorator; agregate sintetice în pagini locale',
