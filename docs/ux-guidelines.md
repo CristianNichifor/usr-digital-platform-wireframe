@@ -104,5 +104,4 @@ Use exactly one of: **Date live** (Live data) / **Date demonstrative** (Demo dat
 - Footer has no explicit privacy link; the data-limits text lives only in the README.
 - civic-ui is pinned at 0.5.0; StatTile, SourceCitation and StatusMessage adoption waits for 0.8 (USR-6).
 - No automated axe run; add one when the civic-ui upgrade lands.
-- Touch target floor is 32 px, below the 44 px preferred size for primary actions.
-- No forced-colours test.
+- Touch target floor is 32 px for links; buttons are 44 px (USR-21).
