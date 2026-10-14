@@ -98,7 +98,7 @@ select {
 }
 
 button {
-  min-height: 2.65rem;
+  min-height: 2.75rem;
   border: 1px solid var(--usr-navy);
   border-radius: var(--usr-radius-control);
   background: var(--usr-navy);
@@ -1427,4 +1427,11 @@ tbody tr:hover {
 
 .home-card--more {
   background: var(--usr-surface-raised);
+}
+
+@media (forced-colors: active) {
+  .primary-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+  }
 }
