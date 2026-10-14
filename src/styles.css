@@ -1163,8 +1163,16 @@ tbody tr:hover {
     min-height: 44px;
   }
 
+  /* Pinned as a full-width button at the end of the open menu (design screen 03). */
   .primary-nav .primary-nav__join {
     display: inline-flex;
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-top: var(--usr-space-2);
+    border-radius: var(--usr-radius-control);
+    background: var(--usr-on-navy);
+    color: var(--usr-navy);
+    font-weight: 800;
   }
 
   .header-action--join {

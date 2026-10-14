@@ -159,6 +159,8 @@ menu is dimmed and `aria-hidden`.
 - Given 390 px with the menu open, then `main` and the footer carry `aria-hidden="true"` and
   `inert`, and are drawn at reduced opacity; the menu links stay reachable.
 - Given the menu is closed again (toggle, Escape or a choice), then neither carries them.
+- Given 390 px with the menu open, then Înscriere is the last item, a full-width button at least
+  44 px tall.
 - Given the menu is open and the viewport widens past the menu breakpoint (980 px), then the
   menu closes, so a desktop page is never left inert.
 - Test: `tests/menu-backdrop.spec.ts`.

@@ -69,6 +69,7 @@ These are recorded as USR-17 to USR-19 in `docs/specs/production-readiness.md`.
 | USR-19 toggle reads "Închide" when open, Escape returns focus to it | done | #34 |
 | USR-19 menu links ≥ 44 px tall | done | #36 |
 | Screen 03 content behind the open menu dimmed and `aria-hidden` (USR-23) | done | this PR |
+| Screen 03 Înscriere pinned as a full-width button in the menu (USR-23) | done | this PR |
 | PNG captures of the mockups and the live site | open: no browser runs allowed on the fleet laptop | — |
 
 Tests: `tests/homepage-status.spec.ts`, `tests/footer.spec.ts`, `tests/member-currency.spec.ts`,

@@ -38,3 +38,16 @@ test("widening past the menu breakpoint closes the menu and frees the page", asy
   await expect(page.locator("main#continut")).not.toHaveAttribute("inert");
   await expect(page.locator("main#continut")).not.toHaveAttribute("aria-hidden", "true");
 });
+
+test("Înscriere is a full-width button inside the open menu", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#/");
+  await page.locator(".menu-toggle").click();
+  const nav = page.getByRole("navigation", { name: "Navigare principală" });
+  const join = nav.getByRole("link", { name: "Înscriere" });
+  await expect(join).toBeVisible();
+  const [joinBox, navBox] = [(await join.boundingBox())!, (await nav.boundingBox())!];
+  expect(joinBox.width).toBeGreaterThan(navBox.width * 0.9);
+  expect(joinBox.height).toBeGreaterThanOrEqual(44);
+  expect(await join.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe("rgba(0, 0, 0, 0)");
+});
