@@ -142,3 +142,10 @@ the mockups is agent-written: needs human review. Tests to add in `tests/ux.spec
 - Given `forced-colors: active`, then the current menu item stays marked
   (underline), since the inset box-shadow marker is dropped in that mode.
 - Tests: `tests/ux.spec.ts` › "44px" and "forced colours" cases.
+
+## USR-22 Footer links back to the hub
+
+- Given any page, then the footer links to the civic projects hub
+  (`https://projects.cristian-nichifor.com/ro/`, "Toate proiectele civice"),
+  so the prototype is not a dead end in the tool family.
+- Test: `tests/footer-family.spec.ts`. Romanian label: needs human review.
