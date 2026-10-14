@@ -15,6 +15,9 @@ export function HomeScreen() {
         </p>
         <h1 id="home-lead-title">{lead.title}</h1>
         <p>{lead.brief}</p>
+        <p className="fake-meta home-lead__source">
+          sursă: {lead.source} · verificat: {lead.verified}
+        </p>
         <div className="home-actions">
           <a className="home-button home-button--primary" href={lead.href}>
             Citește dosarul
@@ -57,6 +60,7 @@ export function HomeScreen() {
               <span>
                 {person.role} · {person.county}
               </span>
+              <span className="eyebrow">{person.hasCv ? 'CV publicat' : 'CV lipsă, cerut intern'}</span>
             </a>
           ))}
         </div>

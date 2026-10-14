@@ -93,6 +93,8 @@ export const currentNews = [
     title: 'Hotărâre parlamentară contestată la CCR',
     brief: 'Modelăm știrea ca dosar: decizie, document, actor responsabil, termen și actualizare.',
     href: '#/stiri?tema=integritate',
+    source: 'știre publică + documente parlamentare sintetice',
+    verified: '08 septembrie 2026',
   },
   {
     category: 'Miniștri USR',
@@ -100,6 +102,8 @@ export const currentNews = [
     title: 'Țintă PNRR raportată ca îndeplinită',
     brief: 'Actualizarea intră într-o fișă de guvernare cu jalon, sursă și rezultat verificabil.',
     href: '#/guvernare?tema=pnrr',
+    source: 'set sintetic',
+    verified: '08 septembrie 2026',
   },
   {
     category: 'Administrație',
@@ -107,6 +111,8 @@ export const currentNews = [
     title: 'Automatizarea proceselor din administrația publică',
     brief: 'Știrea devine urmărită prin status de proiect, instituție owner și material pentru filiale.',
     href: '#/guvernare?tema=digitalizare',
+    source: 'set sintetic',
+    verified: '08 septembrie 2026',
   },
 ];
 

@@ -26,7 +26,9 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
       </a>
       <header className="site-header">
         <div className="prototype-banner" role="note">
-          Machetă neoficială, neafiliată USR — date fictive. <a href="#/strategie">Despre machetă</a>
+          Machetă neoficială, neafiliată USR — date fictive.{' '}
+          <span className="prototype-banner__status">Prototip · Date demonstrative.</span>{' '}
+          <a href="#/strategie">Despre machetă</a>
         </div>
         <div className="header-main" data-menu={menuOpen ? 'open' : 'closed'}>
           <a className="wordmark" href="#/">
