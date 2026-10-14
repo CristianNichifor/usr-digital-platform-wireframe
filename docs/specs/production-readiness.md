@@ -109,3 +109,21 @@ From the coordinator's UX review. Tests: `tests/ux.spec.ts`.
 - Given any page, then the footer says the site is an unofficial mock-up with
   synthetic content and does not show the internal "Rută curentă: #/…" hash.
 - Test: `tests/ux.spec.ts` › "footer" case.
+
+## USR-17 to USR-19 Design screens
+
+From `docs/design/README.md` (target-state mockups in `docs/design/screens/`). Romanian copy in
+the mockups is agent-written: needs human review. Tests to add in `tests/ux.spec.ts`.
+
+- USR-17: Given `#/`, then the banner shows "Prototip" and "Date demonstrative", the lead story
+  has a `sursă:` line, a missing CV in the Oameni block is marked with text (not only colour),
+  and the footer has a privacy / data-limits link.
+  Test: `tests/ux.spec.ts` › "homepage status and provenance".
+- USR-18: Given `#/membri`, then amounts read `30 lei` (not `RON`), the summary cards are links,
+  dues statuses are text chips, the dues table has a caption with provenance, and the simulated
+  payment failure renders `role="alert"` with a "Reîncearcă" button.
+  Test: `tests/ux.spec.ts` › "member dashboard amounts and chips".
+- USR-19: Given 390 px with the menu open, then the toggle reads "Închide" with
+  `aria-expanded="true"`, every menu link is at least 44 px tall, Înscriere is inside the menu,
+  Escape closes the menu and returns focus to the toggle; closed, the header is at most 140 px.
+  Test: `tests/ux.spec.ts` › "mobile menu open state".
