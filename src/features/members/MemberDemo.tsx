@@ -34,6 +34,12 @@ export const sections = [
   ["contacte-publice", "Contacte publice"],
   ["setari", "Setări"],
 ];
+const sectionGroups: [string, string[]][] = [
+  ["Eu", ["", "cotizatii", "participare", "setari"]],
+  ["Filială", ["calendar", "documente", "organizatie", "media"]],
+  ["Resurse", ["resurse", "social", "design", "proiecte", "contacte-publice"]],
+];
+const sectionLabel = (key: string) => sections.find(([k]) => k === key)?.[1] ?? key;
 const events = [
   {
     id: "adunare",
@@ -200,6 +206,9 @@ function MemberWorkspace({
     "contacte-publice",
   ];
   const restricted = community && !openSections.includes(current);
+  const visibleGroups = sectionGroups
+    .map(([group, keys]) => [group, keys.filter((key) => !community || openSections.includes(key))] as const)
+    .filter(([, keys]) => keys.length > 0);
   const event = events.find((e) => e.id === id);
   const doc = documents.find((d) => d.id === id);
   const item = participation.find((p) => p.id === id);
@@ -249,18 +258,49 @@ function MemberWorkspace({
           </IconButton>
         </div>
       </header>
+      <div className="member-layout">
       <nav className="member-nav" aria-label="Navigare membri">
-        {sections
-          .filter(([key]) => !community || openSections.includes(key))
-          .map(([key, title]) => (
-            <a
-              key={key}
-              href={community ? "#/comunitate/" + key : link(key)}
-              aria-current={current === key ? "page" : undefined}
-            >
-              {title}
-            </a>
+        <div className="member-nav__select">
+          <Field id="member-section" label="Secțiune">
+            {(attributes) => (
+              <Select
+                {...attributes}
+                value={current}
+                onChange={(e) => {
+                  window.location.hash = (community ? "#/comunitate/" + e.target.value : link(e.target.value)).replace(/\/$/, "");
+                }}
+              >
+                {visibleGroups.map(([group, keys]) => (
+                  <optgroup label={group} key={group}>
+                    {keys.map((key) => (
+                      <option value={key} key={key}>
+                        {sectionLabel(key)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </Select>
+            )}
+          </Field>
+        </div>
+        <div className="member-nav__groups">
+          {visibleGroups.map(([group, keys]) => (
+            <section className="member-nav__group" key={group} aria-labelledby={"member-nav-" + keys[0]}>
+              <h2 className="member-nav__title" id={"member-nav-" + keys[0]}>
+                {group}
+              </h2>
+              {keys.map((key) => (
+                <a
+                  key={key}
+                  href={community ? "#/comunitate/" + key : link(key)}
+                  aria-current={current === key ? "page" : undefined}
+                >
+                  {sectionLabel(key)}
+                </a>
+              ))}
+            </section>
           ))}
+        </div>
       </nav>
       <div className="member-content">
         <ResourceHub
@@ -818,6 +858,7 @@ function MemberWorkspace({
         <p className="member-notice" role="status">
           {notice}
         </p>
+      </div>
       </div>
     </div>
   );
