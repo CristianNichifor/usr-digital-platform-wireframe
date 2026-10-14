@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { footerNav, headerActions, topNav } from '../data/navigation';
 import { officials } from '../data/officials';
 import type { OfficialRecord } from '../data/officials';
@@ -10,11 +10,16 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
   const recordId = recordIdFromPath(route.path);
   const record = officials.find((item) => item.id === recordId);
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => setMenuOpen(false), [route.path]);
   useEffect(() => {
     if (!menuOpen) return;
-    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && setMenuOpen(false);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setMenuOpen(false);
+      toggleRef.current?.focus();
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [menuOpen]);
@@ -38,12 +43,14 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
           <button
             type="button"
             className="menu-toggle"
+            ref={toggleRef}
             aria-expanded={menuOpen}
             aria-controls="primary-nav"
+            aria-label={menuOpen ? 'Închide meniul' : 'Meniu'}
             onClick={() => setMenuOpen((open) => !open)}
           >
             {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-            <span className="menu-toggle__label">Meniu</span>
+            <span className="menu-toggle__label">{menuOpen ? 'Închide' : 'Meniu'}</span>
           </button>
           <nav id="primary-nav" className="primary-nav" aria-label="Navigare principală">
             {topNav.map((item) => (
