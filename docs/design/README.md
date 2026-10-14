@@ -57,6 +57,22 @@ These are recorded as USR-17 to USR-19 in `docs/specs/production-readiness.md`.
   `aria-expanded="true"`, each menu link is ≥ 44 px tall, Înscriere is inside the menu, Escape
   closes it and returns focus to the toggle; the header is ≤ 140 px closed.
 
+## Implementation status (2026-10-14)
+
+| Criterion | State | Landed in |
+| --- | --- | --- |
+| USR-17 banner status words, lead `sursă:` line, CV gaps as text | done | #31 |
+| USR-17 footer privacy / data-limits link | done | #29 (USR-20) |
+| USR-18 amounts in lei | done | #30 |
+| USR-18 status chips with glyph and text, dues table source line | done | #32 |
+| USR-18 summary cards are links, payment failure is `role="alert"` with "Reîncearcă" | already true before this round | — |
+| USR-19 toggle reads "Închide" when open, Escape returns focus to it | done | #34 |
+| USR-19 menu links ≥ 44 px tall | open: needs `src/styles.css`, owned by #27 at the time | — |
+| PNG captures of the mockups and the live site | open: no browser runs allowed on the fleet laptop | — |
+
+Tests: `tests/homepage-status.spec.ts`, `tests/footer.spec.ts`, `tests/member-currency.spec.ts`,
+`tests/member-chips.spec.ts`, `tests/mobile-menu.spec.ts`.
+
 ## Needs human
 
 - Review the Romanian copy in the three mockups.
