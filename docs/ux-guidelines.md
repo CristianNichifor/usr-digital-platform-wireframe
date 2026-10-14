@@ -67,8 +67,8 @@ of meaning in status chips or legends.
 
 - Designed at 390 px first; no horizontal overflow on any route (member and community suites check it).
 - Header at 390 px: "Meniu" button with `aria-expanded`, Membri and Donează pinned, ≤ 140 px tall.
-- Touch targets: links and controls outside running text are ≥ 32 px tall (USR-10); 44 px preferred
-  for primary actions. The fleet floor is 24 px.
+- Touch targets: links and controls outside running text are ≥ 44 px tall on mobile (USR-24).
+  The fleet floor is 24 px.
 - WCAG 2.1 AA: text contrast ≥ 4.5:1, visible focus, labelled controls, keyboard operable menus
   (Escape closes the menu).
 - Reduced motion: under `prefers-reduced-motion: reduce` there is no smooth scrolling and no card
@@ -92,7 +92,7 @@ Use exactly one of: **Date live** (Live data) / **Date demonstrative** (Demo dat
 | Civic UI contract | `scripts/check-civic-contract.mjs` (build) |
 | Homepage first screen | `tests/ux.spec.ts` › home route |
 | Mobile header and menu | `tests/ux.spec.ts` › mobile header |
-| Targets ≥ 32 px on mobile | `tests/ux.spec.ts` › 32px |
+| Targets ≥ 44 px on mobile | `tests/ux.spec.ts` › 44px (USR-24) |
 | Provenance line readable | `tests/ux.spec.ts` › sursă line contrast |
 | No overflow at narrow widths | `tests/members.spec.ts`, `tests/resources.spec.ts`, `tests/consumer-completion.spec.ts` |
 | No external requests | `tests/resources.spec.ts`, `tests/privacy-contacts.spec.ts` and others |
@@ -106,4 +106,3 @@ Use exactly one of: **Date live** (Live data) / **Date demonstrative** (Demo dat
 
 - civic-ui is pinned at 0.5.0; StatTile, SourceCitation and StatusMessage adoption waits for 0.8 (USR-6).
 - No automated axe run; add one when the civic-ui upgrade lands.
-- Touch target floor is 32 px for links; buttons are 44 px (USR-21).

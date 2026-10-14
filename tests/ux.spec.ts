@@ -80,7 +80,7 @@ test("the desktop header shows plain section links and three action buttons", as
   }
 });
 
-test("links and controls outside running text are at least 32px tall on mobile", async ({ page }) => {
+test("links and controls outside running text are at least 44px tall on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   for (const route of ["/", "/stiri", "/oameni", "/oameni/primar-exemplu", "/contact", "/strategie", "/membri", "/comunitate", "/membri/documente"]) {
     await page.goto("/#" + route);
@@ -96,7 +96,7 @@ test("links and controls outside running text are at least 32px tall on mobile",
             style.display !== "inline" &&
             box.width > 0 &&
             box.height > 0 &&
-            box.height < 32 &&
+            box.height < 44 &&
             !element.classList.contains("skip-link") &&
             type !== "checkbox" &&
             type !== "radio"
