@@ -127,6 +127,7 @@ the mockups is agent-written: needs human review. Tests to add in `tests/ux.spec
   `aria-expanded="true"`, every menu link is at least 44 px tall, Înscriere is inside the menu,
   Escape closes the menu and returns focus to the toggle; closed, the header is at most 140 px.
   Test: `tests/ux.spec.ts` › "mobile menu open state".
+
 ## USR-20 Footer privacy link
 
 - Given any page, then the footer's secondary links include "Limitele datelor și
