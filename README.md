@@ -93,7 +93,8 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 
 ## Fișiere principale
 
-- [src/App.tsx](src/App.tsx): rutare și ecrane publice.
+- [src/App.tsx](src/App.tsx): alegerea ecranului pentru ruta curentă; [src/routing.ts](src/routing.ts) citește și scrie hash-ul, iar [src/titles.ts](src/titles.ts) dă titlul fiecărei rute.
+- [src/features/public/](src/features/public/): ecranele publice, grupate pe zone; datele fictive sunt în [src/data/](src/data/), iar antetul și subsolul în [src/components/Layout.tsx](src/components/Layout.tsx).
 - [src/features/members/MemberDemo.tsx](src/features/members/MemberDemo.tsx): ecrane, date fictive și interacțiuni pentru membri.
 - [src/features/members/ResourceHub.tsx](src/features/members/ResourceHub.tsx): resurse și profiluri pentru comunitate; exemplele sunt în [resources.ts](src/features/members/resources.ts).
 - [src/features/members/PublicContacts.tsx](src/features/members/PublicContacts.tsx): director instituțional fictiv și solicitări individuale demonstrative.

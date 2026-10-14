@@ -10,7 +10,7 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-4 | Each route sets its own `document.title` | done |
 | USR-5 | Open Graph title, description and a synthetic image | done |
 | USR-6 | Civic UI upgrade | blocked (waits for civic-ui 0.8) |
-| USR-7 | Split `src/App.tsx` into feature routes, `App.tsx` under 500 lines | todo (separate PR) |
+| USR-7 | Split `src/App.tsx` into feature routes, `App.tsx` under 500 lines | done (stacked PR) |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -59,4 +59,6 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 
 - Given the refactor, then `src/App.tsx` is under 500 lines and every existing spec
   passes unchanged.
-- Test: the existing Playwright suite plus a line-count check.
+- Test: the existing Playwright suite, unchanged; `wc -l src/App.tsx` reported in the pull request.
+- Layout: `src/routing.ts`, `src/titles.ts`, `src/data/*`, `src/components/{Layout,wireframe}.tsx`,
+  `src/features/public/*.tsx` (screens grouped by area).
