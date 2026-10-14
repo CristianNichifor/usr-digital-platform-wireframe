@@ -19,6 +19,7 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-13 | Readable "sursă: … verificat:" lines | done |
 | USR-14 | Neutral text wordmark instead of the "MP" box | done |
 | USR-15 | UX guideline `docs/ux-guidelines.md`; reduced motion honoured | done (wording needs human review) |
+| USR-16 | Footer shows no internal route text | done (wording needs human review) |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -102,3 +103,9 @@ From the coordinator's UX review. Tests: `tests/ux.spec.ts`.
 - Given `prefers-reduced-motion: reduce`, then the document does not scroll smoothly and cards
   have no transition.
 - Test: `tests/ux.spec.ts` › "reduced motion" case.
+
+## USR-16 No internal route in the footer
+
+- Given any page, then the footer says the site is an unofficial mock-up with
+  synthetic content and does not show the internal "Rută curentă: #/…" hash.
+- Test: `tests/ux.spec.ts` › "footer" case.

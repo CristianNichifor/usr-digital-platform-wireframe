@@ -167,3 +167,11 @@ test("reduced motion turns off smooth scrolling and card transitions", async ({ 
   const card = page.locator(".news-card").first();
   await expect(card).toHaveCSS("transition-duration", "0s");
 });
+
+test("the footer explains the mock-up without internal route text", async ({ page }) => {
+  await page.goto("/#/");
+  const footer = page.locator("footer.site-footer");
+  await expect(footer).toContainText("Machetă neoficială.");
+  await expect(footer).toContainText("Conținut sintetic");
+  await expect(footer).not.toContainText("Rută curentă");
+});
