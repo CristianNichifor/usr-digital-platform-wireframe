@@ -23,6 +23,10 @@ export const footerNav = [
   { href: '#/contact', label: 'Contact' },
   { href: '#/proiecte-date', label: 'Proiecte și date' },
   { href: '#/strategie', label: 'Despre machetă' },
+  {
+    href: 'https://github.com/CristianNichifor/usr-digital-platform-wireframe#date-%C8%99i-limite',
+    label: 'Limitele datelor și confidențialitate',
+  },
   { href: '#/arhitectura', label: 'Arhitectură date' },
   { href: '#/nota', label: 'Notă costuri' },
   { href: 'https://usr.ro/statut', label: 'Statut public' },
