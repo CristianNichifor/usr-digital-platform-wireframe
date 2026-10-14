@@ -11,6 +11,13 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-5 | Open Graph title, description and a synthetic image | done |
 | USR-6 | Civic UI upgrade | blocked (waits for civic-ui 0.8) |
 | USR-7 | Split `src/App.tsx` into feature routes, `App.tsx` under 500 lines | done (stacked PR) |
+| USR-8 | `#/` is a mocked public homepage; the memo moves to `#/strategie` behind "Despre machetă" | todo |
+| USR-9 | Mobile header: menu button, Membri and Donează pinned | todo |
+| USR-10 | Every non-inline link and button is at least 32 px tall on mobile | todo |
+| USR-11 | Header: plain text section links, buttons only for Membri, Înscriere, Donează | todo |
+| USR-12 | Member area navigation grouped Eu / Filială / Resurse (side nav desktop, select mobile) | todo |
+| USR-13 | Readable "sursă: … verificat:" lines | todo |
+| USR-14 | Neutral text wordmark instead of the "MP" box | todo |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -62,3 +69,25 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 - Test: the existing Playwright suite, unchanged; `wc -l src/App.tsx` reported in the pull request.
 - Layout: `src/routing.ts`, `src/titles.ts`, `src/data/*`, `src/components/{Layout,wireframe}.tsx`,
   `src/features/public/*.tsx` (screens grouped by area).
+
+## USR-8 to USR-14 UX review
+
+From the coordinator's UX review. Tests: `tests/ux.spec.ts`.
+
+- USR-8: Given `#/`, then the page reads as a public homepage: the lead story is the `h1`,
+  with latest news, people and ways to get involved. Given the banner, then it has a
+  "Despre machetă" link to `#/strategie`, which holds the memo (audit, site map, strategy).
+- USR-9: Given a 390 px viewport, then the header shows a "Meniu" button (`aria-expanded`),
+  Membri and Donează, and is at most 140 px tall; opening the menu shows the section links and
+  Înscriere; choosing a link closes it. Given 1280 px, then there is no menu button.
+- USR-10: Given 390 px on the public and member routes, then every visible link, button or
+  form control that is not inline in running text is at least 32 px tall.
+- USR-11: Given the desktop header, then section links have no background or border and
+  Membri, Înscriere and Donează are styled as buttons.
+- USR-12: Given `#/membri` at 1280 px, then "Navigare membri" shows the groups Eu, Filială and
+  Resurse beside the content. Given 390 px, then a "Secțiune" select replaces the links and
+  choosing an option opens that section. Supporters see only the open sections.
+- USR-13: Given a synthetic value, then its "sursă: … verificat:" line is at least 13 px,
+  not bold, with contrast of at least 4.5:1.
+- USR-14: Given the header, then the home link is a text wordmark ("Platformă digitală",
+  "machetă") and no "MP" box remains.
