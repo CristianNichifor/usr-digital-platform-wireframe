@@ -93,6 +93,8 @@ export const currentNews = [
     title: 'Hotărâre parlamentară contestată la CCR',
     brief: 'Modelăm știrea ca dosar: decizie, document, actor responsabil, termen și actualizare.',
     href: '#/stiri?tema=integritate',
+    source: 'știre publică + documente parlamentare sintetice',
+    verified: '08 septembrie 2026',
   },
   {
     category: 'Miniștri USR',
