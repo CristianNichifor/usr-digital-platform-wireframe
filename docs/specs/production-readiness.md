@@ -21,6 +21,7 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-15 | UX guideline `docs/ux-guidelines.md`; reduced motion honoured | done (wording needs human review) |
 | USR-16 | Footer shows no internal route text | done (wording needs human review) |
 | USR-21 | 44 px buttons; forced colours keep the current menu item | done |
+| USR-24 | Every non-inline link and control is at least 44 px tall on mobile (raises USR-10) | done |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -149,3 +150,13 @@ the mockups is agent-written: needs human review. Landed in #29 to #36.
   (`https://projects.cristian-nichifor.com/ro/`, "Toate proiectele civice"),
   so the prototype is not a dead end in the tool family.
 - Test: `tests/footer-family.spec.ts`. Romanian label: needs human review.
+
+## USR-24 44 px touch targets for links
+
+The UX guidelines' known deviation: links had a 32 px floor (USR-10) while buttons had 44 px
+(USR-21).
+
+- Given 390 px on the public and member routes with the menu open, then every visible link,
+  button or form control that is not inline in running text is at least 44 px tall.
+- Given 390 px, then the header is still at most 140 px tall (USR-9).
+- Test: `tests/ux.spec.ts` › "44px" case (was the USR-10 32px case).
