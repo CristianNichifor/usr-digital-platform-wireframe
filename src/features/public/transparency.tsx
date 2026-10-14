@@ -213,7 +213,7 @@ export function MoneyScreen({ route }: { route: HashRoute }) {
         <p>
           Exemplu sintetic: indicatori de verificare locală <Fake source="repo achizitii-deschise">8</Fake>.
         </p>
-        <a className="text-button" href="https://github.com/CristianNichifor/achizitii-deschise" target="_blank" rel="noreferrer">
+        <a className="text-button" href="https://github.com/CristianNichifor/open-procurement" target="_blank" rel="noreferrer">
           Deschide repo
         </a>
       </section>
