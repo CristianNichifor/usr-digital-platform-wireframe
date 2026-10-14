@@ -20,6 +20,7 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-14 | Neutral text wordmark instead of the "MP" box | done |
 | USR-15 | UX guideline `docs/ux-guidelines.md`; reduced motion honoured | done (wording needs human review) |
 | USR-16 | Footer shows no internal route text | done (wording needs human review) |
+| USR-21 | 44 px buttons; forced colours keep the current menu item | done |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -134,3 +135,10 @@ the mockups is agent-written: needs human review. Tests to add in `tests/ux.spec
   confidențialitate", pointing at the README section "Date și limite", so the data-limits
   text is reachable from the app and not only from the repository.
 - Test: `tests/footer.spec.ts`.
+
+## USR-21 44 px buttons and forced colours
+
+- Given a 390 px viewport, then buttons are at least 44 px tall.
+- Given `forced-colors: active`, then the current menu item stays marked
+  (underline), since the inset box-shadow marker is dropped in that mode.
+- Tests: `tests/ux.spec.ts` › "44px" and "forced colours" cases.

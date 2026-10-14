@@ -98,7 +98,7 @@ select {
 }
 
 button {
-  min-height: 2.65rem;
+  min-height: 2.75rem;
   border: 1px solid var(--usr-navy);
   border-radius: var(--usr-radius-control);
   background: var(--usr-navy);
@@ -252,7 +252,7 @@ tbody tr:hover {
 .menu-toggle {
   grid-area: toggle;
   display: none;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border: 1px solid var(--usr-on-navy);
   border-radius: var(--usr-radius-control);
   background: transparent;
@@ -785,7 +785,7 @@ tbody tr:hover {
 
 .export-row button,
 .export-row a {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
 }
 
 .list-layout {
@@ -1427,4 +1427,11 @@ tbody tr:hover {
 
 .home-card--more {
   background: var(--usr-surface-raised);
+}
+
+@media (forced-colors: active) {
+  .primary-nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+  }
 }
