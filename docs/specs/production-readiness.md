@@ -11,13 +11,13 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-5 | Open Graph title, description and a synthetic image | done |
 | USR-6 | Civic UI upgrade | blocked (waits for civic-ui 0.8) |
 | USR-7 | Split `src/App.tsx` into feature routes, `App.tsx` under 500 lines | done (stacked PR) |
-| USR-8 | `#/` is a mocked public homepage; the memo moves to `#/strategie` behind "Despre machetă" | todo |
-| USR-9 | Mobile header: menu button, Membri and Donează pinned | todo |
-| USR-10 | Every non-inline link and button is at least 32 px tall on mobile | todo |
-| USR-11 | Header: plain text section links, buttons only for Membri, Înscriere, Donează | todo |
-| USR-12 | Member area navigation grouped Eu / Filială / Resurse (side nav desktop, select mobile) | todo |
-| USR-13 | Readable "sursă: … verificat:" lines | todo |
-| USR-14 | Neutral text wordmark instead of the "MP" box | todo |
+| USR-8 | `#/` is a mocked public homepage; the memo moves to `#/strategie` behind "Despre machetă" | done |
+| USR-9 | Mobile header: menu button, Membri and Donează pinned | done |
+| USR-10 | Every non-inline link and button is at least 32 px tall on mobile | done |
+| USR-11 | Header: plain text section links, buttons only for Membri, Înscriere, Donează | done |
+| USR-12 | Member area navigation grouped Eu / Filială / Resurse (side nav desktop, select mobile) | done |
+| USR-13 | Readable "sursă: … verificat:" lines | done |
+| USR-14 | Neutral text wordmark instead of the "MP" box | done |
 
 ## USR-1 Not for indexing, clearly unofficial
 
