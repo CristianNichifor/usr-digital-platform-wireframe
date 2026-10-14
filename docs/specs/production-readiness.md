@@ -18,6 +18,7 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-12 | Member area navigation grouped Eu / Filială / Resurse (side nav desktop, select mobile) | done |
 | USR-13 | Readable "sursă: … verificat:" lines | done |
 | USR-14 | Neutral text wordmark instead of the "MP" box | done |
+| USR-15 | UX guideline `docs/ux-guidelines.md`; reduced motion honoured | done (wording needs human review) |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -91,3 +92,13 @@ From the coordinator's UX review. Tests: `tests/ux.spec.ts`.
   not bold, with contrast of at least 4.5:1.
 - USR-14: Given the header, then the home link is a text wordmark ("Platformă digitală",
   "machetă") and no "MP" box remains.
+
+## USR-15 UX guideline and reduced motion
+
+- Given `docs/ux-guidelines.md`, then it covers users and first-screen job, page anatomy,
+  content rules, data-viz, states, mobile and accessibility, status vocabulary, a conformance
+  checklist mapped to tests and a known-deviations backlog, and points to civic-ui
+  `docs/ux-guidelines.md` as the fleet guideline.
+- Given `prefers-reduced-motion: reduce`, then the document does not scroll smoothly and cards
+  have no transition.
+- Test: `tests/ux.spec.ts` › "reduced motion" case.

@@ -159,3 +159,11 @@ test("the header uses a neutral text wordmark", async ({ page }) => {
   await expect(home).toContainText("machetă");
   await expect(page.locator(".site-header").getByText("MP", { exact: true })).toHaveCount(0);
 });
+
+test("reduced motion turns off smooth scrolling and card transitions", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#/stiri");
+  await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
+  const card = page.locator(".news-card").first();
+  await expect(card).toHaveCSS("transition-duration", "0s");
+});
