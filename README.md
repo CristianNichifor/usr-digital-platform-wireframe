@@ -33,6 +33,7 @@ Zona de membri începe la `#/membri`; `#/implica-te` este un alias. Paginile pub
 
 ## Date și limite
 
+- Fiecare pagină afișează banda „Machetă neoficială, neafiliată USR” și cere motoarelor de căutare să nu o indexeze (`noindex,nofollow`). Imaginea de previzualizare `public/og-image.png` este sintetică și nu folosește sigla USR.
 - Persoanele, cotizațiile, documentele și răspunsurile din zona de membri sunt fictive. Nu sunt incluse parole, date de card sau înregistrări private din e-USR.
 - Accesul la e-USR a fost folosit pentru observarea funcționalităților. Demo-ul nu necesită cont, API intern sau autentificare.
 - Schimbarea profilului demonstrativ modifică interfața; nu reprezintă un sistem de autorizare.
@@ -61,7 +62,7 @@ npm run build
 npm run preview -- --host 127.0.0.1
 ```
 
-Build-ul verifică tipurile TypeScript și generează fișierele statice în `dist/`. Navigarea folosește hash routes, iar Vite are `base: './'`.
+Build-ul verifică diacriticele românești (`npm run check:diacritics`), tipurile TypeScript și generează fișierele statice în `dist/`. Navigarea folosește hash routes, iar Vite are `base: './'`.
 
 ## Teste
 
@@ -78,7 +79,7 @@ Playwright pornește sau reutilizează serverul local de pe portul `5187`. `DEMO
 
 Cele 13 teste din [tests/members.spec.ts](tests/members.spec.ts), [tests/resources.spec.ts](tests/resources.spec.ts), [tests/privacy-contacts.spec.ts](tests/privacy-contacts.spec.ts) și [tests/civic-pilot.spec.ts](tests/civic-pilot.spec.ts) verifică fluxuri de membri și simpatizanți, vizibilitatea profilurilor sociale, acordul separat pentru afiliere, accesul intern simulat, contactele fictive, resetarea, descărcările, tokenurile de brand, spațiul dropdown-ului, contrastul unor controale la hover și lipsa overflow-ului la 390px și 1440px. Pilotul contactelor verifică și filtrele, marcajele salvate și focusul prin tastatură. Fluxurile verificate includ absența cererilor externe și a datelor în `localStorage`/`sessionStorage`; fluxul de membri verifică și erorile JavaScript.
 
-Suita completă de 29 teste rulează în Chromium, Firefox și WebKit (87 execuții). Controalele de formular, butoanele și cele șapte tabele folosesc Civic UI v0.5.0. Testele verifică filtre, resetare, indisponibilitate/reîncercare, operare offline, etichete, focus, contrast și padding. Sunt acoperite participarea cu tastatura și revizuirea răspunsului, consimțământul explicit și retragerea lui, accesul demonstrativ restricționat, descărcările sintetice și absența persistenței sau cererilor externe în fluxurile verificate. Formularul public de contact rămâne static, fără trimitere. Paginile publice cu formulare și tabele sunt verificate la 320, 390 și 1440px, inclusiv etichetele celulelor în afișarea mobilă. Pentru un singur motor: `npm test -- --project=firefox`. `DEMO_CHROMIUM` afectează numai proiectul Chromium.
+Suita completă de 35 de teste rulează în Chromium, Firefox și WebKit (105 execuții). Controalele de formular, butoanele și cele șapte tabele folosesc Civic UI v0.5.0. Testele verifică filtre, resetare, indisponibilitate/reîncercare, operare offline, etichete, focus, contrast și padding. Sunt acoperite participarea cu tastatura și revizuirea răspunsului, consimțământul explicit și retragerea lui, accesul demonstrativ restricționat, descărcările sintetice și absența persistenței sau cererilor externe în fluxurile verificate. Formularul public de contact rămâne static, fără trimitere. Paginile publice cu formulare și tabele sunt verificate la 320, 390 și 1440px, inclusiv etichetele celulelor în afișarea mobilă. Pentru un singur motor: `npm test -- --project=firefox`. `DEMO_CHROMIUM` afectează numai proiectul Chromium.
 
 Această acoperire nu reprezintă un audit complet de accesibilitate sau securitate. WebKit nu certifică Safari sau dispozitive iOS. Capturile și rezultatele sunt salvate în `/tmp`, conform configurației și testelor. CI folosește imaginea oficială Playwright `v1.63.0-noble`, cu browserele și bibliotecile de sistem incluse; versiunea imaginii trebuie păstrată în acord cu versiunea Playwright din lockfile. Rularea locală necesită bibliotecile de sistem compatibile pentru fiecare browser.
 
@@ -104,7 +105,9 @@ Această acoperire nu reprezintă un audit complet de accesibilitate sau securit
 
 ## Licență
 
-Codul din acest depozit este licențiat MIT — vezi [`LICENSE`](LICENSE).
+Codul din acest depozit este licențiat MIT — vezi [`LICENSE`](LICENSE). Fontul Aileron din
+`src/assets/usr/` este dedicat domeniului public (CC0 1.0) de autorul său — vezi
+[`LICENSE-Aileron.txt`](LICENSE-Aileron.txt).
 
 Licența acoperă codul. Nu acoperă numele, sigla sau identitatea vizuală USR: prototipul este
 neoficial, nu este aprobat de USR, iar textele, persoanele și cifrele afișate sunt sintetice.
