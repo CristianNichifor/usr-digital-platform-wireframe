@@ -175,3 +175,17 @@ test("the footer explains the mock-up without internal route text", async ({ pag
   await expect(footer).toContainText("Conținut sintetic");
   await expect(footer).not.toContainText("Rută curentă");
 });
+
+test("primary buttons are at least 44px tall", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#/");
+  const box = await page.getByRole("button", { name: "Meniu" }).boundingBox();
+  expect(box!.height).toBeGreaterThanOrEqual(44);
+});
+
+test("forced colours keep the current page marked in the menu", async ({ page }) => {
+  await page.emulateMedia({ forcedColors: "active" });
+  await page.goto("/#/stiri");
+  const current = page.locator(".primary-nav a[aria-current='page']").first();
+  await expect(current).toHaveCSS("text-decoration-line", "underline");
+});
