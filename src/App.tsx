@@ -558,7 +558,7 @@ function Layout({ route, children }: { route: HashRoute; children: React.ReactNo
       </a>
       <header className="site-header">
         <div className="prototype-banner" role="note">
-          MACHETĂ NEOFICIALĂ — date fictive. Fără aprobarea USR.
+          Machetă neoficială, neafiliată USR — date fictive.
         </div>
         <div className="header-main">
           <a className="neutral-mark" href="#/" aria-label="Machetă site public, index">
