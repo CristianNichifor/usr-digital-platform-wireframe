@@ -19,7 +19,7 @@ import {
 import "@cristiannichifor/civic-ui/styles.css";
 import "@cristiannichifor/civic-ui/themes/usr.css";
 
-const sections = [
+export const sections = [
   ["", "Acasa"],
   ["cotizatii", "Cotizatii"],
   ["calendar", "Calendar"],

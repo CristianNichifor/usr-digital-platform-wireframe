@@ -1,7 +1,7 @@
 import { Button, Field, Input, NativeSelect as Select, Table, Textarea } from '@cristiannichifor/civic-ui';
 import { SocialProfileLinks } from './features/members/ResourceHub';
 import { useEffect, useMemo, useState } from 'react';
-import MemberDemo from './features/members/MemberDemo';
+import MemberDemo, { sections as memberSections } from './features/members/MemberDemo';
 
 // Low-to-medium fidelity rebuilt usr.ro prototype.
 // Shareable navigation uses the URL hash; member demo state stays in memory.
@@ -626,6 +626,45 @@ function ViewSwitcher({ record, view }: { record: OfficialRecord; view: ViewMode
   );
 }
 
+const siteTitle = 'Machetă platformă digitală';
+
+const screenTitles: Record<string, string> = {
+  '/': 'Acasă',
+  '/stiri': 'Știri',
+  '/oameni': 'Oameni',
+  '/guvernare': 'Guvernare',
+  '/verificari': 'Verificări',
+  '/ce-propunem': 'Ce propunem',
+  '/declaratii': 'Declarații de avere',
+  '/date-locale': 'Date locale',
+  '/bani': 'Bani',
+  '/presa': 'Sala de presă',
+  '/organizare': 'Organizare',
+  '/contact': 'Contact',
+  '/inscriere': 'Înscriere',
+  '/doneaza': 'Donează',
+  '/proiecte-date': 'Proiecte și date',
+  '/strategie': 'De ce contează',
+  '/arhitectura': 'Arhitectură date',
+  '/nota': 'Notă costuri',
+  '/implica-te': 'Implică-te',
+  '/membri': 'Membri',
+};
+
+function memberSectionTitle(area: string, section: string): string {
+  const label = memberSections.find(([key]) => key === section)?.[1];
+  return label && section ? `${label} · ${area}` : area;
+}
+
+function routeTitle(path: string): string {
+  const [first = '', second = ''] = path.split('/').filter(Boolean);
+  let screen = screenTitles[path];
+  if (!screen && first === 'oameni') screen = officials.find((item) => item.id === second)?.name ?? 'Oameni';
+  if (!screen && first === 'membri') screen = memberSectionTitle('Membri', second);
+  if (first === 'comunitate') screen = memberSectionTitle('Comunitate', second || 'resurse');
+  return `${screen ?? 'Pagină inexistentă'} — ${siteTitle}`;
+}
+
 export default function App() {
   const route = useHashRoute();
 
@@ -653,6 +692,10 @@ export default function App() {
     if (route.path === '/nota') return <CostNoteScreen />;
     return <NotFound route={route} />;
   }, [route]);
+
+  useEffect(() => {
+    document.title = routeTitle(route.path);
+  }, [route.path]);
 
   return <Layout route={route}>{screen}</Layout>;
 }
