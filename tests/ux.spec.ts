@@ -132,6 +132,7 @@ test("member navigation is a section select on mobile", async ({ page }) => {
   await expect(select).toHaveValue("documente");
 
   await page.goto("/#/comunitate");
+  await page.reload();
   const options = await page.getByLabel("Secțiune", { exact: true }).locator("option").allTextContents();
   expect(options).not.toContain("Cotizații");
   expect(options).toContain("Resurse");
