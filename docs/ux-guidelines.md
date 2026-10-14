@@ -97,11 +97,13 @@ Use exactly one of: **Date live** (Live data) / **Date demonstrative** (Demo dat
 | No overflow at narrow widths | `tests/members.spec.ts`, `tests/resources.spec.ts`, `tests/consumer-completion.spec.ts` |
 | No external requests | `tests/resources.spec.ts`, `tests/privacy-contacts.spec.ts` and others |
 | Reduced motion | `tests/ux.spec.ts` › reduced motion (USR-15) |
+| Footer: no internal route, data-limits link | `tests/ux.spec.ts` › footer (USR-16), `tests/footer.spec.ts` (USR-20) |
+| Status vocabulary and lead provenance on `#/` | `tests/homepage-status.spec.ts` (USR-17) |
+| Amounts in lei, text status chips, dues table source line | `tests/member-currency.spec.ts`, `tests/member-chips.spec.ts` (USR-18) |
+| Menu toggle reads "Închide", Escape returns focus, rows ≥ 44 px | `tests/mobile-menu.spec.ts`, `tests/menu-rows.spec.ts` (USR-19) |
 
 ## 9. Known deviations backlog
 
-- Footer shows "Rută curentă: #/…", an internal routing detail; replace with a plain page label or drop.
-- Footer has no explicit privacy link; the data-limits text lives only in the README.
 - civic-ui is pinned at 0.5.0; StatTile, SourceCitation and StatusMessage adoption waits for 0.8 (USR-6).
 - No automated axe run; add one when the civic-ui upgrade lands.
 - Touch target floor is 32 px for links; buttons are 44 px (USR-21).
