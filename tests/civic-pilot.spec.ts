@@ -9,7 +9,7 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   const pilot = page.locator(".public-contacts");
   await expect(pilot.locator(".resource-item")).toHaveCount(8);
   const bookmark = page.getByRole("button", {
-    name: "Salveaza Primar Model",
+    name: "Salvează Primar Model",
     exact: true,
   });
   await expect(bookmark).toHaveCSS("width", "44px");
@@ -17,10 +17,10 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   await bookmark.click();
   await expect(bookmark).toHaveAttribute("aria-pressed", "true");
   await page
-    .getByLabel("Cauta nume, institutie sau localitate")
-    .fill("Primaria Model");
+    .getByLabel("Caută nume, instituție sau localitate")
+    .fill("Primăria Model");
   await expect(pilot.locator(".resource-item")).toHaveCount(1);
-  await page.getByLabel("Cauta nume, institutie sau localitate").fill("");
+  await page.getByLabel("Caută nume, instituție sau localitate").fill("");
   await page.getByLabel("Nivel", { exact: true }).selectOption("European");
   await expect(pilot.locator(".resource-item")).toHaveCount(1);
   await expect(
@@ -30,9 +30,9 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   await expect(bookmark).toHaveAttribute("aria-pressed", "true");
   await bookmark.click();
   await expect(bookmark).toHaveAttribute("aria-pressed", "false");
-  const search = page.getByLabel("Cauta nume, institutie sau localitate");
+  const search = page.getByLabel("Caută nume, instituție sau localitate");
   await search.focus();
-  for (const label of ["Nivel", "Judet", "Functie"]) {
+  for (const label of ["Nivel", "Județ", "Funcție"]) {
     await page.keyboard.press("Tab");
     await expect(page.getByLabel(label, { exact: true })).toBeFocused();
   }
@@ -44,24 +44,24 @@ test("contact pilot preserves search, filters, bookmarks and control states", as
   await bookmark.hover();
   await expect(bookmark).toHaveCSS("background-color", "rgb(229, 233, 238)");
   await expect(bookmark).toHaveCSS("color", "rgb(0, 42, 89)");
-  await expect(page.getByLabel("Functie", { exact: true })).toHaveCSS(
+  await expect(page.getByLabel("Funcție", { exact: true })).toHaveCSS(
     "padding-right",
     "44px",
   );
   await page.getByRole("button", { name: "Detalii Director Model" }).click();
   await expect(
-    page.getByRole("button", { name: "Copiaza adresa fictiva" }),
+    page.getByRole("button", { name: "Copiază adresa fictivă" }),
   ).toBeDisabled();
   await expect(
-    page.getByRole("button", { name: "Pregateste solicitarea" }),
+    page.getByRole("button", { name: "Pregătește solicitarea" }),
   ).toBeDisabled();
-  await page.getByRole("button", { name: "Inchide contactul" }).click();
+  await page.getByRole("button", { name: "Închide contactul" }).click();
   await expect(
     page.getByRole("region", { name: "Detalii contact" }),
   ).toHaveCount(0);
   await page.goto("/#/comunitate/setari");
-  await expect(page.getByLabel("Accept explicit publicarea afilierii mele in comunitate")).not.toBeChecked();
-  await expect(page.getByLabel("Afiliere declarata")).toHaveValue("Membru actual");
+  await expect(page.getByLabel("Accept explicit publicarea afilierii mele în comunitate")).not.toBeChecked();
+  await expect(page.getByLabel("Afiliere declarată")).toHaveValue("Membru actual");
   expect(errors).toEqual([]);
 });
 
@@ -83,11 +83,11 @@ test("contact pilot responsive baselines include details and draft", async ({
     await page
       .getByRole("button", { name: "Detalii Viceprimar Model" })
       .click();
-    await page.getByRole("button", { name: "Pregateste solicitarea" }).click();
-    await page.getByLabel("Tip solicitare").selectOption("Cerere de audienta");
-    await page.getByRole("button", { name: "Revizuieste draftul" }).click();
+    await page.getByRole("button", { name: "Pregătește solicitarea" }).click();
+    await page.getByLabel("Tip solicitare").selectOption("Cerere de audiență");
+    await page.getByRole("button", { name: "Revizuiește draftul" }).click();
     await expect(page.locator(".contact-draft")).toContainText(
-      "Subiect: Cerere de audienta",
+      "Subiect: Cerere de audiență",
     );
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),

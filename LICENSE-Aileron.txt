@@ -1,0 +1,13 @@
+Aileron font
+
+Files: src/assets/usr/AileronRegular.woff2, AileronSemiBold.woff2, AileronBold.woff2
+Designer: Sora Sagano, dotcolon (https://dotcolon.net/font/aileron/)
+Version in the bundled files: 1.102
+
+Licence: Creative Commons Zero (CC0 1.0 Universal) public domain dedication.
+The upstream page states "Aileron is No Rights Reserved." and links to
+https://creativecommons.org/publicdomain/zero/1.0/
+The bundled font files carry the same statement in their name table
+(copyright: "No Rights Reserved.", vendor URL: http://www.dotcolon.net).
+
+The MIT licence in LICENSE covers this repository's code, not these font files.
