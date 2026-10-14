@@ -252,7 +252,7 @@ tbody tr:hover {
 .menu-toggle {
   grid-area: toggle;
   display: none;
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   border: 1px solid var(--usr-on-navy);
   border-radius: var(--usr-radius-control);
   background: transparent;
@@ -785,7 +785,7 @@ tbody tr:hover {
 
 .export-row button,
 .export-row a {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
 }
 
 .list-layout {
