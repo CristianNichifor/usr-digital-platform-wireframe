@@ -21,6 +21,7 @@ Status: `todo`, `done`, `blocked`, `needs-human`.
 | USR-15 | UX guideline `docs/ux-guidelines.md`; reduced motion honoured | done (wording needs human review) |
 | USR-16 | Footer shows no internal route text | done (wording needs human review) |
 | USR-21 | 44 px buttons; forced colours keep the current menu item | done |
+| USR-23 | Content behind the open mobile menu is dimmed and hidden from assistive tech | done |
 
 ## USR-1 Not for indexing, clearly unofficial
 
@@ -149,3 +150,17 @@ the mockups is agent-written: needs human review. Landed in #29 to #36.
   (`https://projects.cristian-nichifor.com/ro/`, "Toate proiectele civice"),
   so the prototype is not a dead end in the tool family.
 - Test: `tests/footer-family.spec.ts`. Romanian label: needs human review.
+
+## USR-23 Content behind the open menu
+
+From design screen 03 (`docs/design/screens/03-mobile-menu.html`): the page behind the open
+menu is dimmed and `aria-hidden`.
+
+- Given 390 px with the menu open, then `main` and the footer carry `aria-hidden="true"` and
+  `inert`, and are drawn at reduced opacity; the menu links stay reachable.
+- Given the menu is closed again (toggle, Escape or a choice), then neither carries them.
+- Given 390 px with the menu open, then Înscriere is the last item, a full-width button at least
+  44 px tall.
+- Given the menu is open and the viewport widens past the menu breakpoint (980 px), then the
+  menu closes, so a desktop page is never left inert.
+- Test: `tests/menu-backdrop.spec.ts`.

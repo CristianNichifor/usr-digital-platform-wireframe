@@ -23,6 +23,19 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [menuOpen]);
+  // The menu only exists below 980 px; widening past it must not leave the page inert.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const wide = window.matchMedia('(min-width: 981px)');
+    const onChange = () => {
+      if (wide.matches) setMenuOpen(false);
+    };
+    onChange();
+    wide.addEventListener('change', onChange);
+    return () => wide.removeEventListener('change', onChange);
+  }, [menuOpen]);
+  // Behind the open menu the page is dimmed and out of reach (design screen 03, USR-23).
+  const behindMenu = menuOpen ? ({ 'aria-hidden': true, inert: true } as const) : {};
 
   return (
     <>
@@ -77,10 +90,10 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
         </div>
         {record ? <ViewSwitcher record={record} view={activeView(route)} /> : null}
       </header>
-      <main id="continut" className="page-shell">
+      <main id="continut" className="page-shell" {...behindMenu}>
         {children}
       </main>
-      <footer className="site-footer">
+      <footer className="site-footer" {...behindMenu}>
         <div>
           <strong>Machetă neoficială.</strong>
           <span> Conținut sintetic; nu este un serviciu oficial USR.</span>
