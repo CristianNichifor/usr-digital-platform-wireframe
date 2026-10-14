@@ -8,23 +8,23 @@ test('resource filters preserve combinations, saved items, empty results and res
     if (/^https?:/.test(request.url()) && new URL(request.url()).origin !== new URL(baseURL!).origin) external.push(request.url());
   });
   await page.goto('/#/comunitate/resurse');
-  const search = page.getByLabel('Cauta resurse', { exact: true });
-  const kind = page.getByRole('combobox', { name: 'Continut', exact: true });
-  const scope = page.getByRole('combobox', { name: 'Organizatie', exact: true });
+  const search = page.getByLabel('Caută resurse', { exact: true });
+  const kind = page.getByRole('combobox', { name: 'Conținut', exact: true });
+  const scope = page.getByRole('combobox', { name: 'Organizație', exact: true });
   const items = page.locator('.resource-grid .resource-item');
   await expect(items).toHaveCount(5);
   await expect(kind.locator('option')).toHaveText(['Toate', 'Material', 'Articol']);
-  await expect(scope.locator('option')).toHaveText(['Toate', 'National', 'Filiala']);
+  await expect(scope.locator('option')).toHaveText(['Toate', 'Național', 'Filială']);
   await kind.selectOption('Articol');
   await expect(items).toHaveCount(2);
-  await scope.selectOption('Filiala');
+  await scope.selectOption('Filială');
   await expect(items).toHaveCount(1);
   await expect(items).toContainText('Actualizare a programului bibliotecii');
   await search.fill('GAZETA');
   await expect(items).toHaveCount(1);
   await search.fill('fara rezultat');
   await expect(items).toHaveCount(0);
-  await expect(page.getByText('Nicio resursa gasita.')).toBeVisible();
+  await expect(page.getByText('Nicio resursă găsită.')).toBeVisible();
   await search.fill('');
   await kind.selectOption('Toate');
   await scope.selectOption('Toate');
@@ -32,9 +32,9 @@ test('resource filters preserve combinations, saved items, empty results and res
   await page.getByRole('button', { name: 'Salveaza Invitatie la intalnirea de organizare', exact: true }).click();
   await page.getByLabel('Doar salvate', { exact: true }).check();
   await expect(items).toHaveCount(1);
-  await scope.selectOption('Filiala');
+  await scope.selectOption('Filială');
   await expect(items).toHaveCount(0);
-  await page.getByRole('button', { name: 'Reseteaza demonstratia' }).click();
+  await page.getByRole('button', { name: 'Resetează demonstrația' }).click();
   await expect(search).toHaveValue('');
   await expect(kind).toHaveValue('Toate');
   await expect(scope).toHaveValue('Toate');
@@ -56,9 +56,9 @@ test('resource filter labels, focus and layout fit narrow and desktop screens', 
   for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.evaluate(() => document.fonts.ready);
-    const search = page.getByLabel('Cauta resurse', { exact: true });
+    const search = page.getByLabel('Caută resurse', { exact: true });
     await search.focus();
-    for (const label of ['Continut', 'Organizatie']) {
+    for (const label of ['Conținut', 'Organizație']) {
       await page.keyboard.press('Tab');
       const select = page.getByRole('combobox', { name: label, exact: true });
       await expect(select).toBeFocused();
@@ -79,7 +79,7 @@ test('resource filter labels, focus and layout fit narrow and desktop screens', 
   }
   await page.goto('/#/comunitate/social');
   await expect(page.locator('.resource-filters')).toHaveCount(0);
-  await expect(page.getByRole('combobox', { name: 'Platforma', exact: true })).toHaveValue('Toate');
+  await expect(page.getByRole('combobox', { name: 'Platformă', exact: true })).toHaveValue('Toate');
 });
 
 test('shared resource feedback preserves filters, retry and keyboard behavior offline', async ({ page, context }, info) => {
@@ -93,10 +93,10 @@ test('shared resource feedback preserves filters, retry and keyboard behavior of
   await saved.focus();
   await page.keyboard.press('Space');
   await expect(saved).toBeChecked();
-  await expect(page.locator('.resource-empty .civic-empty')).toHaveText('Nicio resursa gasita.');
+  await expect(page.locator('.resource-empty .civic-empty')).toHaveText('Nicio resursă găsită.');
   await page.keyboard.press('Space');
   await expect(saved).not.toBeChecked();
-  await page.getByLabel('Continut', { exact: true }).selectOption('Articol');
+  await page.getByLabel('Conținut', { exact: true }).selectOption('Articol');
   await expect(items).toHaveCount(2);
   const titles = await items.locator('h3').allTextContents();
   await unavailable.focus();
@@ -106,7 +106,7 @@ test('shared resource feedback preserves filters, retry and keyboard behavior of
   await expect(notice).toHaveClass(/civic-notice/);
   await expect(notice).toContainText('Resurse indisponibile.');
   await expect(items).toHaveCount(0);
-  const retry = notice.getByRole('button', { name: 'Reincearca', exact: true });
+  const retry = notice.getByRole('button', { name: 'Reîncearcă', exact: true });
   for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
     await retry.focus();
@@ -127,7 +127,7 @@ test('shared resource feedback preserves filters, retry and keyboard behavior of
   await page.keyboard.press('Enter');
   await expect(notice).toHaveCount(0);
   await expect(unavailable).not.toBeChecked();
-  await expect(page.getByLabel('Continut', { exact: true })).toHaveValue('Articol');
+  await expect(page.getByLabel('Conținut', { exact: true })).toHaveValue('Articol');
   await expect(items.locator('h3')).toHaveText(titles);
   expect(page.url()).toBe(route);
   expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);

@@ -5,11 +5,11 @@ test("affiliation requires separate opt-in; internal history requires a purpose 
 }) => {
   await page.goto("/#/comunitate/setari");
   const consent = page.getByLabel(
-    "Accept explicit publicarea afilierii mele in comunitate",
+    "Accept explicit publicarea afilierii mele în comunitate",
   );
   await expect(consent).not.toBeChecked();
   await page
-    .getByRole("combobox", { name: "Afiliere declarata", exact: true })
+    .getByRole("combobox", { name: "Afiliere declarată", exact: true })
     .selectOption("Nu mai este membru");
   await consent.check();
   await page
@@ -18,7 +18,7 @@ test("affiliation requires separate opt-in; internal history requires a purpose 
   await expect(
     page.getByText("Afiliere declarata: Nu mai este membru"),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Setari", exact: true }).click();
+  await page.getByRole("link", { name: "Setări", exact: true }).click();
   await consent.uncheck();
   await page
     .getByRole("link", { name: "Director social", exact: true })
@@ -34,25 +34,25 @@ test("affiliation requires separate opt-in; internal history requires a purpose 
     .getByLabel("Profil demonstrativ")
     .selectOption("Administrator Model");
   await expect(
-    page.getByText("Sustinere anterioara", { exact: true }),
+    page.getByText("Susținere anterioară", { exact: true }),
   ).toHaveCount(0);
   await page
     .getByRole("combobox", { name: "Scopul accesului", exact: true })
-    .selectOption("Administrarea evidentei");
+    .selectOption("Administrarea evidenței");
   await page
-    .getByRole("button", { name: "Confirma accesul pentru scopul selectat" })
+    .getByRole("button", { name: "Confirmă accesul pentru scopul selectat" })
     .click();
   await page
     .getByRole("combobox", { name: "Afiliere", exact: true })
     .selectOption("Nu mai este membru");
   await expect(
-    page.getByText("Sustinere anterioara", { exact: true }),
+    page.getByText("Susținere anterioară", { exact: true }),
   ).toBeVisible();
   await page
     .getByLabel("Profil demonstrativ")
     .selectOption("Simpatizant Model");
   await expect(
-    page.getByText("Sustinere anterioara", { exact: true }),
+    page.getByText("Susținere anterioară", { exact: true }),
   ).toHaveCount(0);
   await page
     .getByLabel("Profil demonstrativ")
@@ -79,27 +79,27 @@ test("public contacts support individual fictional drafts without external reque
   });
   await page.goto("/#/comunitate/contacte-publice");
   await page
-    .getByRole("combobox", { name: "Functie", exact: true })
+    .getByRole("combobox", { name: "Funcție", exact: true })
     .selectOption("Viceprimar");
   await page.getByRole("button", { name: "Detalii Viceprimar Model" }).click();
   await expect(
-    page.getByText("Registratura institutiei", { exact: true }),
+    page.getByText("Registratura instituției", { exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Pregateste solicitarea" }).click();
-  await page.getByRole("button", { name: "Revizuieste draftul" }).click();
+  await page.getByRole("button", { name: "Pregătește solicitarea" }).click();
+  await page.getByRole("button", { name: "Revizuiește draftul" }).click();
   await expect(page.locator(".contact-draft")).toContainText(
     "DRAFT FICTIV - NU TRIMITE",
   );
   const download = page.waitForEvent("download");
-  await page.getByRole("button", { name: "Descarca draftul fictiv" }).click();
+  await page.getByRole("button", { name: "Descarcă draftul fictiv" }).click();
   expect((await download).suggestedFilename()).toBe("solicitare-demo.txt");
   await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);
   await page
-    .getByRole("combobox", { name: "Functie", exact: true })
-    .selectOption("Conducator de institutie");
+    .getByRole("combobox", { name: "Funcție", exact: true })
+    .selectOption("Conducător de instituție");
   await page.getByRole("button", { name: "Detalii Director Model" }).click();
   await expect(
-    page.getByRole("button", { name: "Pregateste solicitarea" }),
+    page.getByRole("button", { name: "Pregătește solicitarea" }),
   ).toBeDisabled();
   await expect(page.locator(".contact-draft")).toHaveCount(0);
   expect(external).toEqual([]);

@@ -10,10 +10,10 @@ test('document filters, restrictions and synthetic downloads work offline withou
   });
   await page.goto('/#/membri/documente');
   const links = page.locator('.document-library .member-list > a');
-  const search = page.getByLabel('Cauta documente', { exact: true });
+  const search = page.getByLabel('Caută documente', { exact: true });
   const type = page.getByLabel('Tip', { exact: true });
   const unavailable = page.getByLabel('Scenariu indisponibil', { exact: true });
-  await expect(links.locator('strong')).toHaveText(['Proces-verbal de sedinta', 'Ordinea de zi a adunarii', 'Raport administrativ']);
+  await expect(links.locator('strong')).toHaveText(['Proces-verbal de ședință', 'Ordinea de zi a adunării', 'Raport administrativ']);
   await expect(type.locator('option')).toHaveText(['Toate', 'Proces-verbal', 'Ordine de zi', 'Raport']);
   await context.setOffline(true);
   await type.selectOption('Raport');
@@ -21,14 +21,14 @@ test('document filters, restrictions and synthetic downloads work offline withou
   await expect(links).toHaveCount(1);
   await search.fill('absent');
   await expect(links).toHaveCount(0);
-  await expect(page.locator('.document-library .civic-empty')).toHaveText('Niciun document gasit.');
+  await expect(page.locator('.document-library .civic-empty')).toHaveText('Niciun document găsit.');
   await search.fill('ADMINISTRATIV');
   await unavailable.focus();
   await page.keyboard.press('Space');
   await expect(unavailable).toBeChecked();
   await expect(links).toHaveCount(0);
   await expect(page.getByRole('alert')).toHaveClass(/civic-notice/);
-  await page.getByRole('button', { name: 'Reincearca', exact: true }).focus();
+  await page.getByRole('button', { name: 'Reîncearcă', exact: true }).focus();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('alert')).toHaveCount(0);
   await expect(unavailable).not.toBeChecked();
@@ -37,16 +37,16 @@ test('document filters, restrictions and synthetic downloads work offline withou
   await links.first().click();
   await expect(page).toHaveURL(/#\/membri\/documente\/raport$/);
   await expect(page.getByText('Acces rezervat profilului Administrator Model.')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Descarca exemplul' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Descarcă exemplul' })).toHaveCount(0);
   await page.getByLabel('Profil demonstrativ').selectOption('Administrator Model');
   const downloaded = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Descarca exemplul' }).click();
+  await page.getByRole('button', { name: 'Descarcă exemplul' }).click();
   const download = await downloaded;
   expect(download.suggestedFilename()).toBe('raport-fictiv.txt');
   expect(await readFile((await download.path())!, 'utf8')).toBe('DOCUMENT FICTIV\nRaport administrativ\nFiliala Model\nMaterial sintetic pentru prezentare. Nu reprezinta un document intern.');
   await page.getByRole('link', { name: 'Documente', exact: true }).click();
   await expect(search).toHaveValue('ADMINISTRATIV');
-  await page.getByRole('button', { name: 'Reseteaza demonstratia' }).click();
+  await page.getByRole('button', { name: 'Resetează demonstrația' }).click();
   await expect(search).toHaveValue('');
   await expect(type).toHaveValue('Toate');
   await expect(links).toHaveCount(3);
@@ -60,7 +60,7 @@ test('document controls and feedback retain focus, spacing and colors across vie
   await expect(page.locator('.document-library .civic-field')).toHaveCount(2);
   for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
-    await page.getByLabel('Cauta documente', { exact: true }).focus();
+    await page.getByLabel('Caută documente', { exact: true }).focus();
     await page.keyboard.press('Tab');
     const type = page.getByLabel('Tip', { exact: true });
     await expect(type).toBeFocused();
@@ -72,7 +72,7 @@ test('document controls and feedback retain focus, spacing and colors across vie
     await expect(unavailable).toHaveCSS('outline-style', 'solid');
     await page.keyboard.press('Space');
     const notice = page.getByRole('alert');
-    const retry = notice.getByRole('button', { name: 'Reincearca', exact: true });
+    const retry = notice.getByRole('button', { name: 'Reîncearcă', exact: true });
     await retry.focus();
     await expect(retry).toHaveCSS('outline-style', 'solid');
     const gap = await notice.evaluate(el => {

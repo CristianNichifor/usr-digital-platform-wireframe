@@ -18,112 +18,112 @@ const offices = [
     name: "Consilier Model",
     role: "Consilier local",
     level: "Local",
-    county: "Judetul Model",
-    locality: "Orasul Model",
+    county: "Județul Model",
+    locality: "Orașul Model",
     institution: "Consiliul Local Model",
-    duties: "Deliberari si hotarari locale",
+    duties: "Deliberări și hotărâri locale",
     email: "cabinet.consilier@institutie.example",
     contact: "Cabinet",
     term: "2024-2028",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
   {
     id: "primar",
     name: "Primar Model",
     role: "Primar",
     level: "Local",
-    county: "Judetul Model",
-    locality: "Orasul Model",
-    institution: "Primaria Model",
-    duties: "Administratie locala si servicii publice",
+    county: "Județul Model",
+    locality: "Orașul Model",
+    institution: "Primăria Model",
+    duties: "Administrație locală și servicii publice",
     email: "cabinet.primar@institutie.example",
     contact: "Cabinet",
     term: "2024-2028",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
   {
     id: "viceprimar",
     name: "Viceprimar Model",
     role: "Viceprimar",
     level: "Local",
-    county: "Judetul Exemplu",
+    county: "Județul Exemplu",
     locality: "Comuna Exemplu",
-    institution: "Primaria Exemplu",
-    duties: "Responsabilitati delegate de primar",
+    institution: "Primăria Exemplu",
+    duties: "Responsabilități delegate de primar",
     email: "registratura@institutie.example",
-    contact: "Registratura institutiei",
+    contact: "Registratura instituției",
     term: "2024-2028",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
   {
     id: "judet",
-    name: "Consilier Judetean Model",
-    role: "Consilier judetean",
-    level: "Judetean",
-    county: "Judetul Model",
-    locality: "Judetul Model",
-    institution: "Consiliul Judetean Model",
-    duties: "Hotarari si servicii de interes judetean",
+    name: "Consilier Județean Model",
+    role: "Consilier județean",
+    level: "Județean",
+    county: "Județul Model",
+    locality: "Județul Model",
+    institution: "Consiliul Județean Model",
+    duties: "Hotărâri și servicii de interes județean",
     email: "registratura@institutie.example",
-    contact: "Registratura institutiei",
+    contact: "Registratura instituției",
     term: "2024-2028",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
   {
     id: "director",
     name: "Director Model",
-    role: "Conducator de institutie",
-    level: "Judetean",
-    county: "Judetul Exemplu",
-    locality: "Judetul Exemplu",
-    institution: "Institutia Publica Model",
-    duties: "Coordonarea activitatii institutiei",
+    role: "Conducător de instituție",
+    level: "Județean",
+    county: "Județul Exemplu",
+    locality: "Județul Exemplu",
+    institution: "Instituția Publică Model",
+    duties: "Coordonarea activității instituției",
     email: "",
     contact: "Contact indisponibil",
     term: "Neconfirmat",
-    status: "Necesita reverificare",
+    status: "Necesită reverificare",
   },
   {
     id: "deputat",
     name: "Deputat Model",
     role: "Deputat",
-    level: "National",
-    county: "Judetul Model",
-    locality: "Circumscriptia Model",
-    institution: "Camera Deputatilor - exemplu",
-    duties: "Legislatie si control parlamentar",
+    level: "Național",
+    county: "Județul Model",
+    locality: "Circumscripția Model",
+    institution: "Camera Deputaților - exemplu",
+    duties: "Legislație și control parlamentar",
     email: "cabinet.deputat@institutie.example",
     contact: "Cabinet",
     term: "2024-2028",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
   {
     id: "senator",
     name: "Senator Model",
     role: "Senator",
-    level: "National",
-    county: "Judetul Exemplu",
-    locality: "Circumscriptia Exemplu",
+    level: "Național",
+    county: "Județul Exemplu",
+    locality: "Circumscripția Exemplu",
     institution: "Senat - exemplu",
-    duties: "Legislatie si control parlamentar",
+    duties: "Legislație și control parlamentar",
     email: "cabinet.senator@institutie.example",
     contact: "Cabinet",
     term: "2024-2028",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
   {
     id: "european",
     name: "Europarlamentar Model",
     role: "Europarlamentar",
     level: "European",
-    county: "National",
-    locality: "Romania",
+    county: "Național",
+    locality: "România",
     institution: "Parlamentul European - exemplu",
-    duties: "Legislatie si activitate parlamentara europeana",
+    duties: "Legislație și activitate parlamentară europeană",
     email: "cabinet.european@institutie.example",
     contact: "Cabinet",
     term: "2024-2029",
-    status: "In exercitiu",
+    status: "În exercițiu",
   },
 ];
 
@@ -135,7 +135,7 @@ export default function PublicContacts() {
   const [selected, setSelected] = useState("");
   const [saved, setSaved] = useState<string[]>([]);
   const [draft, setDraft] = useState(false);
-  const [purpose, setPurpose] = useState("Solicitare de informatii publice");
+  const [purpose, setPurpose] = useState("Solicitare de informații publice");
   const [review, setReview] = useState(false);
   const [notice, setNotice] = useState("");
   const official = offices.find((o) => o.id === selected);
@@ -149,18 +149,18 @@ export default function PublicContacts() {
         .includes(query.toLowerCase()),
   );
   const message = official
-    ? `DRAFT FICTIV - NU TRIMITE\nDestinatar: ${official.institution}\nAdresa exemplu: ${official.email}\nSubiect: ${purpose}\n\nBuna ziua,\nVa rog sa imi comunicati programul de audiente si procedura pentru depunerea unei solicitari.\nVa multumesc.\n\nExemplu de prezentare, fara date personale.`
+    ? `DRAFT FICTIV - NU TRIMITE\nDestinatar: ${official.institution}\nAdresa exemplu: ${official.email}\nSubiect: ${purpose}\n\nBună ziua,\nVă rog să îmi comunicați programul de audiențe și procedura pentru depunerea unei solicitări.\nVă mulțumesc.\n\nExemplu de prezentare, fără date personale.`
     : "";
   return (
     <div className="resource-hub public-contacts civic-scope civic-usr">
       <h2>Contacte publice</h2>
       <p>
-        Institutii si titulari fictivi. Adresele .example nu sunt adrese reale.
+        Instituții și titulari fictivi. Adresele .example nu sunt adrese reale.
       </p>
       <div className="contact-filters">
         <Field
           id="contact-search"
-          label="Cauta nume, institutie sau localitate"
+          label="Caută nume, instituție sau localitate"
         >
           {(props) => (
             <Input
@@ -178,7 +178,7 @@ export default function PublicContacts() {
               value={level}
               onChange={(e) => setLevel(e.target.value)}
             >
-              {["Toate", "Local", "Judetean", "National", "European"].map(
+              {["Toate", "Local", "Județean", "Național", "European"].map(
                 (v) => (
                   <option key={v}>{v}</option>
                 ),
@@ -186,14 +186,14 @@ export default function PublicContacts() {
             </Select>
           )}
         </Field>
-        <Field id="contact-county" label="Judet">
+        <Field id="contact-county" label="Județ">
           {(props) => (
             <Select
               {...props}
               value={county}
               onChange={(e) => setCounty(e.target.value)}
             >
-              {["Toate", "Judetul Model", "Judetul Exemplu", "National"].map(
+              {["Toate", "Județul Model", "Județul Exemplu", "Național"].map(
                 (v) => (
                   <option key={v}>{v}</option>
                 ),
@@ -201,7 +201,7 @@ export default function PublicContacts() {
             </Select>
           )}
         </Field>
-        <Field id="contact-role" label="Functie">
+        <Field id="contact-role" label="Funcție">
           {(props) => (
             <Select
               {...props}
@@ -237,7 +237,7 @@ export default function PublicContacts() {
                 Detalii {o.name}
               </Button>
               <IconButton
-                label={"Salveaza " + o.name}
+                label={"Salvează " + o.name}
                 aria-pressed={saved.includes(o.id)}
                 onClick={() =>
                   setSaved((v) =>
@@ -256,15 +256,15 @@ export default function PublicContacts() {
             </div>
           </article>
         ))}
-        {!rows.length && <p>Niciun contact gasit.</p>}
+        {!rows.length && <p>Niciun contact găsit.</p>}
       </div>
       {official && (
         <section className="resource-detail" aria-label="Detalii contact">
           <h3>{official.name}</h3>
           <dl>
-            <dt>Institutie</dt>
+            <dt>Instituție</dt>
             <dd>{official.institution}</dd>
-            <dt>Responsabilitati</dt>
+            <dt>Responsabilități</dt>
             <dd>{official.duties}</dd>
             <dt>Mandat / perioada</dt>
             <dd>{official.term}</dd>
@@ -274,20 +274,20 @@ export default function PublicContacts() {
             </dd>
             <dt>Tip contact</dt>
             <dd>{official.contact}</dd>
-            <dt>Audiente</dt>
+            <dt>Audiențe</dt>
             <dd>
               {official.email
-                ? "Marti 10:00-12:00 - program fictiv"
+                ? "Marți 10:00-12:00 - program fictiv"
                 : "Program neconfirmat"}
             </dd>
-            <dt>Sursa si verificare</dt>
+            <dt>Sursă și verificare</dt>
             <dd>
-              Pagina institutionala fictiva / 2026-09-09 / responsabil: Editor
+              Pagină instituțională fictivă / 2026-09-09 / responsabil: Editor
               Model
             </dd>
           </dl>
           <p>
-            Afilierea politica nu este necesara pentru contactarea institutiei.
+            Afilierea politică nu este necesară pentru contactarea instituției.
           </p>
           <div className="contact-actions">
             <Button
@@ -295,14 +295,14 @@ export default function PublicContacts() {
               onClick={async () => {
                 try {
                   await navigator.clipboard.writeText(official.email);
-                  setNotice("Adresa fictiva copiata.");
+                  setNotice("Adresa fictivă copiată.");
                 } catch {
-                  setNotice("Copiere indisponibila.");
+                  setNotice("Copiere indisponibilă.");
                 }
               }}
             >
               <Copy size={16} />
-              Copiaza adresa fictiva
+              Copiază adresa fictivă
             </Button>
             <Button
               disabled={!official.email}
@@ -312,7 +312,7 @@ export default function PublicContacts() {
               }}
             >
               <FileText size={16} />
-              Pregateste solicitarea
+              Pregătește solicitarea
             </Button>
             <Button
               onClick={() => {
@@ -320,12 +320,12 @@ export default function PublicContacts() {
                 setDraft(false);
               }}
             >
-              Inchide contactul
+              Închide contactul
             </Button>
           </div>
           {draft && (
             <>
-              <h4>Solicitare individuala demonstrativa</h4>
+              <h4>Solicitare individuală demonstrativă</h4>
               <div className="contact-purpose">
                 <Field id="contact-purpose" label="Tip solicitare">
                   {(props) => (
@@ -337,16 +337,16 @@ export default function PublicContacts() {
                         setReview(false);
                       }}
                     >
-                      <option>Solicitare de informatii publice</option>
-                      <option>Cerere de audienta</option>
-                      <option>Intrebare despre servicii publice</option>
+                      <option>Solicitare de informații publice</option>
+                      <option>Cerere de audiență</option>
+                      <option>Întrebare despre servicii publice</option>
                     </Select>
                   )}
                 </Field>
               </div>
-              <p>Continut fictiv, fara destinatar real sau trimitere.</p>
+              <p>Conținut fictiv, fără destinatar real sau trimitere.</p>
               <Button onClick={() => setReview(true)}>
-                Revizuieste draftul
+                Revizuiește draftul
               </Button>
               {review && (
                 <>
@@ -354,7 +354,7 @@ export default function PublicContacts() {
                   <Button
                     onClick={() => saveExample("solicitare-demo.txt", message)}
                   >
-                    Descarca draftul fictiv
+                    Descarcă draftul fictiv
                   </Button>
                 </>
               )}

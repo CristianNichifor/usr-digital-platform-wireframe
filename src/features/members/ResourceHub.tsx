@@ -55,7 +55,7 @@ export function SocialProfileLinks({
       </div>
       {selected && (
         <p role="status">
-          {name} / {selected}: profil fictiv, fara adresa externa.
+          {name} / {selected}: profil fictiv, fără adresă externă.
         </p>
       )}
     </div>
@@ -95,7 +95,7 @@ export default function ResourceHub({
   }, [audience]);
   const internalAccess =
     audience === "administrator" &&
-    accessPurpose === "Administrarea evidentei" &&
+    accessPurpose === "Administrarea evidenței" &&
     accessConfirmed;
   const [detail, setDetail] = useState("");
   const [skill, setSkill] = useState("Toate");
@@ -128,7 +128,7 @@ export default function ResourceHub({
       await navigator.clipboard.writeText(text);
       setNotice("Text fictiv copiat.");
     } catch {
-      setNotice("Copiere indisponibila. Poti selecta textul din detalii.");
+      setNotice("Copiere indisponibilă. Poți selecta textul din detalii.");
     }
   };
   if (
@@ -148,16 +148,16 @@ export default function ResourceHub({
       {section === "contacte-publice" && <PublicContacts />}
       {audience === "supporter" && (
         <p>
-          Acces pentru simpatizanti: resurse, proiecte si profiluri publice.{" "}
-          <a href="#/inscriere">Informatii despre inscriere</a>
+          Acces pentru simpatizanți: resurse, proiecte și profiluri publice.{" "}
+          <a href="#/inscriere">Informații despre înscriere</a>
         </p>
       )}
       {section === "resurse" && (
         <>
-          <h2>Resurse si lectura</h2>
-          <p>Materiale si articole fictive / colectie demonstrativa</p>
+          <h2>Resurse și lectură</h2>
+          <p>Materiale și articole fictive / colecție demonstrativă</p>
           <div className="member-filters resource-filters civic-scope civic-usr">
-            <Field id="resource-search" label="Cauta resurse">
+            <Field id="resource-search" label="Caută resurse">
               {(props) => (
                 <Input
                   {...props}
@@ -167,7 +167,7 @@ export default function ResourceHub({
                 />
               )}
             </Field>
-            <Field id="resource-kind" label="Continut">
+            <Field id="resource-kind" label="Conținut">
               {(props) => (
                 <NativeSelect
                   {...props}
@@ -180,14 +180,14 @@ export default function ResourceHub({
                 </NativeSelect>
               )}
             </Field>
-            <Field id="resource-scope" label="Organizatie">
+            <Field id="resource-scope" label="Organizație">
               {(props) => (
                 <NativeSelect
                   {...props}
                   value={scope}
                   onChange={(e) => setScope(e.target.value)}
                 >
-                  {["Toate", "National", "Filiala"].map((v) => (
+                  {["Toate", "Național", "Filială"].map((v) => (
                     <option key={v}>{v}</option>
                   ))}
                 </NativeSelect>
@@ -207,7 +207,7 @@ export default function ResourceHub({
           {error ? (
             <div className="resource-feedback civic-scope civic-usr">
               <Notice title="Resurse indisponibile." tone="danger" role="alert">
-                <Button onClick={() => setError(false)}>Reincearca</Button>
+                <Button onClick={() => setError(false)}>Reîncearcă</Button>
               </Notice>
             </div>
           ) : (
@@ -230,8 +230,8 @@ export default function ResourceHub({
                       Vezi detalii
                     </Button>
                     <IconButton
-                      title="Apreciere simulata"
-                      label={"Apreciere simulata: " + r.title}
+                      title="Apreciere simulată"
+                      label={"Apreciere simulată: " + r.title}
                       aria-pressed={liked.includes(r.id)}
                       disabled={r.status === "Retras"}
                       onClick={() =>
@@ -258,10 +258,10 @@ export default function ResourceHub({
                     <IconButton
                       title={
                         saved.includes(r.id)
-                          ? "Elimina din salvate"
-                          : "Salveaza resursa"
+                          ? "Elimină din salvate"
+                          : "Salvează resursa"
                       }
-                      label={"Salveaza " + r.title}
+                      label={"Salvează " + r.title}
                       aria-pressed={saved.includes(r.id)}
                       onClick={() => toggleSaved(r.id)}
                     >
@@ -275,18 +275,18 @@ export default function ResourceHub({
               ))}
               {content.length === 0 && (
                 <div className="resource-empty civic-scope civic-usr">
-                  <EmptyState title="Nicio resursa gasita." />
+                  <EmptyState title="Nicio resursă găsită." />
                 </div>
               )}
             </div>
           )}
           {selected && (
-            <section className="resource-detail" aria-label="Detalii resursa">
+            <section className="resource-detail" aria-label="Detalii resursă">
               <div className="resource-title">
                 <h3>{selected.title}</h3>
                 <IconButton
-                  label="Inchide detaliile"
-                  title="Inchide detaliile"
+                  label="Închide detaliile"
+                  title="Închide detaliile"
                   onClick={() => setDetail("")}
                 >
                   <X size={18} />
@@ -294,11 +294,11 @@ export default function ResourceHub({
               </div>
               <p>{selected.text}</p>
               <p>
-                Aprecierile si comentariile sunt locale, fara publicare pe
+                Aprecierile și comentariile sunt locale, fără publicare pe
                 platforme.
               </p>
               <p>
-                Sursa: {selected.source}. Actualizat: {selected.date}.
+                Sursă: {selected.source}. Actualizat: {selected.date}.
               </p>
               <p>
                 Responsabil: {selected.publisher}. Utilizare: exemplu de
@@ -310,7 +310,7 @@ export default function ResourceHub({
                   onClick={() => copy(selected.text)}
                 >
                   <Copy size={16} />
-                  Copiaza textul fictiv
+                  Copiază textul fictiv
                 </Button>
                 <Button
                   disabled={selected.status === "Retras"}
@@ -326,7 +326,7 @@ export default function ResourceHub({
                   }
                 >
                   <Download size={16} />
-                  Descarca exemplul
+                  Descarcă exemplul
                 </Button>
               </div>
               <Field id="resource-comment" label="Comentariu fictiv">
@@ -337,7 +337,7 @@ export default function ResourceHub({
                     onChange={(e) => setComment(e.target.value)}
                   >
                     <option>Exemplul este clar.</option>
-                    <option>Ar fi utila o versiune accesibila.</option>
+                    <option>Ar fi utilă o versiune accesibilă.</option>
                   </Select>
                 )}
               </Field>
@@ -347,13 +347,13 @@ export default function ResourceHub({
                   setComments((v) => ({ ...v, [selected.id]: comment }))
                 }
               >
-                Adauga comentariul demonstrativ
+                Adaugă comentariul demonstrativ
               </Button>
               {comments[selected.id] && (
                 <p role="status">Comentariu local: {comments[selected.id]}</p>
               )}
               <p>
-                Publicatia si materialul sunt fictive. Nu exista postare sau
+                Publicația și materialul sunt fictive. Nu există postare sau
                 articol extern.
               </p>
             </section>
@@ -364,11 +364,11 @@ export default function ResourceHub({
         <>
           <h2>Director social</h2>
           <p>
-            Conturi si grupuri fictive. Statusurile de urmarire sunt declarate
+            Conturi și grupuri fictive. Statusurile de urmărire sunt declarate
             de utilizator, nu verificate de platforme.
           </p>
           <div className="member-filters">
-            <Field id="social-platform" label="Platforma">
+            <Field id="social-platform" label="Platformă">
               {(attributes) => (
                 <Select
                   {...attributes}
@@ -382,14 +382,14 @@ export default function ResourceHub({
                 </Select>
               )}
             </Field>
-            <Field id="social-following" label="Urmarire">
+            <Field id="social-following" label="Urmărire">
               {(attributes) => (
                 <Select
                   {...attributes}
                   value={followFilter}
                   onChange={(e) => setFollowFilter(e.target.value)}
                 >
-                  {["Toate", "Necunoscut", "Urmaresc", "Nu urmaresc"].map(
+                  {["Toate", "Necunoscut", "Urmăresc", "Nu urmăresc"].map(
                     (s) => (
                       <option key={s}>{s}</option>
                     ),
@@ -408,7 +408,7 @@ export default function ResourceHub({
                     {c.platform} / {c.kind} / {c.scope}
                   </p>
                   <p className="resource-meta">
-                    Sursa: catalog fictiv / Actualizat: 2026-09-09
+                    Sursă: catalog fictiv / Actualizat: 2026-09-09
                   </p>
                 </div>
                 <Field
@@ -424,7 +424,7 @@ export default function ResourceHub({
                         setFollowing((v) => ({ ...v, [c.id]: e.target.value }))
                       }
                     >
-                      {["Necunoscut", "Urmaresc", "Nu urmaresc"].map((s) => (
+                      {["Necunoscut", "Urmăresc", "Nu urmăresc"].map((s) => (
                         <option key={s}>{s}</option>
                       ))}
                     </Select>
@@ -436,7 +436,7 @@ export default function ResourceHub({
               <p>Niciun canal pentru aceste filtre.</p>
             )}
           </div>
-          <h3>Profiluri distribuite comunitatii</h3>
+          <h3>Profiluri distribuite comunității</h3>
           <p>
             {connected.filter((p) => visibility[p] === "Public").length
               ? connected
@@ -445,17 +445,17 @@ export default function ResourceHub({
                   .join(" / ")
               : "Niciun profil personal distribuit public."}
           </p>
-          <h3>Reprezentanti publici - exemple</h3>
+          <h3>Reprezentanți publici - exemple</h3>
           {publicAffiliation && (
             <article
               className="resource-item"
-              aria-label="Afiliere publicata voluntar"
+              aria-label="Afiliere publicată voluntar"
             >
               <h3>Profil Model</h3>
-              <p>Afiliere declarata: {declaredAffiliation}</p>
+              <p>Afiliere declarată: {declaredAffiliation}</p>
               <p>
-                Publicare acceptata explicit in setarile profilului
-                demonstrativ. Sursa: declaratie fictiva, nu registrul intern.
+                Publicare acceptată explicit în setările profilului
+                demonstrativ. Sursă: declarație fictivă, nu registrul intern.
               </p>
             </article>
           )}
@@ -464,7 +464,7 @@ export default function ResourceHub({
               className="resource-detail"
               aria-label="Acces administrativ"
             >
-              <h3>Evidenta interna - demonstratie</h3>
+              <h3>Evidență internă - demonstrație</h3>
               <Field id="access-purpose" label="Scopul accesului">
                 {(attributes) => (
                   <Select
@@ -475,8 +475,8 @@ export default function ResourceHub({
                       setAccessConfirmed(false);
                     }}
                   >
-                    <option value="">Selecteaza un scop</option>
-                    <option>Administrarea evidentei</option>
+                    <option value="">Selectează un scop</option>
+                    <option>Administrarea evidenței</option>
                   </Select>
                 )}
               </Field>
@@ -485,13 +485,13 @@ export default function ResourceHub({
                 onClick={() => setAccessConfirmed((v) => !v)}
               >
                 {internalAccess
-                  ? "Inchide accesul intern"
-                  : "Confirma accesul pentru scopul selectat"}
+                  ? "Închide accesul intern"
+                  : "Confirmă accesul pentru scopul selectat"}
               </Button>
               <p>
                 {internalAccess
-                  ? "Acces demonstrativ activ pentru administrarea evidentei."
-                  : "Istoricul afilierii nu este afisat."}
+                  ? "Acces demonstrativ activ pentru administrarea evidenței."
+                  : "Istoricul afilierii nu este afișat."}
               </p>
             </section>
           )}
@@ -523,19 +523,19 @@ export default function ResourceHub({
                 <article className="resource-item" key={p.id}>
                   <h3>{p.name}</h3>
                   <dl>
-                    <dt>Functie</dt>
+                    <dt>Funcție</dt>
                     <dd>{p.office}</dd>
                     {internalAccess && (
                       <>
-                        <dt>Afiliere interna</dt>
+                        <dt>Afiliere internă</dt>
                         <dd>{p.membership}</dd>
-                        <dt>Sustinere interna</dt>
+                        <dt>Susținere internă</dt>
                         <dd>{p.endorsement}</dd>
                       </>
                     )}
                   </dl>
                   <p className="resource-meta">
-                    Sursa: registru fictiv / Actualizat: 2026-09-09
+                    Sursă: registru fictiv / Actualizat: 2026-09-09
                   </p>
                   <SocialProfileLinks name={p.name} networks={p.networks} />
                 </article>
@@ -552,10 +552,10 @@ export default function ResourceHub({
           </h2>
           {section === "setari" ? (
             <>
-              <p>Identitati demonstrative. Fara autentificare pe platforme.</p>
+              <p>Identități demonstrative. Fără autentificare pe platforme.</p>
               <fieldset>
                 <legend>Publicarea afilierii mele</legend>
-                <Field id="declared-affiliation" label="Afiliere declarata">
+                <Field id="declared-affiliation" label="Afiliere declarată">
                   {(attributes) => (
                     <Select
                       {...attributes}
@@ -572,14 +572,14 @@ export default function ResourceHub({
                   )}
                 </Field>
                 <Checkbox
-                  label="Accept explicit publicarea afilierii mele in comunitate"
+                  label="Accept explicit publicarea afilierii mele în comunitate"
                   checked={publicAffiliation}
                   onChange={(e) => setPublicAffiliation(e.target.checked)}
                 />
                 <p>
-                  Optional, separat de publicarea profilurilor sociale.
-                  Debifarea retrage publicarea; schimbarea declaratiei necesita
-                  o noua acceptare.
+                  Opțional, separat de publicarea profilurilor sociale.
+                  Debifarea retrage publicarea; schimbarea declarației necesită
+                  o nouă acceptare.
                 </p>
               </fieldset>
               <div className="channel-list">
@@ -590,7 +590,7 @@ export default function ResourceHub({
                       <p>
                         {connected.includes(p)
                           ? "@profil-model-demo"
-                          : "Niciun profil adaugat"}
+                          : "Niciun profil adăugat"}
                       </p>
                     </div>
                     <div>
@@ -605,8 +605,8 @@ export default function ResourceHub({
                         }}
                       >
                         {connected.includes(p)
-                          ? "Elimina profilul " + p
-                          : "Adauga profil fictiv " + p}
+                          ? "Elimină profilul " + p
+                          : "Adaugă profil fictiv " + p}
                       </Button>
                       {connected.includes(p) && (
                         <Field
@@ -653,7 +653,7 @@ export default function ResourceHub({
               </article>
               <article className="resource-item">
                 <h3>Coleg Fictiv A</h3>
-                <p>Vizibilitate acceptata in scenariul fictiv</p>
+                <p>Vizibilitate acceptată în scenariul fictiv</p>
                 <SocialProfileLinks name="Coleg Fictiv A" />
               </article>
             </>
@@ -668,13 +668,13 @@ export default function ResourceHub({
           <div className="design-swatches">
             {[
               ["Albastru USR", brand.navy],
-              ["Rosu USR", brand.red],
+              ["Roșu USR", brand.red],
               ["Alb", brand.surface],
               ["Fundal", brand.background],
             ].map(([name, value]) => (
               <Button
                 key={name}
-                title={"Copiaza " + value}
+                title={"Copiază " + value}
                 onClick={() => copy(value)}
               >
                 <span style={{ background: value }} aria-hidden="true" />
@@ -684,12 +684,12 @@ export default function ResourceHub({
           </div>
           <h3>Tipografie</h3>
           <p>
-            Aileron / exemple de 24, 32 si 54 px in sablon. Textul ramane
+            Aileron / exemple de 24, 32 și 54 px în șablon. Textul rămâne
             editabil.
           </p>
-          <h3>Sabloane editabile</h3>
+          <h3>Șabloane editabile</h3>
           <div className="resource-grid">
-            {["Intalnire de organizare", "Biblioteca de documente"].map(
+            {["Întâlnire de organizare", "Biblioteca de documente"].map(
               (title) => (
                 <article className="resource-item" key={title}>
                   <img
@@ -698,13 +698,13 @@ export default function ResourceHub({
                       "data:image/svg+xml;charset=utf-8," +
                       encodeURIComponent(template(title))
                     }
-                    alt={"Previzualizare sablon: " + title}
+                    alt={"Previzualizare șablon: " + title}
                   />
                   <h3>{title}</h3>
                   <p>1080 x 1080 / SVG / v1.0 / Curent</p>
                   <p>
-                    Responsabil: Echipa Design Model. Grafica demonstrativa,
-                    culori din tema USR si font Aileron din resursele locale. Nu
+                    Responsabil: Echipa Design Model. Grafică demonstrativă,
+                    culori din tema USR și font Aileron din resursele locale. Nu
                     este material oficial.
                   </p>
                   <Button
@@ -717,7 +717,7 @@ export default function ResourceHub({
                     }
                   >
                     <Download size={16} />
-                    Descarca SVG editabil
+                    Descarcă SVG editabil
                   </Button>
                 </article>
               ),
@@ -726,9 +726,9 @@ export default function ResourceHub({
           <details>
             <summary>Ghid de utilizare</summary>
             <p>
-              Pastreaza marcajul DEMO in prezentare. Include data, organizatorul
-              si o descriere alternativa a imaginii. Verifica lizibilitatea la
-              dimensiunea finala.
+              Păstrează marcajul DEMO în prezentare. Include data, organizatorul
+              și o descriere alternativă a imaginii. Verifică lizibilitatea la
+              dimensiunea finală.
             </p>
           </details>
           <Button
@@ -755,16 +755,16 @@ export default function ResourceHub({
             }
           >
             <Download size={16} />
-            Descarca tokenuri JSON
+            Descarcă tokenuri JSON
           </Button>
         </>
       )}
       {section === "proiecte" && (
         <>
           <h2>Proiecte colaborative</h2>
-          <p>Catalog fictiv de contributii / fara conectare GitHub</p>
+          <p>Catalog fictiv de contribuții / fără conectare GitHub</p>
           <div className="project-filter civic-scope civic-usr">
-            <Field id="project-skill" label="Competenta">
+            <Field id="project-skill" label="Competență">
               {(props) => (
                 <NativeSelect
                   {...props}
@@ -787,21 +787,21 @@ export default function ResourceHub({
                   <h3>{p.name}</h3>
                   <p>{p.description}</p>
                   <p>
-                    Responsabil: Maintainer Model / Licenta propusa: {p.license}
+                    Responsabil: Maintainer Model / Licența propusă: {p.license}
                   </p>
                   <p>Repository fictiv: model-demo/{p.id}</p>
-                  <h4>Prima contributie</h4>
+                  <h4>Prima contribuție</h4>
                   <p>{p.task} / Nivel introductiv</p>
                   <details>
-                    <summary>Ghid de contributie</summary>
+                    <summary>Ghid de contribuție</summary>
                     <ol>
-                      <li>Citeste descrierea si criteriile sarcinii.</li>
-                      <li>Propune o modificare mica, cu date sintetice.</li>
-                      <li>Solicita revizuirea unui maintainer.</li>
+                      <li>Citește descrierea și criteriile sarcinii.</li>
+                      <li>Propune o modificare mică, cu date sintetice.</li>
+                      <li>Solicită revizuirea unui maintainer.</li>
                     </ol>
                     <p>
-                      Criteriu: exemplu clar, fara date private. Costurile de
-                      mentenanta nu sunt estimate in demo.
+                      Criteriu: exemplu clar, fără date private. Costurile de
+                      mentenanță nu sunt estimate în demo.
                     </p>
                   </details>
                   <Button
@@ -816,7 +816,7 @@ export default function ResourceHub({
                   >
                     {joined.includes(p.id)
                       ? "Retrage interesul demonstrativ"
-                      : "Marcheaza interesul demonstrativ"}
+                      : "Marchează interesul demonstrativ"}
                   </Button>
                   <Button
                     onClick={() =>
@@ -824,14 +824,14 @@ export default function ResourceHub({
                         p.id + "-contributie-demo.md",
                         "# " +
                           p.name +
-                          "\n\nSarcina fictiva: " +
+                          "\n\nSarcină fictivă: " +
                           p.task +
                           "\n\nResponsabil: Maintainer Model.\nNu include date private.",
                       )
                     }
                   >
                     <Download size={16} />
-                    Descarca sarcina
+                    Descarcă sarcina
                   </Button>
                 </article>
               ))}

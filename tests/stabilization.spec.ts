@@ -70,8 +70,8 @@ test("Civic fields retain composition in conditionally displayed controls", asyn
     .click();
   await expect(page.getByLabel("Vizibilitate LinkedIn")).toBeVisible();
   await expectCivicComposition(page);
-  await page.getByRole("link", { name: "Cotizatii", exact: true }).click();
-  await page.getByRole("button", { name: "Simuleaza plata" }).click();
+  await page.getByRole("link", { name: "Cotizații", exact: true }).click();
+  await page.getByRole("button", { name: "Simulează plata" }).click();
   await expect(page.getByLabel("Rezultat demonstrativ")).toBeVisible();
   await expectCivicComposition(page);
   await page
@@ -82,9 +82,9 @@ test("Civic fields retain composition in conditionally displayed controls", asyn
     .selectOption("Administrator Model");
   await page
     .getByLabel("Scopul accesului")
-    .selectOption("Administrarea evidentei");
+    .selectOption("Administrarea evidenței");
   await page
-    .getByRole("button", { name: "Confirma accesul pentru scopul selectat" })
+    .getByRole("button", { name: "Confirmă accesul pentru scopul selectat" })
     .click();
   await expect(
     page.getByRole("combobox", { name: "Afiliere", exact: true }),
