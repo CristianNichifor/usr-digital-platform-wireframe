@@ -19,7 +19,7 @@ const titles: [string, string][] = [
   ["/inscriere", "Înscriere"],
   ["/doneaza", "Donează"],
   ["/proiecte-date", "Proiecte și date"],
-  ["/strategie", "De ce contează"],
+  ["/strategie", "Despre machetă"],
   ["/arhitectura", "Arhitectură date"],
   ["/nota", "Notă costuri"],
   ["/implica-te", "Implică-te"],
