@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { footerNav, headerActions, topNav } from '../data/navigation';
 import { officials } from '../data/officials';
 import type { OfficialRecord } from '../data/officials';
-import { activeView, currentHash, makeHash, recordIdFromPath } from '../routing';
+import { activeView, makeHash, recordIdFromPath } from '../routing';
 import type { HashRoute, ViewMode } from '../routing';
 
 export function Layout({ route, children }: { route: HashRoute; children: React.ReactNode }) {
@@ -74,7 +74,7 @@ export function Layout({ route, children }: { route: HashRoute; children: React.
       <footer className="site-footer">
         <div>
           <strong>Machetă neoficială.</strong>
-          <span> Rută curentă: {currentHash(route)}</span>
+          <span> Conținut sintetic; nu este un serviciu oficial USR.</span>
         </div>
         <nav aria-label="Legături secundare">
           {footerNav.map((item) => (
