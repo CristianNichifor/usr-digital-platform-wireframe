@@ -9,6 +9,7 @@ test("every open-menu link is at least 44 px tall at 390 px", async ({ page }) =
   for (const link of await links.all()) {
     const box = await link.boundingBox();
     expect(box, "link has a box").not.toBeNull();
-    expect(box!.height).toBeGreaterThanOrEqual(44);
+    // Firefox reports 43.99999 for a 44 px box; allow subpixel rounding.
+    expect(box!.height).toBeGreaterThanOrEqual(43.5);
   }
 });
