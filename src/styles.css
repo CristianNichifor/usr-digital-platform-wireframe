@@ -1170,6 +1170,11 @@ tbody tr:hover {
   .header-action--join {
     display: none;
   }
+
+  .page-shell[inert],
+  .site-footer[inert] {
+    opacity: 0.55;
+  }
 }
 
 .table-wrap .mobile-cell-label {
