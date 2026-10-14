@@ -1309,7 +1309,7 @@ tbody tr:hover {
   .header-action {
     flex: 1 1 auto;
     min-width: fit-content;
-    min-height: 2.12rem;
+    min-height: 2.75rem;
     padding: var(--usr-space-1) var(--usr-space-2);
     font-size: 0.83rem;
     text-align: center;
@@ -1431,6 +1431,19 @@ tbody tr:hover {
 
 .home-card--more {
   background: var(--usr-surface-raised);
+}
+
+/* Touch targets: 44 px for every link or control outside running text on a phone (USR-24).
+   :where() keeps the default at zero specificity; the named rules carried explicit lower floors. */
+@media (max-width: 720px) {
+  :where(a, button, select, input:not([type='checkbox'], [type='radio']), textarea, summary),
+  .wordmark,
+  .primary-nav a,
+  .header-action,
+  .back-link,
+  .site-footer nav a {
+    min-height: 2.75rem;
+  }
 }
 
 @media (forced-colors: active) {

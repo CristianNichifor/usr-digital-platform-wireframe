@@ -67,8 +67,8 @@ of meaning in status chips or legends.
 
 - Designed at 390 px first; no horizontal overflow on any route (member and community suites check it).
 - Header at 390 px: "Meniu" button with `aria-expanded`, Membri and Donează pinned, ≤ 140 px tall.
-- Touch targets: links and controls outside running text are ≥ 32 px tall (USR-10); 44 px preferred
-  for primary actions. The fleet floor is 24 px.
+- Touch targets: links and controls outside running text are ≥ 44 px tall on mobile (USR-24).
+  The fleet floor is 24 px.
 - WCAG 2.1 AA: text contrast ≥ 4.5:1, visible focus, labelled controls, keyboard operable menus
   (Escape closes the menu).
 - Reduced motion: under `prefers-reduced-motion: reduce` there is no smooth scrolling and no card
