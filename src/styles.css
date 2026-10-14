@@ -1159,6 +1159,10 @@ tbody tr:hover {
     padding-top: var(--usr-space-2);
   }
 
+  .primary-nav a {
+    min-height: 44px;
+  }
+
   .primary-nav .primary-nav__join {
     display: inline-flex;
   }

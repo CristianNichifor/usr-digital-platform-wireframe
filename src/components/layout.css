@@ -1,7 +1,0 @@
-/* Layout-owned rules. The global stylesheet keeps the header look; this file holds the
-   touch-target floor for the mobile menu (ux-guidelines §6, design screens USR-19). */
-@media (max-width: 980px) {
-  .primary-nav a {
-    min-height: 44px;
-  }
-}
