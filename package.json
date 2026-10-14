@@ -9,7 +9,8 @@
     "verify": "npm run build && CI=1 npm test",
     "dev": "vite --host 0.0.0.0",
     "check:civic": "node --test scripts/check-civic-contract.test.mjs && node scripts/check-civic-contract.mjs",
-    "build": "npm run check:civic && tsc --noEmit && vite build",
+    "check:diacritics": "node --test scripts/check-diacritics.test.mjs && node scripts/check-diacritics.mjs",
+    "build": "npm run check:civic && npm run check:diacritics && tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
