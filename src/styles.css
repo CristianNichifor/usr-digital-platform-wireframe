@@ -402,7 +402,8 @@ tbody tr:hover {
   border-top: 1px solid var(--usr-line);
   background: var(--usr-surface);
   color: var(--usr-text-muted);
-  padding: var(--usr-space-5) var(--usr-container-padding);
+  /* Same 1160px column as the header and page shell. */
+  padding: var(--usr-space-5) max(var(--usr-container-padding), calc((100% - 1160px) / 2 + var(--usr-container-padding)));
 }
 
 .site-footer nav {
@@ -1386,6 +1387,13 @@ tbody tr:hover {
   opacity: 0.85;
 }
 
+/* The source line sits on navy; the default warning colour is unreadable there. */
+.home-lead .home-lead__source {
+  max-width: 60ch;
+  color: inherit;
+  opacity: 0.85;
+}
+
 .home-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1418,6 +1426,10 @@ tbody tr:hover {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
   gap: var(--usr-space-3);
+  margin-top: var(--usr-space-3);
+}
+
+.home-cards + .text-button {
   margin-top: var(--usr-space-3);
 }
 
