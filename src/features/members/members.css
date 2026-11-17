@@ -109,6 +109,10 @@
 .member-content h3 {
   font-size: 18px;
 }
+/* A heading that follows controls or a list starts a new block. */
+.member-content :is(.civic-button, .civic-field, .member-filters, .member-list, .member-review, .channel-list, .resource-grid) + :is(h2, h3) {
+  margin-top: 28px;
+}
 .member-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -167,6 +171,10 @@
 }
 .member-table {
   margin: 20px 0;
+}
+/* Three short columns fit a phone; the scroll region only engages below this. */
+.member-table table {
+  min-width: 17rem;
 }
 .member-table__source {
   margin: 20px 0 0;
@@ -244,13 +252,16 @@
     display: block;
   }
   .member-controls {
-    display: block;
+    flex-wrap: nowrap;
+    margin-top: 12px;
   }
   .member-controls > .civic-field {
-    width: 100%;
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
   }
-  .member-controls .civic-button {
-    margin-top: 12px;
+  .member-controls > button {
+    flex: 0 0 auto;
   }
   .member-summary {
     grid-template-columns: 1fr;

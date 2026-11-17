@@ -201,3 +201,12 @@ test("the selected public filter chip stands out from its panel", async ({ page 
   expect(chipBackground).not.toBe(panelBackground);
   expect(await contrast(page, ".filter-row a[aria-current='true']")).toBeGreaterThanOrEqual(4.5);
 });
+
+test("every payment history column is visible on a phone without scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#/membri/cotizatii");
+  for (const name of ["Perioada", "Suma", "Stare"]) {
+    const header = page.getByRole("columnheader", { name });
+    await expect(header).toBeInViewport({ ratio: 1 });
+  }
+});
