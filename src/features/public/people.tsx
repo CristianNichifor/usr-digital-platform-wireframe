@@ -29,8 +29,10 @@ export function PeopleScreen({ route }: { route: HashRoute }) {
         <p className="eyebrow">Oameni</p>
         <h1>Directorul aleșilor</h1>
         <p className="statut-counter">
-          <Fake source="director sintetic">{withCv}</Fake> din <Fake source="director sintetic">{officials.length}</Fake>{' '}
-          aleși au CV publicat — cerut de art. 87(1) din Statut.
+          <Fake source="director sintetic">
+            {withCv} din {officials.length}
+          </Fake>{' '}
+          <span>aleși au CV publicat — cerut de art. 87(1) din Statut.</span>
         </p>
       </section>
 
