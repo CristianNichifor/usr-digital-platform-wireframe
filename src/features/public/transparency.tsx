@@ -15,7 +15,7 @@ export function DeclarationsScreen({ route }: { route: HashRoute }) {
         <div className="filter-row" aria-label="Selectare an">
           {['2026', '2025'].map((value) => (
             <a key={value} href={makeHash('/declaratii', { an: value })} aria-current={year === value ? 'true' : undefined}>
-              An <Fake source="ANI declarații sintetic">{value}</Fake>
+              An {value}
             </a>
           ))}
         </div>
@@ -91,22 +91,26 @@ export function DeclarationsScreen({ route }: { route: HashRoute }) {
 
       <section className="wire-section">
         <h2>
-          Diferențe an peste an: <Fake source="ANI declarații sintetic">{previousYear}</Fake> la{' '}
-          <Fake source="ANI declarații sintetic">{year}</Fake>
+          Diferențe an peste an:{' '}
+          <Fake source="ANI declarații sintetic">
+            {previousYear} la {year}
+          </Fake>
         </h2>
         <div className="diff-grid">
           <div>
             <span className="label">Venituri</span>
             <p>
-              <Fake source="ANI declarații sintetic">{previousYear === '2025' ? '79.000 lei' : '72.000 lei'}</Fake> la{' '}
-              <Fake source="ANI declarații sintetic">{year === '2026' ? '84.000 lei' : '79.000 lei'}</Fake>
+              <Fake source="ANI declarații sintetic">
+                {previousYear === '2025' ? '79.000 lei' : '72.000 lei'} la {year === '2026' ? '84.000 lei' : '79.000 lei'}
+              </Fake>
             </p>
           </div>
           <div>
             <span className="label">Datorii</span>
             <p>
-              <Fake source="ANI declarații sintetic">{previousYear === '2025' ? '47.000 lei' : '51.000 lei'}</Fake> la{' '}
-              <Fake source="ANI declarații sintetic">{year === '2026' ? '42.000 lei' : '47.000 lei'}</Fake>
+              <Fake source="ANI declarații sintetic">
+                {previousYear === '2025' ? '47.000 lei' : '51.000 lei'} la {year === '2026' ? '42.000 lei' : '47.000 lei'}
+              </Fake>
             </p>
           </div>
         </div>
@@ -211,7 +215,7 @@ export function MoneyScreen({ route }: { route: HashRoute }) {
           cheltuială locală are nevoie de context comparabil.
         </p>
         <p>
-          Exemplu sintetic: indicatori de verificare locală <Fake source="repo achizitii-deschise">8</Fake>.
+          Exemplu sintetic — indicatori de verificare locală: <Fake source="repo achizitii-deschise">8</Fake>
         </p>
         <a className="text-button" href="https://github.com/CristianNichifor/open-procurement" target="_blank" rel="noreferrer">
           Deschide repo

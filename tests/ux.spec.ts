@@ -189,3 +189,24 @@ test("forced colours keep the current page marked in the menu", async ({ page })
   const current = page.locator(".primary-nav a[aria-current='page']").first();
   await expect(current).toHaveCSS("text-decoration-line", "underline");
 });
+
+test("the selected public filter chip stands out from its panel", async ({ page }) => {
+  await page.goto("/#/oameni?rol=Primar");
+  const chip = page.locator(".filter-row a[aria-current='true']").first();
+  await expect(chip).toHaveText("Primar");
+  const [chipBackground, panelBackground] = await chip.evaluate((element) => [
+    getComputedStyle(element).backgroundColor,
+    getComputedStyle(element.closest(".wire-section")!).backgroundColor,
+  ]);
+  expect(chipBackground).not.toBe(panelBackground);
+  expect(await contrast(page, ".filter-row a[aria-current='true']")).toBeGreaterThanOrEqual(4.5);
+});
+
+test("every payment history column is visible on a phone without scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/#/membri/cotizatii");
+  for (const name of ["Perioada", "Suma", "Stare"]) {
+    const header = page.getByRole("columnheader", { name });
+    await expect(header).toBeInViewport({ ratio: 1 });
+  }
+});
